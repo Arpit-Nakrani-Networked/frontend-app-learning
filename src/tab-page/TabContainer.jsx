@@ -36,6 +36,7 @@ const TabContainer = (props) => {
   } = useSelector(state => state[slice]);
 
   return (
+    <>
     <TabPage
       activeTabSlug={tab}
       courseId={courseId}
@@ -45,6 +46,7 @@ const TabContainer = (props) => {
       {courseId && <OuterExamTimer courseId={courseId} />}
       {children}
     </TabPage>
+    </>
   );
 };
 

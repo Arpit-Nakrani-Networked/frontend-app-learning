@@ -16,6 +16,7 @@ import messages from './messages';
 import LoadedTabPage from './LoadedTabPage';
 import { setCallToActionToast } from '../course-home/data/slice';
 import LaunchCourseHomeTourButton from '../product-tours/newUserCourseHomeTour/LaunchCourseHomeTourButton';
+import CourseMultiHeader from '../course-header-title/CourseMultiHeader';
 
 const TabPage = ({ intl, ...props }) => {
   const {
@@ -47,6 +48,7 @@ const TabPage = ({ intl, ...props }) => {
 
   return (
     <>
+
       {['loaded', 'denied'].includes(courseStatus) && (
         <>
           <Toast
@@ -64,14 +66,17 @@ const TabPage = ({ intl, ...props }) => {
         </>
       )}
 
-      <HeaderSlot courseOrg={org} courseNumber={number} courseTitle={title} />
+      {/* <HeaderSlot courseOrg={org} courseNumber={number} courseTitle={title} /> */}
 
       {courseStatus === 'loading' && (
         <PageLoading srMessage={intl.formatMessage(messages.loading)} />
       )}
 
       {['loaded', 'denied'].includes(courseStatus) && (
-        <LoadedTabPage {...props} />
+        <>
+          <CourseMultiHeader  slice={metadataModel}/>
+          <LoadedTabPage {...props} />
+        </>
       )}
 
       {/* courseStatus 'failed' and any other unexpected course status. */}
@@ -80,7 +85,7 @@ const TabPage = ({ intl, ...props }) => {
           {intl.formatMessage(messages.failure)}
         </p>
       )}
-      <FooterSlot />
+      {/* <FooterSlot /> */}
     </>
   );
 };

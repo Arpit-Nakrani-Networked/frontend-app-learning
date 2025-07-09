@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   allDates: {
     id: 'learning.outline.dates.all',
-    defaultMessage: 'View all course dates',
+    defaultMessage: 'View all',
     description: 'Text anchor for link that redirects to dates or course timeline tab',
   },
   casualGoalButtonText: {

@@ -151,7 +151,7 @@ const Sequence = ({
     <UnitNavigation
       sequenceId={sequenceId}
       unitId={unitId}
-      isAtTop={isAtTop}
+      isAtTop={false}
       onClickPrevious={() => {
         logEvent('edx.ui.lms.sequence.previous_selected', 'bottom');
         handlePrevious();
@@ -197,7 +197,7 @@ const Sequence = ({
             </div>
           )}
 
-          <div className="unit-container flex-grow-1 pt-4">
+          <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
             <SequenceContent
               courseId={courseId}
               gated={gated}
@@ -205,7 +205,7 @@ const Sequence = ({
               unitId={unitId}
               unitLoadedHandler={handleUnitLoaded}
             />
-            {unitHasLoaded && renderUnitNavigation(false)}
+            {/* {unitHasLoaded && renderUnitNavigation(false)} */}
           </div>
         </div>
         {isNewDiscussionSidebarViewEnabled ? <NewSidebar /> : <Sidebar />}
@@ -216,19 +216,20 @@ const Sequence = ({
 
   if (sequenceStatus === 'loaded') {
     return (
-      <div>
-        <SequenceExamWrapper
-          sequence={sequence}
-          courseId={courseId}
-          isStaff={isStaff}
-          originalUserIsStaff={originalUserIsStaff}
-          canAccessProctoredExams={canAccessProctoredExams}
-        >
-          {isEnabledOutlineSidebar && renderUnitNavigation(true)}
-          {defaultContent}
-        </SequenceExamWrapper>
-        <CourseLicense license={license || undefined} />
-      </div>
+      <>
+        <div className="d-flex flex-column flex-grow-1 justify-content-center ">
+          <SequenceExamWrapper
+            sequence={sequence}
+            courseId={courseId}
+            isStaff={isStaff}
+            originalUserIsStaff={originalUserIsStaff}
+            canAccessProctoredExams={canAccessProctoredExams}
+          >
+            {defaultContent}
+          </SequenceExamWrapper>
+        </div>
+        {/* <CourseLicense license={license || undefined} /> */}
+      </>
     );
   }
 

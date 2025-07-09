@@ -67,7 +67,7 @@ const SidebarUnit = ({
         <div className="col-auto p-0">
           <UnitIcon type={iconType} isCompleted={complete} />
         </div>
-        <div className="col-10 p-0 ml-3 text-break">
+        <div className="col-10 p-0 ml-3 text-break text-sm v2-text-black-400">
           <span className="align-middle">
             {title}
           </span>

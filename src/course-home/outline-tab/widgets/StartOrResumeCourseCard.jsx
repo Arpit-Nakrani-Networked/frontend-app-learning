@@ -12,21 +12,21 @@ const StartOrResumeCourseCard = ({ intl }) => {
     courseId,
   } = useSelector(state => state.courseHome);
 
-  const {
-    org,
-  } = useModel('courseHomeMeta', courseId);
-
+  const course = useModel('courseHomeMeta', courseId);
+  const { org,
+    title } = course;
   const eventProperties = {
     org_key: org,
     courserun_key: courseId,
   };
 
-  const {
-    resumeCourse: {
-      hasVisitedCourse,
-      url: resumeCourseUrl,
-    },
-  } = useModel('outline', courseId);
+  const outline = useModel('outline', courseId);
+  const { resumeCourse: {
+    hasVisitedCourse,
+    url: resumeCourseUrl,
+  }, } = outline;
+  const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
+  const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
 
   if (!resumeCourseUrl) {
     return null;
@@ -40,24 +40,21 @@ const StartOrResumeCourseCard = ({ intl }) => {
     });
   };
 
+  if(needEnroll){
+    return null;
+  }
+
   return (
-    <Card className="mb-3 raised-card" data-testid="start-resume-card">
-      <Card.Header
-        title={hasVisitedCourse ? intl.formatMessage(messages.resumeBlurb) : intl.formatMessage(messages.startBlurb)}
-        actions={(
-          <Button
-            variant="brand"
-            block
-            href={resumeCourseUrl}
-            onClick={() => logResumeCourseClick()}
-          >
-            {hasVisitedCourse ? intl.formatMessage(messages.resume) : intl.formatMessage(messages.start)}
-          </Button>
-        )}
-      />
-      {/* Footer is needed for internal vertical spacing to work out. If you can remove, be my guest */}
-      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-      <Card.Footer><></></Card.Footer>
+    <Card className="mb-3 raised-card card p-4 d-flex flex-row justify-content-between align-items-center" data-testid="start-resume-card">
+      <h2 className='card-header-custom mr-3 mb-0'>{hasVisitedCourse ? `${title} - ${intl.formatMessage(messages.resumeBlurb)}` : `${intl.formatMessage(messages.welcomeTo)} ${title}`}</h2>
+      <Button
+        variant="brand"
+        className='btn-filled'
+        href={resumeCourseUrl}
+        onClick={() => logResumeCourseClick()}
+      >
+        {hasVisitedCourse ? intl.formatMessage(messages.resume) : intl.formatMessage(messages.start)}
+      </Button>
     </Card>
   );
 };

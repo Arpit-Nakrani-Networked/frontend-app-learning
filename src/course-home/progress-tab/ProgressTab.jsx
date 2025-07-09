@@ -34,7 +34,7 @@ const ProgressTab = () => {
   const wideScreen = windowWidth >= breakpoints.large.minWidth;
   return (
     <>
-      <ProgressHeader />
+      {/* <ProgressHeader /> */}
       <div className="row w-100 m-0">
         {/* Main body */}
         <div className="col-12 col-md-8 p-0">

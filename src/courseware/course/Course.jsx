@@ -75,7 +75,7 @@ const Course = ({
       <Helmet>
         <title>{`${pageTitleBreadCrumbs.join(' | ')} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      <div className="position-relative d-flex align-items-xl-center mb-4 mt-1 flex-column flex-xl-row">
+      {/* <div className="position-relative d-flex align-items-xl-center mb-4 mt-1 flex-column flex-xl-row">
         {navigationDisabled || (
         <>
           <CourseBreadcrumbs
@@ -103,7 +103,7 @@ const Course = ({
           <CourseOutlineTrigger isMobileView />
           {isNewDiscussionSidebarViewEnabled ? <NewSidebarTriggers /> : <SidebarTriggers /> }
         </div>
-      </div>
+      </div> */}
 
       <AlertList topic="sequence" />
       <Sequence

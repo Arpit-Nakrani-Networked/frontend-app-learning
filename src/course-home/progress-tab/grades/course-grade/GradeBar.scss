@@ -17,7 +17,7 @@
   }
 
   .grade-bar--current-passing {
-    fill: $success-500;
+    fill: #0566FA;
   }
 
   .grade-bar--current-non-passing {
@@ -36,17 +36,17 @@
 }
 
 #passing-grade-tooltip {
-  background: $success-500;
+  background: #0566FA;
 
   .arrow::after {
-    border-top-color: $success-500;
+    border-top-color: #0566FA;
   }
 }
 
 #non-passing-grade-tooltip {
-  background: $accent-b;
+  background: #0566FA;
 
   .arrow::after {
-    border-top-color: $accent-b;
+    border-top-color: #0566FA;
   }
 }

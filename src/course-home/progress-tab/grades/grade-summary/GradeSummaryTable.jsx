@@ -130,7 +130,7 @@ const GradeSummaryTable = ({ intl, setAllOfSomeAssignmentTypeIsLocked }) => {
       </DataTable>
 
       {footnotes && (
-        <DroppableAssignmentFootnote footnotes={footnotes} />
+        <div className='px-4'><DroppableAssignmentFootnote footnotes={footnotes} /></div>
       )}
     </>
   );

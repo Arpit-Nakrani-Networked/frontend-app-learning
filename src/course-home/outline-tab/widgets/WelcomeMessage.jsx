@@ -52,7 +52,7 @@ const WelcomeMessage = ({ courseId, intl }) => {
         setDisplay(false);
         dispatch(dismissWelcomeMessage(courseId));
       }}
-      className="raised-card"
+      className="raised-card card p-4"
       actions={messageCanBeShortened ? [
         <Button
           onClick={() => setShowShortMessage(!showShortMessage)}
