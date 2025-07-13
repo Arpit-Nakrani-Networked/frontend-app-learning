@@ -1,20 +1,38 @@
 .course-tabs-navigation {
   position: relative;
-  border-bottom: solid 1px #eaeaea;
+  padding-top: 1rem;
+  // border-bottom: solid 1px #eaeaea;
+
+  // .nav a,
+  // .nav button {
+  //   &:hover {
+  //     background-color: $light-400;
+  //   }
+  // }
+
+  // .nav a {
+  //   &:not(.active):hover {
+  //     background-color: $light-400;
+  //     border-bottom: none;
+  //   }
+  // }
 
   .nav a,
   .nav button {
-    &:hover {
-      background-color: $light-400;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #00000099;
+    height: fit-content;
+    border-radius: 12px;
+    &.active {
+      background-color: white;
+      border: 1px solid #0000001F;
+      color: #000000CC;
     }
   }
 
-  .nav a {
-    &:not(.active):hover {
-      background-color: $light-400;
-      border-bottom: none;
-    }
-  }
 
   .nav-bar {
     display: flex;

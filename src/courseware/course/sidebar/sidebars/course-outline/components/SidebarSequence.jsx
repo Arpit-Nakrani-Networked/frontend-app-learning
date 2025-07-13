@@ -53,7 +53,7 @@ const SidebarSequence = ({
   return (
     <li>
       <Collapsible
-        className={classNames('mb-2', { 'active-section': isActiveSequence, 'bg-info-100': isActiveSequence && !open })}
+        className={classNames('mb-2 border-0', { 'active-section': isActiveSequence, 'bg-info-100': isActiveSequence && !open })}
         styling="card-lg text-break"
         title={sectionTitle}
         open={open}

@@ -62,8 +62,8 @@ const CourseTools = ({ intl }) => {
   };
 
   return (
-    <section className="mb-4">
-      <h2 className="h4">{intl.formatMessage(messages.tools)}</h2>
+    <section className="mb-4 card p-4">
+      <h2 className="h4 card-header-custom mb-3">{intl.formatMessage(messages.tools)}</h2>
       <ul className="list-unstyled">
         {courseTools.map((courseTool) => (
           <li key={courseTool.analyticsId} className="small">

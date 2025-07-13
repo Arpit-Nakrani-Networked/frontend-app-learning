@@ -35,15 +35,21 @@ const OutlineTab = ({ intl }) => {
     proctoringPanelStatus,
   } = useSelector(state => state.courseHome);
 
-  const {
-    isSelfPaced,
+  const course = useModel('courseHomeMeta', courseId);
+  const { isSelfPaced,
     org,
-    title,
-    userTimezone,
-  } = useModel('courseHomeMeta', courseId);
+    title } = course
+  const expandButtonRef = useRef();
+
+  const outline = useModel('outline', courseId);
+  const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
+  const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
 
   const {
-    accessExpiration,
+    resumeCourse: {
+      hasVisitedCourse,
+      url: resumeCourseUrl,
+    },
     courseBlocks: {
       courses,
       sections,
@@ -56,16 +62,7 @@ const OutlineTab = ({ intl }) => {
     datesWidget: {
       courseDateBlocks,
     },
-    enableProctoredExams,
-    offer,
-    timeOffsetMillis,
-    verifiedMode,
-  } = useModel('outline', courseId);
-
-  const {
-    marketingUrl,
-  } = useModel('coursewareMeta', courseId);
-
+    enableProctoredExams, } = outline;
   const [expandAll, setExpandAll] = useState(false);
   const navigate = useNavigate();
 
@@ -126,23 +123,18 @@ const OutlineTab = ({ intl }) => {
 
   return (
     <>
-      <div data-learner-type={learnerType} className="row w-100 mx-0 my-3 justify-content-between">
-        <div className="col-12 col-sm-auto p-0">
-          <div role="heading" aria-level="1" className="h2">{title}</div>
-        </div>
-      </div>
-      <div className="row course-outline-tab">
+      <div className="row course-outline-tab container-cs pt-3">
         <AccountActivationAlert />
-        <div className="col-12">
+        <div className="col col-12 col-md-8">
+          {/* <div className="col-12"> */}
           <AlertList
             topic="outline-private-alerts"
             customAlerts={{
               ...privateCourseAlert,
             }}
           />
-        </div>
-        <div className="col col-12 col-md-8">
-          <AlertList
+          {/* </div> */}
+          {/* <AlertList
             topic="outline-course-alerts"
             className="mb-3"
             customAlerts={{
@@ -151,7 +143,7 @@ const OutlineTab = ({ intl }) => {
               ...courseStartAlert,
               ...scheduledContentAlert,
             }}
-          />
+          /> */}
           {isSelfPaced && hasDeadlines && (
             <>
               <ShiftDatesAlert model="outline" fetch={fetchOutlineTab} />
@@ -159,28 +151,23 @@ const OutlineTab = ({ intl }) => {
             </>
           )}
           <StartOrResumeCourseCard />
-          <WelcomeMessage courseId={courseId} />
-          {rootCourseId && (
-            <>
-              <div className="row w-100 m-0 mb-3 justify-content-end">
-                <div className="col-12 col-md-auto p-0">
-                  <Button variant="outline-primary" block onClick={() => { setExpandAll(!expandAll); }}>
+          {/* <WelcomeMessage courseId={courseId} nextElementRef={expandButtonRef} /> */}
+          {!needEnroll && rootCourseId && (
+            <div className="mb-3">
+              {/* <div id="expand-button-row" className="d-flex flex-column flex-lg-row w-100 m-0 mb-3 justify-content-between align-items-center"> */}
+                {/* <h2 className='card-header-custom mb-3'>{`${title}`}</h2> */}
+                {/* <div className="p-0"> */}
+                  {/* <Button ref={expandButtonRef} variant="outline-primary" block onClick={() => { setExpandAll(!expandAll); }}>
                     {expandAll ? intl.formatMessage(messages.collapseAll) : intl.formatMessage(messages.expandAll)}
-                  </Button>
-                </div>
-              </div>
-              <ol id="courseHome-outline" className="list-unstyled">
-                {courses[rootCourseId].sectionIds.map((sectionId) => (
-                  <Section
-                    key={sectionId}
-                    courseId={courseId}
-                    defaultOpen={sections[sectionId].resumeBlock}
-                    expand={expandAll}
-                    section={sections[sectionId]}
-                  />
-                ))}
-              </ol>
-            </>
+                  </Button> */}
+                {/* </div> */}
+              {/* </div> */}
+              <CourseHomeSectionOutlineSlot
+                expandAll={expandAll}
+                sectionIds={courses[rootCourseId].sectionIds}
+                sections={sections}
+              />
+            </div>
           )}
         </div>
         {rootCourseId && (
@@ -195,27 +182,9 @@ const OutlineTab = ({ intl }) => {
               />
             )}
             <CourseTools />
-            <PluginSlot
-              id="outline_tab_notifications_slot"
-              pluginProps={{
-                courseId,
-                model: 'outline',
-              }}
-            >
-              <UpgradeNotification
-                offer={offer}
-                verifiedMode={verifiedMode}
-                accessExpiration={accessExpiration}
-                contentTypeGatingEnabled={datesBannerInfo.contentTypeGatingEnabled}
-                marketingUrl={marketingUrl}
-                upsellPageName="course_home"
-                userTimezone={userTimezone}
-                shouldDisplayBorder
-                timeOffsetMillis={timeOffsetMillis}
-                courseId={courseId}
-                org={org}
-              />
-            </PluginSlot>
+            {/* <div className='card p-4'>
+            <CourseOutlineTabNotificationsSlot courseId={courseId} />
+              </div> */}
             <CourseDates />
             <CourseHandouts />
           </div>

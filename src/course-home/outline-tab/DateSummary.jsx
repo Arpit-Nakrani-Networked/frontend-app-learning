@@ -38,7 +38,7 @@ const DateSummary = ({
     <li className="p-0 mb-3 small text-dark-500">
       <div className="row">
         <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mt-1 mr-1" fixedWidth />
-        <div className="ml-1 font-weight-bold">
+        <div className="ml-1">
           <FormattedDate
             value={dateBlock.date}
             day="numeric"

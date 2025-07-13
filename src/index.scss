@@ -5,15 +5,28 @@
 
 @import "~@edx/frontend-component-footer/dist/footer";
 @import "~@edx/frontend-component-header/dist/index";
+@import 'variables';
 
 
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    background-color: $v2-info-400;
+  }
 
   main {
     flex-grow: 1;
+  }
+
+  #main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   header {
@@ -26,6 +39,7 @@
       top: 0.1em;
       height: 1.75rem;
       margin-right: 1rem;
+
       img {
         display: block;
         height: 100%;
@@ -171,6 +185,7 @@
 
   .sequence-navigation-tabs {
     overflow: auto;
+
     .btn {
       flex-basis: 100%;
       min-width: 3rem;
@@ -185,7 +200,7 @@
     max-width: 28rem;
   }
 
-  .navigation-tab-width-medium{
+  .navigation-tab-width-medium {
     max-width: 23.5rem;
   }
 
@@ -200,7 +215,7 @@
       justify-content: flex-start;
       border-right: 0;
 
-      & + .btn {
+      &+.btn {
         border-top: 0;
       }
 
@@ -285,7 +300,7 @@
 .unit-container {
   padding-top: 0;
   padding-bottom: 2rem;
-  max-width: 1024px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 
@@ -315,7 +330,7 @@
   margin-bottom: 2rem;
 
   @media (min-width: 830px) {
-    margin: 0 -40px 2rem;
+    // margin: 0 -40px 2rem;
   }
 }
 
@@ -328,6 +343,7 @@
 .unit-navigation {
   display: flex;
   justify-content: center;
+  gap: 16px;
   max-width: 640px;
   margin: 0 auto;
 
@@ -385,7 +401,7 @@
   // I don't like this.  We need to set a height of 100% on a div created by react-focus-on, a
   // package we use in our Modal.  That div has no class name or ID, so instead we're uniquely
   // identifying it by based on a unique attribute it has which its siblings don't share.
-  > div[data-focus-lock-disabled="false"] {
+  >div[data-focus-lock-disabled="false"] {
     height: 100%;
   }
 
@@ -407,6 +423,7 @@
   &.grades {
     overflow: hidden;
     max-height: 852px;
+
     @media screen and (min-width: 992px) {
       max-height: 920px;
     }
@@ -444,6 +461,22 @@
   height: 56px !important;
 }
 
+@include media-breakpoint-down(xs) {
+  .course-outline-tab .pgn__card {
+    .pgn__card-header {
+      display: block;
+
+      .pgn__card-header-content {
+        margin-top: 0;
+      }
+    }
+
+    .pgn__card-header-actions {
+      margin-left: 0;
+    }
+  }
+}
+
 // Import component-specific sass files
 @import "courseware/course/celebration/CelebrationModal.scss";
 @import "courseware/course/sidebar/sidebars/discussions/Discussions.scss";
@@ -465,3 +498,359 @@
 @import "course-tabs/course-tabs-navigation.scss";
 @import "courseware/course/sidebar/common/SidebarBase.scss";
 @import "courseware/course/sidebar/sidebars/course-outline/CourseOutlineTray.scss";
+
+// common classes overwrite
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  color: $v2-black-400 !important;
+}
+
+// custom css overrides for Paragon components
+.container-fluid {
+  max-width: 100%;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.h-auto {
+  height: auto !important;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+.v2-text-black-400 {
+  color: $v2-black-400 !important;
+}
+
+.v2-text-black-600 {
+  color: $v2-black-600 !important;
+}
+
+.text-base {
+  font-size: 16px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.font-weight-medium {
+  font-weight: 500;
+}
+
+.font-weight-semibold {
+  font-weight: 600;
+}
+
+.card,
+.raised-card {
+  background-color: $v2-white-100 !important;
+  border: 1px solid $v2-black-500 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+
+  .card-header-custom:not(.welcome-text),
+  h2:not(.welcome-text) {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 100% !important;
+    letter-spacing: 0% !important;
+    // color: $v2-black-400 !important;
+  }
+  .welcome-text{
+        font-weight: 600 !important;
+    font-size: 32px !important;
+  }
+
+  ul li,
+  ol li {
+    padding: 4px 0;
+    ;
+
+    button,
+    a {
+      color: $v2-black-300;
+    }
+  }
+}
+
+// 
+.outline-sidebar-wrapper {
+  &.card-square {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-top: none !important;
+    top: 0 !important;
+    height: auto!important;
+    overflow: auto;
+  }
+}
+
+.main-course-header {
+  background-color: $v2-white-100 !important;
+  padding: 22px 15px !important;
+  border-bottom: 1px solid $v2-black-500;
+
+  h1 {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 100% !important;
+    letter-spacing: 0% !important;
+    color: $v2-black-400 !important;
+    margin: 0;
+  }
+}
+
+.community-header {
+  border-bottom: 1px solid $v2-black-500;
+  padding: 15px !important;
+  background-color: $v2-white-100 !important;
+}
+
+.course-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  object-fit: cover;
+  overflow: hidden;
+  border: 1px solid $v2-black-500;
+}
+
+.course-title {
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  color: $v2-black-600 !important;
+  margin: 0;
+}
+
+.course-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-button {
+  background-color: $v2-white-100;
+  border: 1px solid $v2-black-500;
+  padding: 6px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: $v2-black-400;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+
+
+.btn-filled,
+.btn-outline-primary {
+  width: fit-content !important;
+  background-color: $v2-blue-600 !important;
+  border-color: $v2-blue-600 !important;
+  color: $v2-white-100 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+}
+
+.btn-outline-secondary {
+  width: fit-content !important;
+  background-color: transparent !important;
+  border-color: $v2-blue-600 !important;
+  color: $v2-blue-600 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+}
+
+.btn-blue,
+.btn-brand {
+  width: fit-content !important;
+  background-color: $v2-info-300 !important;
+  border-color: $v2-info-300 !important;
+  color: $v2-blue-600 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+  padding: 8px 16px !important;
+}
+
+
+.pgn__data-table-container {
+  border-radius: 0 !important;
+}
+
+.pgn__data-table-wrapper {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.pgn__data-table-footer {
+  padding: 16px 16px 0px 24px !important;
+}
+
+.pgn__data-table {
+  th {
+    border-top: 1px solid $v2-black-500 !important;
+    border-bottom: 1px solid $v2-black-500 !important;
+    background-color: transparent !important;
+    color: $v2-black-600 !important;
+    padding: 16px 16px 16px 24px !important;
+
+    span {
+      color: $v2-black-600 !important;
+      font-weight: 600 !important;
+      font-size: 16px !important;
+      line-height: 140% !important;
+      letter-spacing: 0% !important;
+    }
+  }
+
+  td {
+    background-color: transparent !important;
+    color: $v2-black-600 !important;
+    border: none !important;
+
+    span,
+    div {
+      color: $v2-black-600 !important;
+      font-weight: 400 !important;
+      font-size: 16px !important;
+      line-height: 140% !important;
+      letter-spacing: 0% !important;
+      border: none !important;
+    }
+
+    padding: 16px 16px 16px 24px !important;
+  }
+}
+
+// common classes
+
+.bg-info-100 {
+  background-color: $v2-info-100 !important;
+}
+
+.bg-blue-500 {
+  background-color: $v2-blue-500 !important;
+}
+
+.border-none {
+  border: none !important;
+}
+
+
+// custome home section
+#courseHome-outline .collapsible-card .collapsible-trigger[aria-expanded=true],
+#courseHome-outline .collapsible-card-lg .collapsible-trigger[aria-expanded=true],
+#courseHome-outline .collapsible-card-lg .collapsible-trigger {
+  border: none !important;  
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+#courseHome-outline [dir="ltr"] .collapsible-card .collapsible-body,
+#courseHome-outline [dir="ltr"] .collapsible-card-lg .collapsible-body {
+  padding-top: 0 !important;
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+#courseHome-outline .card.is-open .pgn-transition-replace-group {
+  border-top: 1px solid $v2-black-500 !important;
+}
+
+#courseHome-outline [dir="ltr"] .collapsible-card .collapsible-trigger[aria-expanded=true],
+#courseHome-outline [dir="ltr"] .collapsible-card-lg .collapsible-trigger[aria-expanded=true],
+#courseHome-outline [dir="ltr"] .collapsible-card-lg .collapsible-trigger {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#courseHome-outline .collapsible-card-lg .collapsible-body{
+  padding: 0 !important;
+}
+
+#courseHome-outline .collapsible-card-lg .collapsible-body ol li{
+  padding: 15px 15px 15px 60px !important;
+}
+
+.badge-activity {
+  font-size: 0.8em !important;
+  background: $v2-info-200;
+  padding: 3px 6px;
+  font-family: Proxima Nova;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  border-radius: 6px;
+}
+
+// conatiners
+
+.container-cs {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 0 $grid-gutter-width;
+  }
+
+.container-csm {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 0 $grid-gutter-width;
+  }

@@ -90,7 +90,7 @@ const WeeklyLearningGoalCard = ({
   return (
     <Card
       id="courseHome-weeklyLearningGoal"
-      className="row w-100 m-0 mb-3 raised-card"
+      className="row w-100 m-0 mb-3 raised-card card p-4"
       data-testid="weekly-learning-goal-card"
     >
       <Card.Header

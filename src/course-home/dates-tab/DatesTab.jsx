@@ -42,10 +42,10 @@ const DatesTab = ({ intl }) => {
   };
 
   return (
-    <>
-      <div role="heading" aria-level="1" className="h2 my-3">
+    <div className='card p-4'> 
+      <h2 role="heading" aria-level="1" className="h2 mb-3 card-header-custom">
         {intl.formatMessage(messages.title)}
-      </div>
+      </h2>
       {isSelfPaced && hasDeadlines && (
         <>
           <ShiftDatesAlert model="dates" fetch={fetchDatesTab} />
@@ -55,7 +55,7 @@ const DatesTab = ({ intl }) => {
         </>
       )}
       <Timeline />
-    </>
+    </div>
   );
 };
 

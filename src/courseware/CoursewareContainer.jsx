@@ -12,7 +12,7 @@ import {
   getSequenceForUnitDeprecated,
   saveSequencePosition,
 } from './data';
-import { TabPage } from '../tab-page';
+import { TabContainer, TabPage } from '../tab-page';
 
 import Course from './course';
 import { handleNextSectionCelebration } from './course/celebration';
@@ -276,6 +276,7 @@ class CoursewareContainer extends Component {
     } = this.props;
 
     return (
+      <>
       <TabPage
         activeTabSlug="courseware"
         courseId={courseId}
@@ -283,6 +284,7 @@ class CoursewareContainer extends Component {
         courseStatus={courseStatus}
         metadataModel="coursewareMeta"
       >
+
         <Course
           courseId={courseId}
           sequenceId={sequenceId}
@@ -292,6 +294,7 @@ class CoursewareContainer extends Component {
           unitNavigationHandler={this.handleUnitNavigationClick}
         />
       </TabPage>
+      </>
     );
   }
 }

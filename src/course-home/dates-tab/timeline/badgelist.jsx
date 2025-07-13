@@ -37,8 +37,8 @@ function getBadgeListAndColor(date, intl, item, items) {
     {
       message: messages.today,
       shownForDay: isToday,
-      bg: 'bg-warning-300',
-      className: 'text-dark',
+      bg: 'bg-blue-500',
+      className: 'text-white py-1 px-2 font-weight-normal',
     },
     {
       message: messages.completed,
@@ -77,6 +77,7 @@ function getBadgeListAndColor(date, intl, item, items) {
     },
   ];
   let color = null; // first color of any badge
+  let isActive = null; // first color of any badge
   const badges = (
     <>
       {badgesInfo.map(b => {
@@ -94,6 +95,7 @@ function getBadgeListAndColor(date, intl, item, items) {
 
         if (!color && !isInFuture) {
           color = b.bg;
+          isActive = b.shownForDay;
         }
         return (
           <Badge key={b.message.id} className={classNames('ml-2', b.bg, b.className)} data-testid="dates-badge">
@@ -106,11 +108,13 @@ function getBadgeListAndColor(date, intl, item, items) {
   );
   if (!color && isInFuture) {
     color = 'bg-gray-900';
+    isActive = null;
   }
 
   return {
     color,
     badges,
+    isActive: isActive
   };
 }
 

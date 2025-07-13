@@ -23,8 +23,8 @@ const GradeSummary = () => {
   }
 
   return (
-    <section className="text-dark-700 mb-4">
-      <GradeSummaryHeader allOfSomeAssignmentTypeIsLocked={allOfSomeAssignmentTypeIsLocked} />
+    <section className="text-dark-700">
+     <div className='pt-4 px-4'><GradeSummaryHeader allOfSomeAssignmentTypeIsLocked={allOfSomeAssignmentTypeIsLocked} /></div>
       <GradeSummaryTable setAllOfSomeAssignmentTypeIsLocked={setAllOfSomeAssignmentTypeIsLocked} />
     </section>
   );

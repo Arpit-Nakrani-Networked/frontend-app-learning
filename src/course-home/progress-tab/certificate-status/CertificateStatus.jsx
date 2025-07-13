@@ -242,26 +242,30 @@ const CertificateStatus = ({ intl }) => {
 
   return (
     <section data-testid="certificate-status-component" className="text-dark-700 mb-4">
-      <Card className="bg-light-200 raised-card">
-        <Card.Header title={header} />
-        <Card.Section className="small text-gray-700">
-          {body}
-        </Card.Section>
-        <Card.Footer>
-          {buttonText && (buttonLocation || buttonAction) && (
-            <Button
-              variant="outline-brand"
-              onClick={() => {
-                logCertificateStatusButtonClicked(certStatus);
-                if (buttonAction) { buttonAction(); }
-              }}
-              href={buttonLocation}
-              block
-            >
-              {buttonText}
-            </Button>
-          )}
-        </Card.Footer>
+      <Card className="bg-light-200 raised-card card p-4">
+        <ProgressCertificateStatusSlot courseId={courseId}>
+          <div id={`${certCase}_certificate_status`}>
+            <Card.Header title={header} className="card-header-custom" />
+            <Card.Section className="small text-gray-700">
+              {body}
+            </Card.Section>
+            <Card.Footer>
+              {buttonText && (buttonLocation || buttonAction) && (
+                <Button
+                  variant="outline-brand"
+                  onClick={() => {
+                    logCertificateStatusButtonClicked(certStatus);
+                    if (buttonAction) { buttonAction(); }
+                  }}
+                  href={buttonLocation}
+                  block
+                >
+                  {buttonText}
+                </Button>
+              )}
+            </Card.Footer>
+          </div>
+        </ProgressCertificateStatusSlot>
       </Card>
     </section>
   );

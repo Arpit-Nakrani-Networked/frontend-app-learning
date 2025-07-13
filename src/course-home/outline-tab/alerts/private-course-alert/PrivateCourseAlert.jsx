@@ -44,6 +44,18 @@ const PrivateCourseAlert = ({ intl, payload }) => {
       {intl.formatMessage(enrollmentMessages.enrollNowInline)}
     </Button>
   );
+  const enrollNowButtonNew = (
+    <Button
+      disabled={loading}
+      variant="brand"
+      className="btn-filled mt-2"
+      size="sm"
+      onClick={enrollClickHandler}
+    >
+      {intl.formatMessage(enrollmentMessages.enrollNowInline)} 
+              {loading && <FontAwesomeIcon icon={faSpinner} spin />}
+    </Button>
+  );
 
   const register = (
     <Hyperlink
@@ -64,7 +76,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
   );
 
   return (
-    <Alert variant="light" data-testid="private-course-alert">
+    <Alert variant="light" data-testid="private-course-alert" className="card p-4 mb-3">
       {anonymousUser && (
         <>
           <p className="font-weight-bold">
@@ -83,12 +95,17 @@ const PrivateCourseAlert = ({ intl, payload }) => {
       )}
       {!anonymousUser && (
         <>
-          <p className="font-weight-bold">{intl.formatMessage(outlineMessages.welcomeTo)} {title}</p>
+          <h2 className="font-weight-bold">{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
           {canEnroll && (
             <div className="d-flex">
               {enrollNowButton}
               {intl.formatMessage(messages.toAccess)}
-              {loading && <FontAwesomeIcon icon={faSpinner} spin />}
+              {/* {loading && <FontAwesomeIcon icon={faSpinner} spin />} */}
+            </div>
+          )}
+          {canEnroll && (
+            <div className="d-flex">
+              {enrollNowButtonNew}
             </div>
           )}
           {!canEnroll && (

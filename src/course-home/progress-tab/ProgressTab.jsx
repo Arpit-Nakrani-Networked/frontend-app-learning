@@ -34,23 +34,22 @@ const ProgressTab = () => {
   const wideScreen = windowWidth >= breakpoints.large.minWidth;
   return (
     <>
-      <ProgressHeader />
+      {/* <ProgressHeader /> */}
       <div className="row w-100 m-0">
         {/* Main body */}
         <div className="col-12 col-md-8 p-0">
-          {!disableProgressGraph && <CourseCompletion />}
-          {!wideScreen && <CertificateStatus />}
-          <CourseGrade />
-          <div className={`grades my-4 p-4 rounded raised-card ${applyLockedOverlay}`} aria-hidden={gradesFeatureIsFullyLocked}>
-            <GradeSummary />
-            <DetailedGrades />
+          <div className="row w-100 m-0">
+            {!disableProgressGraph && <div className="col-12 col-md-6 p-0 px-md-2"><CourseCompletion /></div>}
+            <div className="col-12 col-md-6"><ProgressTabCourseGradeSlot /></div>
+            <div className="col-12 col-md-12 p-0 px-md-2"><ProgressTabCertificateStatusMainBodySlot /></div>
+            <div className="col-12 col-md-12 p-0 px-md-2"><ProgressTabGradeBreakdownSlot /></div>
           </div>
         </div>
 
         {/* Side panel */}
-        <div className="col-12 col-md-4 p-0 px-md-4">
-          {wideScreen && <CertificateStatus />}
-          <RelatedLinks />
+        <div className="col-12 col-md-4 p-0 px-md-2">
+          <ProgressTabCertificateStatusSidePanelSlot />
+          <ProgressTabRelatedLinksSlot />
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, useToggle, IconButton } from '@openedx/paragon';
@@ -49,8 +49,9 @@ const CourseOutlineTray = ({ intl }) => {
   } = useModel('sequences', activeSequenceId);
 
   const sectionsIds = Object.keys(sections);
-  const sequenceIds = sections[selectedSection || activeSectionId]?.sequenceIds || [];
-  const backButtonTitle = sections[selectedSection || activeSectionId]?.title;
+  const sequenceIds = sections[resolvedSectionId]?.sequenceIds || [];
+  const backButtonTitle = sections[resolvedSectionId]?.title;
+  const sequenceTitle = sequences[activeSequenceId]?.title
 
   const handleBackToSectionLevel = () => {
     setDisplaySectionLevel();
@@ -62,17 +63,18 @@ const CourseOutlineTray = ({ intl }) => {
     setSelectedSection(id);
   };
 
+  useEffect(()=>{
+    if(sectionsIds.length > 0) {
+      handleSelectSection(sectionsIds[0]);
+    }
+  },[sectionsIds])
+
   const sidebarHeading = (
-    <div className="outline-sidebar-heading-wrapper sticky d-flex justify-content-between align-self-start align-items-center bg-light-200 p-2.5 pl-4">
+    <div className="sticky d-flex justify-content-between align-self-start align-items-center">
       {isDisplaySequenceLevel && backButtonTitle ? (
-        <Button
-          variant="link"
-          iconBefore={ChevronLeftIcon}
-          className="outline-sidebar-heading p-0 mb-0 text-left text-dark-500"
-          onClick={handleBackToSectionLevel}
-        >
-          {backButtonTitle}
-        </Button>
+        <span className="outline-sidebar-heading mb-0 h4 text-dark-500">
+          {sequenceTitle}
+        </span>
       ) : (
         <span className="outline-sidebar-heading mb-0 h4 text-dark-500">
           {intl.formatMessage(messages.courseOutlineTitle)}
@@ -99,8 +101,8 @@ const CourseOutlineTray = ({ intl }) => {
 
   if (courseOutlineStatus === LOADING) {
     return (
-      <div className={classNames('outline-sidebar-wrapper', {
-        'flex-shrink-0 mr-4 h-auto': !shouldDisplayFullScreen,
+      <div className={classNames('outline-sidebar-wrapper card card-square p-4', {
+        'flex-shrink-0 mr-4 h-fit': !shouldDisplayFullScreen,
         'bg-white m-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
       })}
       >
@@ -113,11 +115,13 @@ const CourseOutlineTray = ({ intl }) => {
       </div>
     );
   }
-
+  console.log("sequenceIds",sequenceIds,sequences);
+  console.log("sectionsIds",sectionsIds,sections);
+  
   return (
-    <div className={classNames('outline-sidebar-wrapper', {
-      'flex-shrink-0 mr-4 h-auto': !shouldDisplayFullScreen,
-      'bg-white m-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
+    <div className={classNames('outline-sidebar-wrapper card card-square p-4', {
+      'flex-shrink-0 mr-4 h-fit': !shouldDisplayFullScreen,
+      'm-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
     })}
     >
       <section className="outline-sidebar w-100">

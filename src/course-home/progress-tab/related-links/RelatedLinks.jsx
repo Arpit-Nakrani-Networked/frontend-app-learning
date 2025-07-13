@@ -34,8 +34,8 @@ const RelatedLinks = ({ intl }) => {
   const datesTabUrl = datesTab && datesTab.url;
 
   return (
-    <section className="mb-4 x-small">
-      <h3 className="h4">{intl.formatMessage(messages.relatedLinks)}</h3>
+    <section className="mb-4 x-small card p-4">
+      <h2 className="h4 card-header-custom">{intl.formatMessage(messages.relatedLinks)}</h2>
       <ul className="pl-4">
         {datesTabUrl && (
         <li>

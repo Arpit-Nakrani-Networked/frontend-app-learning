@@ -48,7 +48,7 @@ const EffortEstimate = (props) => {
 
   return (
     <span
-      className={classNames('text-gray-500 text-monospace', className)}
+      className={classNames('v2-text-black-400 badge-activity text-monospace', className)}
       style={{ fontSize: '0.8em' }}
     >
       {content}
