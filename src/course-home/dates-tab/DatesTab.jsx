@@ -42,19 +42,21 @@ const DatesTab = ({ intl }) => {
   };
 
   return (
-    <div className="card p-4">
-      <h2 aria-level="1" className="h2 mb-3 card-header-custom">
-        {intl.formatMessage(messages.title)}
-      </h2>
-      {isSelfPaced && hasDeadlines && (
-        <>
-          <ShiftDatesAlert model="dates" fetch={fetchDatesTab} />
-          <SuggestedScheduleHeader />
-          <UpgradeToCompleteAlert logUpgradeLinkClick={logUpgradeLinkClick} />
-          <UpgradeToShiftDatesAlert logUpgradeLinkClick={logUpgradeLinkClick} model="dates" />
-        </>
-      )}
-      <Timeline />
+    <div className="container-csm pt-3 pb-4">
+      <div className="card p-4">
+        <h2 aria-level="1" className="h2 mb-3 card-header-custom">
+          {intl.formatMessage(messages.title)}
+        </h2>
+        {isSelfPaced && hasDeadlines && (
+          <>
+            <ShiftDatesAlert model="dates" fetch={fetchDatesTab} />
+            <SuggestedScheduleHeader />
+            <UpgradeToCompleteAlert logUpgradeLinkClick={logUpgradeLinkClick} />
+            <UpgradeToShiftDatesAlert logUpgradeLinkClick={logUpgradeLinkClick} model="dates" />
+          </>
+        )}
+        <Timeline />
+      </div>
     </div>
   );
 };

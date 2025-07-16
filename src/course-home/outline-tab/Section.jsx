@@ -50,7 +50,7 @@ const Section = ({
           <FontAwesomeIcon
             icon={fasCheckCircle}
             fixedWidth
-            className="float-left text-success"
+            className="float-left v2-text-black-600"
             aria-hidden="true"
             title={intl.formatMessage(messages.completedSection)}
           />

@@ -79,12 +79,13 @@ const NewSidebarSection = ({
     <li className="p-0">
       <Collapsible
         className={classNames('border-top-0 border-left-0 border-right-0 border-bottom rounded-0 border-black-500', { 'active-section': isActiveSection, 'bg-white-500': isCompleted, 'bg-info-100': !isCompleted && isActiveSection && !open })}
-        styling="card-lg text-break rounded-0"
+        styling="card-lg text-break rounded-0 border-0"
+        style={{ borderRadius: '0px !important', borderTop: '0px !important' }}
         title={sectionTitle}
         open={open}
         onToggle={() => setOpen(!open)}
       >
-        <ol className={classNames('list-unstyled border-top border-black-500', { 'bg-white-500': isCompleted })}>
+        <ol className={classNames('list-unstyled border-left-0 border-right-0 border-bottom-0 border-black-500', { 'bg-white-500': isCompleted, 'border-top-0': !open, 'border-top': open })}>
           {unitIds.map((unitId, index) => {
             const mapping = unitMapping[unitId];
             if (!mapping) { return null; }

@@ -14,7 +14,7 @@ const CompletionIcon = ({ completionStat: { completed = 0, total = 0 } }) => {
     case !completed:
       return <LmsCompletionSolidIcon className="text-gray-300" data-testid="completion-solid-icon" />;
     case completed === total:
-      return <CheckCircleIcon className="text-success" data-testid="check-circle-icon" />;
+      return <CheckCircleIcon className="v2-text-black-600" data-testid="check-circle-icon" />;
     default:
       return <DashedCircleIcon percentage={percentage} remainder={remainder} data-testid="dashed-circle-icon" />;
   }

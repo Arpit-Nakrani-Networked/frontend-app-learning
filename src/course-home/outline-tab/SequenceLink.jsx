@@ -94,7 +94,7 @@ const SequenceLink = ({
               <FontAwesomeIcon
                 icon={fasCheckCircle}
                 fixedWidth
-                className="float-left text-success"
+                className="float-left v2-text-black-600"
                 aria-hidden={complete}
                 title={intl.formatMessage(messages.completedAssignment)}
               />
