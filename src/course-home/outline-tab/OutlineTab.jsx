@@ -2,28 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
-import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+// import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
-import { PluginSlot } from '@openedx/frontend-plugin-framework';
+// import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import { AlertList } from '../../generic/user-messages';
 
 import CourseDates from './widgets/CourseDates';
-import CourseHandouts from './widgets/CourseHandouts';
+// import CourseHandouts from './widgets/CourseHandouts';
 import StartOrResumeCourseCard from './widgets/StartOrResumeCourseCard';
-import WeeklyLearningGoalCard from './widgets/WeeklyLearningGoalCard';
-import CourseTools from './widgets/CourseTools';
+// import WeeklyLearningGoalCard from './widgets/WeeklyLearningGoalCard';
+// import CourseTools from './widgets/CourseTools';
 import { fetchOutlineTab } from '../data';
 import messages from './messages';
 import Section from './Section';
 import ShiftDatesAlert from '../suggested-schedule-messaging/ShiftDatesAlert';
-import UpgradeNotification from '../../generic/upgrade-notification/UpgradeNotification';
+// import UpgradeNotification from '../../generic/upgrade-notification/UpgradeNotification';
 import UpgradeToShiftDatesAlert from '../suggested-schedule-messaging/UpgradeToShiftDatesAlert';
-import useCertificateAvailableAlert from './alerts/certificate-status-alert';
-import useCourseEndAlert from './alerts/course-end-alert';
-import useCourseStartAlert from '../../alerts/course-start-alert';
+// import useCertificateAvailableAlert from './alerts/certificate-status-alert';
+// import useCourseEndAlert from './alerts/course-end-alert';
+// import useCourseStartAlert from '../../alerts/course-start-alert';
 import usePrivateCourseAlert from './alerts/private-course-alert';
-import useScheduledContentAlert from './alerts/scheduled-content-alert';
+// import useScheduledContentAlert from './alerts/scheduled-content-alert';
 import { useModel } from '../../generic/model-store';
 import WelcomeMessage from './widgets/WelcomeMessage';
 import ProctoringInfoPanel from './widgets/ProctoringInfoPanel';
@@ -32,40 +32,40 @@ import AccountActivationAlert from '../../alerts/logistration-alert/AccountActiv
 const OutlineTab = ({ intl }) => {
   const {
     courseId,
-    proctoringPanelStatus,
+    // proctoringPanelStatus,
   } = useSelector(state => state.courseHome);
 
+  const course = useModel('courseHomeMeta', courseId);
   const {
     isSelfPaced,
     org,
-    title,
-    userTimezone,
-  } = useModel('courseHomeMeta', courseId);
+    // title,
+  } = course;
+  // const expandButtonRef = useRef();
+
+  const outline = useModel('outline', courseId);
+  // const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
+  // const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
 
   const {
-    accessExpiration,
+    // resumeCourse: {
+    //   // hasVisitedCourse,
+    //   // url: resumeCourseUrl,
+    // },
     courseBlocks: {
       courses,
       sections,
     },
-    courseGoals: {
-      selectedGoal,
-      weeklyLearningGoalEnabled,
-    } = {},
-    datesBannerInfo,
+    // courseGoals: {
+    //   // selectedGoal,
+    //   // weeklyLearningGoalEnabled,
+    // } = {},
+    // datesBannerInfo,
     datesWidget: {
       courseDateBlocks,
     },
-    enableProctoredExams,
-    offer,
-    timeOffsetMillis,
-    verifiedMode,
-  } = useModel('outline', courseId);
-
-  const {
-    marketingUrl,
-  } = useModel('coursewareMeta', courseId);
-
+    // enableProctoredExams,
+  } = outline;
   const [expandAll, setExpandAll] = useState(false);
   const navigate = useNavigate();
 
@@ -75,11 +75,11 @@ const OutlineTab = ({ intl }) => {
   };
 
   // Below the course title alerts (appearing in the order listed here)
-  const courseStartAlert = useCourseStartAlert(courseId);
-  const courseEndAlert = useCourseEndAlert(courseId);
-  const certificateAvailableAlert = useCertificateAvailableAlert(courseId);
+  // const courseStartAlert = useCourseStartAlert(courseId);
+  // const courseEndAlert = useCourseEndAlert(courseId);
+  // const certificateAvailableAlert = useCertificateAvailableAlert(courseId);
   const privateCourseAlert = usePrivateCourseAlert(courseId);
-  const scheduledContentAlert = useScheduledContentAlert(courseId);
+  // const scheduledContentAlert = useScheduledContentAlert(courseId);
 
   const rootCourseId = courses && Object.keys(courses)[0];
 
@@ -95,15 +95,15 @@ const OutlineTab = ({ intl }) => {
     });
   };
 
-  const isEnterpriseUser = () => {
-    const authenticatedUser = getAuthenticatedUser();
-    const userRoleNames = authenticatedUser ? authenticatedUser.roles.map(role => role.split(':')[0]) : [];
+  // const isEnterpriseUser = () => {
+  //   const authenticatedUser = getAuthenticatedUser();
+  //   const userRoleNames = authenticatedUser ? authenticatedUser.roles.map(role => role.split(':')[0]) : [];
 
-    return userRoleNames.includes('enterprise_learner');
-  };
+  //   return userRoleNames.includes('enterprise_learner');
+  // };
 
   /** show post enrolment survey to only B2C learners */
-  const learnerType = isEnterpriseUser() ? 'enterprise_learner' : 'b2c_learner';
+  // const learnerType = isEnterpriseUser() ? 'enterprise_learner' : 'b2c_learner';
 
   const location = useLocation();
 
@@ -126,23 +126,18 @@ const OutlineTab = ({ intl }) => {
 
   return (
     <>
-      <div data-learner-type={learnerType} className="row w-100 mx-0 my-3 justify-content-between">
-        <div className="col-12 col-sm-auto p-0">
-          <div role="heading" aria-level="1" className="h2">{title}</div>
-        </div>
-      </div>
-      <div className="row course-outline-tab">
+      <div className="row course-outline-tab container-cs pt-3">
         <AccountActivationAlert />
-        <div className="col-12">
+        <div className="col col-12 col-md-8">
+          {/* <div className="col-12"> */}
           <AlertList
             topic="outline-private-alerts"
             customAlerts={{
               ...privateCourseAlert,
             }}
           />
-        </div>
-        <div className="col col-12 col-md-8">
-          <AlertList
+          {/* </div> */}
+          {/* <AlertList
             topic="outline-course-alerts"
             className="mb-3"
             customAlerts={{
@@ -151,7 +146,7 @@ const OutlineTab = ({ intl }) => {
               ...courseStartAlert,
               ...scheduledContentAlert,
             }}
-          />
+          /> */}
           {isSelfPaced && hasDeadlines && (
             <>
               <ShiftDatesAlert model="outline" fetch={fetchOutlineTab} />
@@ -188,36 +183,19 @@ const OutlineTab = ({ intl }) => {
             <ProctoringInfoPanel />
             { /** Defer showing the goal widget until the ProctoringInfoPanel has resolved or has been determined as
              disabled to avoid components bouncing around too much as screen is rendered */ }
-            {(!enableProctoredExams || proctoringPanelStatus === 'loaded') && weeklyLearningGoalEnabled && (
+            {/* {(!enableProctoredExams || proctoringPanelStatus === 'loaded') && weeklyLearningGoalEnabled && (
               <WeeklyLearningGoalCard
                 daysPerWeek={selectedGoal && 'daysPerWeek' in selectedGoal ? selectedGoal.daysPerWeek : null}
-                subscribedToReminders={selectedGoal && 'subscribedToReminders' in selectedGoal ? selectedGoal.subscribedToReminders : false}
+                subscribedToReminders={selectedGoal && 'subscribedToReminders'
+                in selectedGoal ? selectedGoal.subscribedToReminders : false}
               />
-            )}
-            <CourseTools />
-            <PluginSlot
-              id="outline_tab_notifications_slot"
-              pluginProps={{
-                courseId,
-                model: 'outline',
-              }}
-            >
-              <UpgradeNotification
-                offer={offer}
-                verifiedMode={verifiedMode}
-                accessExpiration={accessExpiration}
-                contentTypeGatingEnabled={datesBannerInfo.contentTypeGatingEnabled}
-                marketingUrl={marketingUrl}
-                upsellPageName="course_home"
-                userTimezone={userTimezone}
-                shouldDisplayBorder
-                timeOffsetMillis={timeOffsetMillis}
-                courseId={courseId}
-                org={org}
-              />
-            </PluginSlot>
+            )} */}
+            {/* <CourseTools /> */}
+            {/* <div className='card p-4'>
+            <CourseOutlineTabNotificationsSlot courseId={courseId} />
+              </div> */}
             <CourseDates />
-            <CourseHandouts />
+            {/* <CourseHandouts /> */}
           </div>
         )}
       </div>

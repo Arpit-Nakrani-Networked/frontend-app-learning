@@ -11,8 +11,8 @@ import { faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-ico
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Icon } from '@openedx/paragon';
-import { Block } from '@openedx/paragon/icons';
+// import { Icon } from '@openedx/paragon';
+// import { Block } from '@openedx/paragon/icons';
 import EffortEstimate from '../../shared/effort-estimate';
 import { useModel } from '../../generic/model-store';
 import messages from './messages';
@@ -30,7 +30,7 @@ const SequenceLink = ({
     due,
     showLink,
     title,
-    hideFromTOC,
+    // hideFromTOC,
   } = sequence;
   const {
     userTimezone,
@@ -87,14 +87,14 @@ const SequenceLink = ({
 
   return (
     <li>
-      <div className={classNames('', { 'mt-2 pt-2 border-top border-light': !first })}>
+      <div className={classNames('', { '': !first })}>
         <div className="row w-100 m-0">
-          <div className="col-auto p-0">
+          <div className="col-auto p-0 d-flex align-items-center justify-content-center">
             {complete ? (
               <FontAwesomeIcon
                 icon={fasCheckCircle}
                 fixedWidth
-                className="float-left text-success mt-1"
+                className="float-left text-success"
                 aria-hidden={complete}
                 title={intl.formatMessage(messages.completedAssignment)}
               />
@@ -102,21 +102,21 @@ const SequenceLink = ({
               <FontAwesomeIcon
                 icon={farCheckCircle}
                 fixedWidth
-                className="float-left text-gray-400 mt-1"
+                className="float-left text-gray-400"
                 aria-hidden={complete}
                 title={intl.formatMessage(messages.incompleteAssignment)}
               />
             )}
           </div>
-          <div className="col-10 p-0 ml-3 text-break">
-            <span className="align-middle">{displayTitle}</span>
+          <div className="col-10 p-0 ml-3 text-break d-flex align-items-center">
+            <span className="align-middle subsection-title">{displayTitle}</span>
             <span className="sr-only">
               , {intl.formatMessage(complete ? messages.completedAssignment : messages.incompleteAssignment)}
             </span>
             <EffortEstimate className="ml-3 align-middle" block={sequence} />
           </div>
         </div>
-        {hideFromTOC && (
+        {/* {hideFromTOC && (
           <div className="row w-100 my-2 mx-4 pl-3">
             <span className="small d-flex">
               <Icon className="mr-2" src={Block} data-testid="hide-from-toc-sequence-link-icon" />
@@ -125,7 +125,7 @@ const SequenceLink = ({
               </span>
             </span>
           </div>
-        )}
+        )} */}
         <div className="row w-100 m-0 ml-3 pl-3">
           <small className="text-body pl-2">
             {due ? dueDateMessage : noDueDateMessage}

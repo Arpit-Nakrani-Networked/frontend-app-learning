@@ -5,11 +5,11 @@ import { Helmet } from 'react-helmet';
 import { getConfig } from '@edx/frontend-platform';
 import { useToggle } from '@openedx/paragon';
 
-import { CourseTabsNavigation } from '../course-tabs';
+// import { CourseTabsNavigation } from '../course-tabs';
 import { useModel } from '../generic/model-store';
 import { AlertList } from '../generic/user-messages';
 import StreakModal from '../shared/streak-celebration';
-import InstructorToolbar from '../instructor-toolbar';
+// import InstructorToolbar from '../instructor-toolbar';
 import useEnrollmentAlert from '../alerts/enrollment-alert';
 import useLogistrationAlert from '../alerts/logistration-alert';
 
@@ -20,12 +20,12 @@ const LoadedTabPage = ({
   children,
   courseId,
   metadataModel,
-  unitId,
+  // unitId,
 }) => {
   const {
     celebrations,
     org,
-    originalUserIsStaff,
+    // originalUserIsStaff,
     tabs,
     title,
     verifiedMode,
@@ -53,13 +53,13 @@ const LoadedTabPage = ({
       <Helmet>
         <title>{`${activeTab ? `${activeTab.title} | ` : ''}${title} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      {originalUserIsStaff && (
+      {/* {originalUserIsStaff && (
         <InstructorToolbar
           courseId={courseId}
           unitId={unitId}
           tab={activeTabSlug}
         />
-      )}
+      )} */}
       <StreakModal
         courseId={courseId}
         metadataModel={metadataModel}
@@ -78,8 +78,8 @@ const LoadedTabPage = ({
             ...logistrationAlert,
           }}
         />
-        <CourseTabsNavigation tabs={tabs} className="mb-3" activeTabSlug={activeTabSlug} />
-        <div className="container-xl">
+        {/* <CourseTabsNavigation tabs={tabs} className="mb-3" activeTabSlug={activeTabSlug} /> */}
+        <div id="main-content" className="">
           {children}
         </div>
       </main>
@@ -92,13 +92,13 @@ LoadedTabPage.propTypes = {
   children: PropTypes.node,
   courseId: PropTypes.string.isRequired,
   metadataModel: PropTypes.string,
-  unitId: PropTypes.string,
+  // unitId: PropTypes.string,
 };
 
 LoadedTabPage.defaultProps = {
   children: null,
   metadataModel: 'courseHomeMeta',
-  unitId: null,
+  // unitId: null,
 };
 
 export default LoadedTabPage;

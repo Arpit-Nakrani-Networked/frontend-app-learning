@@ -36,15 +36,17 @@ const TabContainer = (props) => {
   } = useSelector(state => state[slice]);
 
   return (
-    <TabPage
-      activeTabSlug={tab}
-      courseId={courseId}
-      courseStatus={courseStatus}
-      metadataModel={`${slice}Meta`}
-    >
-      {courseId && <OuterExamTimer courseId={courseId} />}
-      {children}
-    </TabPage>
+    <>
+      <TabPage
+        activeTabSlug={tab}
+        courseId={courseId}
+        courseStatus={courseStatus}
+        metadataModel={`${slice}Meta`}
+      >
+        {courseId && <OuterExamTimer courseId={courseId} />}
+        {children}
+      </TabPage>
+    </>
   );
 };
 

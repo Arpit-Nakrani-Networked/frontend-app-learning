@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { breakpoints, useWindowSize } from '@openedx/paragon';
+import { useWindowSize } from '@openedx/paragon';
 
-import CertificateStatus from './certificate-status/CertificateStatus';
+// import CertificateStatus from './certificate-status/CertificateStatus';
 import CourseCompletion from './course-completion/CourseCompletion';
-import CourseGrade from './grades/course-grade/CourseGrade';
-import DetailedGrades from './grades/detailed-grades/DetailedGrades';
-import GradeSummary from './grades/grade-summary/GradeSummary';
-import ProgressHeader from './ProgressHeader';
-import RelatedLinks from './related-links/RelatedLinks';
+// import CourseGrade from './grades/course-grade/CourseGrade';
+// import DetailedGrades from './grades/detailed-grades/DetailedGrades';
+// import GradeSummary from './grades/grade-summary/GradeSummary';
+// import ProgressHeader from './ProgressHeader';
+// import RelatedLinks from './related-links/RelatedLinks';
 
 import { useModel } from '../../generic/model-store';
 
@@ -18,10 +18,10 @@ const ProgressTab = () => {
   } = useSelector(state => state.courseHome);
 
   const {
-    gradesFeatureIsFullyLocked, disableProgressGraph,
+    disableProgressGraph,
   } = useModel('progress', courseId);
 
-  const applyLockedOverlay = gradesFeatureIsFullyLocked ? 'locked-overlay' : '';
+  // const applyLockedOverlay = gradesFeatureIsFullyLocked ? 'locked-overlay' : '';
 
   const windowWidth = useWindowSize().width;
   if (windowWidth === undefined) {
@@ -31,27 +31,26 @@ const ProgressTab = () => {
     return null;
   }
 
-  const wideScreen = windowWidth >= breakpoints.large.minWidth;
+  // const wideScreen = windowWidth >= breakpoints.large.minWidth;
   return (
     <>
-      <ProgressHeader />
+      {/* <ProgressHeader /> */}
       <div className="row w-100 m-0">
         {/* Main body */}
         <div className="col-12 col-md-8 p-0">
-          {!disableProgressGraph && <CourseCompletion />}
-          {!wideScreen && <CertificateStatus />}
-          <CourseGrade />
-          <div className={`grades my-4 p-4 rounded raised-card ${applyLockedOverlay}`} aria-hidden={gradesFeatureIsFullyLocked}>
-            <GradeSummary />
-            <DetailedGrades />
+          <div className="row w-100 m-0">
+            {!disableProgressGraph && <div className="col-12 col-md-6 p-0 px-md-2"><CourseCompletion /></div>}
+            {/* <div className="col-12 col-md-6"><ProgressTabCourseGradeSlot /></div> */}
+            {/* <div className="col-12 col-md-12 p-0 px-md-2"><ProgressTabCertificateStatusMainBodySlot /></div> */}
+            {/* <div className="col-12 col-md-12 p-0 px-md-2"><ProgressTabGradeBreakdownSlot /></div> */}
           </div>
         </div>
 
         {/* Side panel */}
-        <div className="col-12 col-md-4 p-0 px-md-4">
-          {wideScreen && <CertificateStatus />}
-          <RelatedLinks />
-        </div>
+        {/* <div className="col-12 col-md-4 p-0 px-md-2">
+          <ProgressTabCertificateStatusSidePanelSlot /> */}
+        {/* <ProgressTabRelatedLinksSlot /> */}
+        {/* </div> */}
       </div>
     </>
   );

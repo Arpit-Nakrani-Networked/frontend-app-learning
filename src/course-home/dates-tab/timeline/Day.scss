@@ -19,7 +19,7 @@ $offset: $dot-radius * 1.5;
   display: inline-block;
   position: absolute;
   border-radius: 50%;
-  left: $dot-radius * 0.5; // save room for today's larger size
+  left: $dot-radius * -0.9; // save room for today's larger size
   top: $offset;
   height: $dot-size;
   width: $dot-size;

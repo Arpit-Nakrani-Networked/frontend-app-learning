@@ -1,0 +1,11 @@
+.SvgIcon {
+	width: 24px;
+	height: 24px;
+	mask-repeat: 'no-repeat';
+	mask-position: 'center';
+	background-color: black;
+
+	&.primary {
+		background-color: $primary-color !important;
+	}
+}

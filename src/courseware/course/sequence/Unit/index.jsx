@@ -8,10 +8,10 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { useModel } from '@src/generic/model-store';
 import { usePluginsCallback } from '@src/generic/plugin-store';
 
-import BookmarkButton from '../../bookmark/BookmarkButton';
+// import BookmarkButton from '../../bookmark/BookmarkButton';
 import messages from '../messages';
 import ContentIFrame from './ContentIFrame';
-import UnitSuspense from './UnitSuspense';
+// import UnitSuspense from './UnitSuspense';
 import { modelKeys, views } from './constants';
 import { useExamAccess, useShouldDisplayHonorCode } from './hooks';
 import { getIFrameUrl } from './urls';
@@ -22,6 +22,8 @@ const Unit = ({
   format,
   onLoaded,
   id,
+  isEnabledOutlineSidebar,
+  renderUnitNavigation = () => {},
 }) => {
   const { formatMessage } = useIntl();
   const [searchParams] = useSearchParams();
@@ -29,7 +31,7 @@ const Unit = ({
   const examAccess = useExamAccess({ id });
   const shouldDisplayHonorCode = useShouldDisplayHonorCode({ courseId, id });
   const unit = useModel(modelKeys.units, id);
-  const isProcessing = unit.bookmarkedUpdateState === 'loading';
+  // const isProcessing = unit.bookmarkedUpdateState === 'loading';
   const view = authenticatedUser ? views.student : views.public;
 
   const getUrl = usePluginsCallback('getIFrameUrl', () => getIFrameUrl({
@@ -45,16 +47,23 @@ const Unit = ({
   return (
     <div className="unit">
       <div className="mb-0">
-        <h3 className="h3">{unit.title}</h3>
-        <UnitTitleSlot courseId={courseId} unitId={id} unitTitle={unit.title} />
+        {/* <h3 className="h3">{unit.title}</h3> */}
+        <UnitTitleSlot
+          courseId={courseId}
+          unit={unit}
+          unitId={id}
+          unitTitle={unit.title}
+          isEnabledOutlineSidebar={isEnabledOutlineSidebar}
+          renderUnitNavigation={renderUnitNavigation}
+        />
       </div>
-      <h2 className="sr-only">{formatMessage(messages.headerPlaceholder)}</h2>
+      {/* <h2 className="sr-only">{formatMessage(messages.headerPlaceholder)}</h2>
       <BookmarkButton
         unitId={unit.id}
         isBookmarked={unit.bookmarked}
         isProcessing={isProcessing}
-      />
-      <UnitSuspense {...{ courseId, id }} />
+      /> */}
+      {/* <UnitSuspense {...{ courseId, id }} /> */}
       <ContentIFrame
         elementId="unit-iframe"
         id={id}
@@ -70,6 +79,8 @@ const Unit = ({
 };
 
 Unit.propTypes = {
+  isEnabledOutlineSidebar: PropTypes.bool.isRequired,
+  renderUnitNavigation: PropTypes.func.isRequired,
   courseId: PropTypes.string.isRequired,
   format: PropTypes.string,
   id: PropTypes.string.isRequired,

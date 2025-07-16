@@ -16,18 +16,18 @@ const GradeSummaryTableFooter = ({ intl }) => {
 
   const {
     courseGrade: {
-      isPassing,
+      // isPassing,
       percent,
     },
   } = useModel('progress', courseId);
 
-  const bgColor = isPassing ? 'bg-success-100' : 'bg-warning-100';
+  // const bgColor = isPassing ? 'bg-success-100' : 'bg-warning-100';
   const totalGrade = (percent * 100).toFixed(0);
 
   const isLocaleRtl = isRtl(getLocale());
 
   return (
-    <DataTable.TableFooter className={`border-top border-primary ${bgColor}`}>
+    <DataTable.TableFooter className="">
       <div className="row w-100 m-0">
         <div id="weighted-grade-summary" className="col-8 p-0 small">{intl.formatMessage(messages.weightedGradeSummary)}</div>
         <div data-testid="gradeSummaryFooterTotalWeightedGrade" aria-labelledby="weighted-grade-summary" className="col-4 p-0 text-right font-weight-bold small">{totalGrade}{isLocaleRtl && '\u200f'}%</div>

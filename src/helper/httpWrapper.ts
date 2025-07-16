@@ -1,0 +1,135 @@
+import axios, { AxiosRequestConfig, CancelToken } from 'axios';
+import Cookies from 'universal-cookie';
+import cacheService from './cache.service';
+import { NETWORKED_BACKEND_URL } from './constants';
+
+// --- ENUMS & INTERFACES ---
+
+export enum HttpMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+export interface HttpOptions {
+  headers?: Record<string, string>;
+  cancelToken?: CancelToken;
+  customBaseURL?: string;
+  noCache?: boolean;
+  cacheKey?: string;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
+}
+
+// --- AXIOS INSTANCE WITH INTERCEPTORS ---
+const BASE_URL = `${NETWORKED_BACKEND_URL}/api/v1`;
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 10000,
+});
+
+axiosInstance.interceptors.request.use((config) => config);
+// Attach auth tokens or log requests here
+// );
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error),
+);
+
+// --- HTTP WRAPPER CLASS ---
+
+export class HttpWrapper {
+  private static getDefaultHeader() {
+    const cookies = new Cookies();
+    return {
+      sessionToken: cookies.get('sessionToken'),
+      communityToken: cookies.get('communityToken'),
+      groupToken: (cookies.get('groupToken')) ? cookies.get('groupToken') : undefined,
+    };
+  }
+
+  static async call<T>(
+    method: HttpMethod,
+    url: string,
+    data?: any,
+    options?: HttpOptions,
+    custom?: boolean,
+  ): Promise<T> {
+    const config: AxiosRequestConfig = {
+      method,
+      url,
+      headers: options?.headers || {},
+      cancelToken: options?.cancelToken,
+      baseURL: custom ? 'http://localhost:3002/api/v1' : axiosInstance.defaults.baseURL,
+    };
+
+    // For GET/DELETE, use `params`; for POST/PUT, use `data`
+    if (method === HttpMethod.GET || method === HttpMethod.DELETE) {
+      config.params = data;
+    } else {
+      config.data = data;
+    }
+
+    // In-memory GET cache
+    if (method === HttpMethod.GET && options?.cacheKey && !options?.noCache) {
+      const cached = cacheService.getItem(options.cacheKey);
+      if (cached) {
+        options.onSuccess?.(cached);
+        return Promise.resolve(cached);
+      }
+    }
+
+    try {
+      const headers = { ...HttpWrapper.getDefaultHeader(), ...config.headers };
+      const fH = Object.entries(headers).reduce((acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      }, {} as Record<string, any>);
+      config.headers = fH;
+      const response = await axiosInstance(config);
+      options?.onSuccess?.(response.data);
+
+      // Set cache if applicable
+      if (method === HttpMethod.GET && options?.cacheKey && !options?.noCache) {
+        cacheService.setItem(options.cacheKey, response.data);
+      }
+
+      return response.data?.data;
+    } catch (error: any) {
+      const processedError = HttpWrapper.processError(error);
+      throw new Error(
+        typeof processedError === 'string'
+          ? processedError
+          : JSON.stringify(processedError),
+      );
+    }
+  }
+
+  private static processError(error: any) {
+    if (axios.isCancel(error)) {
+      return { message: 'Request cancelled', status: 499 };
+    }
+
+    if (!error.response) {
+      return { message: 'Network error', status: 503 };
+    }
+
+    const { status } = error.response;
+    const message = error.response.data?.message || error.response.statusText || 'Something went wrong';
+
+    if (status === 401) {
+      localStorage.removeItem('user');
+      window.location.href = `${BASE_URL}/login`;
+    }
+
+    return {
+      message,
+      status,
+      data: error.response.data,
+    };
+  }
+}

@@ -1,0 +1,128 @@
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+import { Collapsible } from '@openedx/paragon';
+// import { ChevronRight as ChevronRightIcon } from '@openedx/paragon/icons';
+
+import courseOutlineMessages from '@src/course-home/outline-tab/messages';
+import { getCourseOutline, getSequenceId } from '@src/courseware/data/selectors';
+import { useEffect, useState } from 'react';
+import CompletionIcon from './CompletionIcon';
+import SidebarUnit from './SidebarUnit';
+import { UNIT_ICON_TYPES } from './UnitIcon';
+
+const NewSidebarSection = ({
+  intl, section, courseId, activeUnitId,
+}) => {
+  const {
+    // id,
+    complete,
+    title,
+    sequenceIds,
+    completionStat,
+  } = section;
+
+  const { sequences = {}, units = {} } = useSelector(getCourseOutline);
+  const activeSequenceId = useSelector(getSequenceId);
+  const isActiveSection = sequenceIds.includes(activeSequenceId);
+  const [open, setOpen] = useState(isActiveSection);
+  const [unitIds, setUnitIds] = useState([]);
+  const [unitMapping, setUnitMapping] = useState({});
+
+  useEffect(() => {
+    const mapping = {};
+    const ids = [];
+
+    sequenceIds.forEach((sequenceId) => {
+      const sequenceData = sequences[sequenceId];
+      if (!sequenceData) { return; }
+
+      const unitIdsInSequence = sequenceData.unitIds || [];
+      unitIdsInSequence.forEach((unitId) => {
+        if (!mapping[unitId]) {
+          mapping[unitId] = {
+            unitId,
+            sequenceId,
+            type: sequenceData.type,
+          };
+          ids.push(unitId);
+        }
+      });
+    });
+
+    setUnitMapping(mapping);
+    setUnitIds(ids);
+  }, [sequenceIds, sequences]);
+
+  // console.log('new-sequence-unitIds', unitIds, unitMapping);
+
+  const isCompleted = complete || (completionStat && completionStat.completed === completionStat.total);
+
+  const sectionTitle = (
+    <>
+      <div className="col-auto p-0">
+        <CompletionIcon completionStat={completionStat} />
+      </div>
+      <div className="col-10 p-0 flex-grow-1 text-dark-500 text-left text-break">
+        {title}
+        <span className="sr-only">
+          , {intl.formatMessage(complete
+          ? courseOutlineMessages.completedSection
+          : courseOutlineMessages.incompleteSection)}
+        </span>
+      </div>
+    </>
+  );
+
+  return (
+    <li className="p-0">
+      <Collapsible
+        className={classNames('border-top-0 border-left-0 border-right-0 border-bottom rounded-0 border-black-500', { 'active-section': isActiveSection, 'bg-white-500': isCompleted, 'bg-info-100': !isCompleted && isActiveSection && !open })}
+        styling="card-lg text-break rounded-0"
+        title={sectionTitle}
+        open={open}
+        onToggle={() => setOpen(!open)}
+      >
+        <ol className={classNames('list-unstyled border-top border-black-500', { 'bg-white-500': isCompleted })}>
+          {unitIds.map((unitId, index) => {
+            const mapping = unitMapping[unitId];
+            if (!mapping) { return null; }
+
+            return (
+              <SidebarUnit
+                key={unitId}
+                id={unitId}
+                courseId={courseId}
+                sequenceId={mapping.sequenceId}
+                unit={units[unitId]}
+                isActive={activeUnitId === unitId}
+                activeUnitId={activeUnitId}
+                isFirst={index === 0}
+                isLocked={mapping.type === UNIT_ICON_TYPES.lock}
+              />
+            );
+          })}
+        </ol>
+      </Collapsible>
+    </li>
+  );
+};
+
+NewSidebarSection.propTypes = {
+  intl: intlShape.isRequired,
+  section: PropTypes.shape({
+    complete: PropTypes.bool,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    sequenceIds: PropTypes.arrayOf(PropTypes.string),
+    completionStat: PropTypes.shape({
+      completed: PropTypes.number,
+      total: PropTypes.number,
+    }),
+  }).isRequired,
+  activeUnitId: PropTypes.string.isRequired,
+  courseId: PropTypes.string.isRequired,
+};
+
+export default injectIntl(NewSidebarSection);

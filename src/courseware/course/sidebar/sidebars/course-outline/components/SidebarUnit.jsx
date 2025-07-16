@@ -58,7 +58,7 @@ const SidebarUnit = ({
   const iconType = isLocked ? UNIT_ICON_TYPES.lock : icon;
 
   return (
-    <li className={classNames({ 'bg-info-100': isActive, 'border-top border-light': !isFirst })}>
+    <li className={classNames({ active: isActive, '': !isFirst, 'bg-white-500': complete })}>
       <Link
         to={`/course/${courseId}/${sequenceId}/${id}`}
         className="row w-100 m-0 d-flex align-items-center text-gray-700"
@@ -67,7 +67,7 @@ const SidebarUnit = ({
         <div className="col-auto p-0">
           <UnitIcon type={iconType} isCompleted={complete} />
         </div>
-        <div className="col-10 p-0 ml-3 text-break">
+        <div className="col-10 p-0 ml-3 text-break text-sm v2-text-black-400">
           <span className="align-middle">
             {title}
           </span>

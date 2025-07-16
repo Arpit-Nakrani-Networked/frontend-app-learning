@@ -28,9 +28,15 @@ const CourseDates = ({
   }
 
   return (
-    <section className="mb-4">
+    <section className="mb-4 card p-4">
       <div id="courseHome-dates">
-        <h2 className="h4">{intl.formatMessage(messages.dates)}</h2>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2 className="h4 card-header-custom">{intl.formatMessage(messages.dates)}</h2>
+          <a id="dates-tab-link" className="ml-4 small btn-blue" href={datesTabLink}>
+            {intl.formatMessage(messages.allDates)}
+          </a>
+        </div>
+
         <ol className="list-unstyled">
           {courseDateBlocks.map((courseDateBlock) => (
             <DateSummary
@@ -40,9 +46,6 @@ const CourseDates = ({
             />
           ))}
         </ol>
-        <a className="font-weight-bold ml-4 pl-1 small" href={datesTabLink}>
-          {intl.formatMessage(messages.allDates)}
-        </a>
       </div>
     </section>
   );

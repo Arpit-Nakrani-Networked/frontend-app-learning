@@ -276,22 +276,25 @@ class CoursewareContainer extends Component {
     } = this.props;
 
     return (
-      <TabPage
-        activeTabSlug="courseware"
-        courseId={courseId}
-        unitId={routeUnitId}
-        courseStatus={courseStatus}
-        metadataModel="coursewareMeta"
-      >
-        <Course
+      <>
+        <TabPage
+          activeTabSlug="courseware"
           courseId={courseId}
-          sequenceId={sequenceId}
           unitId={routeUnitId}
-          nextSequenceHandler={this.handleNextSequenceClick}
-          previousSequenceHandler={this.handlePreviousSequenceClick}
-          unitNavigationHandler={this.handleUnitNavigationClick}
-        />
-      </TabPage>
+          courseStatus={courseStatus}
+          metadataModel="coursewareMeta"
+        >
+
+          <Course
+            courseId={courseId}
+            sequenceId={sequenceId}
+            unitId={routeUnitId}
+            nextSequenceHandler={this.handleNextSequenceClick}
+            previousSequenceHandler={this.handlePreviousSequenceClick}
+            unitNavigationHandler={this.handleUnitNavigationClick}
+          />
+        </TabPage>
+      </>
     );
   }
 }

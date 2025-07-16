@@ -15,11 +15,11 @@ const CourseTabsNavigation = ({
 
   return (
     <div id="courseTabsNavigation" className={classNames('course-tabs-navigation', className)}>
-      <div className="container-xl">
+      <div className="container-fluid">
         <div className="nav-bar">
           <div className="nav-menu">
             <Tabs
-              className="nav-underline-tabs"
+              className=""
               aria-label={intl.formatMessage(messages.courseMaterial)}
             >
               {tabs.map(({ url, title, slug }) => (

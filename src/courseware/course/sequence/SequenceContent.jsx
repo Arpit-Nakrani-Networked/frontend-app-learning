@@ -16,6 +16,8 @@ const SequenceContent = ({
   sequenceId,
   unitId,
   unitLoadedHandler,
+  isEnabledOutlineSidebar,
+  renderUnitNavigation,
 }) => {
   const sequence = useModel('sequences', sequenceId);
 
@@ -59,16 +61,20 @@ const SequenceContent = ({
       key={unitId}
       id={unitId}
       onLoaded={unitLoadedHandler}
+      isEnabledOutlineSidebar={isEnabledOutlineSidebar}
+      renderUnitNavigation={renderUnitNavigation}
     />
   );
 };
 
 SequenceContent.propTypes = {
   gated: PropTypes.bool.isRequired,
+  isEnabledOutlineSidebar: PropTypes.string.isRequired,
   courseId: PropTypes.string.isRequired,
   sequenceId: PropTypes.string.isRequired,
   unitId: PropTypes.string,
   unitLoadedHandler: PropTypes.func.isRequired,
+  renderUnitNavigation: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 

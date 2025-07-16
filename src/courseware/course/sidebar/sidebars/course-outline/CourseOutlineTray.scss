@@ -1,9 +1,11 @@
 .outline-sidebar-wrapper {
     width: 32.125rem;
     max-width: 100%;
-    overflow: auto;
-    position: relative;
+    position: sticky !important;
+    top: 20px !important;
     flex-shrink: 0;
+    max-height: calc(100vh - 0px);
+    overflow: auto;
 }
 
 .outline-sidebar {
@@ -25,7 +27,10 @@
     }
 
     .outline-sidebar-heading {
-        font-weight: $font-weight-bold;
+        font-weight: $font-weight-semi-bold;
+        font-size: 20px;
+        line-height: 100%;
+        color : #000000CC;
     }
 }
 
@@ -59,20 +64,43 @@
     }
 
     li {
+        border-radius: 0px;
         font-size: 1rem;
         line-height: 1.5rem;
 
+        button {
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #000000CC;
+        }
+
+        button.active {
+            background-color: #F5F5F5;
+        }
+
+        button:hover {
+            background-color: #F5F5F5;
+        }
+
         .collapsible-trigger {
-            border-radius: 0;
-            padding: map-get($spacers, 3\.5) map-get($spacers, 4) map-get($spacers, 3\.5) map-get($spacers, 5);
+            border: 0;
+            border-radius: 0px;
+            padding: map-get($spacers, 3\.7) map-get($spacers, 3) ;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #000000CC;
+
 
             @media (max-width: -1 + map-get($grid-breakpoints, "sm")) {
                 padding-left: map-get($spacers, 4);
             }
 
-            &:hover {
-                background-color: $light-500;
-            }
+            // &:hover {
+            //     background-color: #F5F5F5;
+            // }
 
             .collapsible-icon {
                 margin-inline-start: initial;
@@ -87,8 +115,21 @@
     .collapsible-body {
         padding: 0;
 
-        ol li > a {
-            padding: map-get($spacers, 3\.5) map-get($spacers, 4) map-get($spacers, 3\.5) map-get($spacers, 5\.5);
+        ol li {
+            padding: 0;
+        }
+
+        ol li>a {
+            border: 0;
+            border-radius: 0px;
+            padding: map-get($spacers, 2\.5) map-get($spacers, 4) map-get($spacers,  2\.5) map-get($spacers, 5);
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #000000CC;
+
+
 
             @media (max-width: -1 + map-get($grid-breakpoints, "sm")) {
                 padding-left: map-get($spacers, 4\.5);
@@ -96,8 +137,14 @@
 
             &:hover {
                 text-decoration: none;
-                background-color: $light-500;
+                background-color: #F5F5F5;
             }
+
+        }
+
+        ol li.active>a {
+            text-decoration: none;
+            background-color: #F5F5F5;
         }
     }
 }

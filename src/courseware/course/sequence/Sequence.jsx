@@ -17,7 +17,7 @@ import { useSequenceBannerTextAlert, useSequenceEntranceExamAlert } from '@src/a
 import SequenceContainerSlot from '../../../plugin-slots/SequenceContainerSlot';
 
 import { getCoursewareOutlineSidebarSettings } from '../../data/selectors';
-import CourseLicense from '../course-license';
+// import CourseLicense from '../course-license';
 import Sidebar from '../sidebar/Sidebar';
 import NewSidebar from '../new-sidebar/Sidebar';
 import {
@@ -41,7 +41,7 @@ const Sequence = ({
   const [isOpen, open, close] = useToggle();
   const {
     canAccessProctoredExams,
-    license,
+    // license,
   } = useModel('coursewareMeta', courseId);
   const {
     isStaff,
@@ -165,10 +165,10 @@ const Sequence = ({
 
   const defaultContent = (
     <>
-      <div className="sequence-container d-inline-flex flex-row w-100">
+      <div className="sequence-container d-inline-flex flex-row w-100 mb-0">
         <CourseOutlineTrigger />
         <CourseOutlineTray />
-        <div className="sequence w-100">
+        <div className="w-100 p-3">
           {!isEnabledOutlineSidebar && (
             <div className="sequence-navigation-container">
               <SequenceNavigation
@@ -197,15 +197,17 @@ const Sequence = ({
             </div>
           )}
 
-          <div className="unit-container flex-grow-1 pt-4">
+          <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
+            {/* {unitHasLoaded && renderUnitNavigation(false)} */}
             <SequenceContent
               courseId={courseId}
               gated={gated}
               sequenceId={sequenceId}
               unitId={unitId}
               unitLoadedHandler={handleUnitLoaded}
+              isEnabledOutlineSidebar={isEnabledOutlineSidebar}
+              renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => {}}
             />
-            {unitHasLoaded && renderUnitNavigation(false)}
           </div>
         </div>
         {isNewDiscussionSidebarViewEnabled ? <NewSidebar /> : <Sidebar />}
@@ -216,19 +218,20 @@ const Sequence = ({
 
   if (sequenceStatus === 'loaded') {
     return (
-      <div>
-        <SequenceExamWrapper
-          sequence={sequence}
-          courseId={courseId}
-          isStaff={isStaff}
-          originalUserIsStaff={originalUserIsStaff}
-          canAccessProctoredExams={canAccessProctoredExams}
-        >
-          {isEnabledOutlineSidebar && renderUnitNavigation(true)}
-          {defaultContent}
-        </SequenceExamWrapper>
-        <CourseLicense license={license || undefined} />
-      </div>
+      <>
+        <div className="d-flex flex-column flex-grow-1 justify-content-center ">
+          <SequenceExamWrapper
+            sequence={sequence}
+            courseId={courseId}
+            isStaff={isStaff}
+            originalUserIsStaff={originalUserIsStaff}
+            canAccessProctoredExams={canAccessProctoredExams}
+          >
+            {defaultContent}
+          </SequenceExamWrapper>
+        </div>
+        {/* <CourseLicense license={license || undefined} /> */}
+      </>
     );
   }
 

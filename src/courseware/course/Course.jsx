@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getConfig } from '@edx/frontend-platform';
-import { breakpoints, useWindowSize } from '@openedx/paragon';
+import { useWindowSize } from '@openedx/paragon';
 
 import { AlertList } from '@src/generic/user-messages';
 import { useModel } from '@src/generic/model-store';
-import { getCoursewareOutlineSidebarSettings } from '../data/selectors';
-import { Trigger as CourseOutlineTrigger } from './sidebar/sidebars/course-outline';
-import Chat from './chat/Chat';
+// import { getCoursewareOutlineSidebarSettings } from '../data/selectors';
+// import { Trigger as CourseOutlineTrigger } from './sidebar/sidebars/course-outline';
+// import Chat from './chat/Chat';
 import SidebarProvider from './sidebar/SidebarContextProvider';
-import SidebarTriggers from './sidebar/SidebarTriggers';
+// import SidebarTriggers from './sidebar/SidebarTriggers';
 import NewSidebarProvider from './new-sidebar/SidebarContextProvider';
-import NewSidebarTriggers from './new-sidebar/SidebarTriggers';
+// import NewSidebarTriggers from './new-sidebar/SidebarTriggers';
 import { CelebrationModal, shouldCelebrateOnSectionLoad, WeeklyGoalCelebrationModal } from './celebration';
-import CourseBreadcrumbs from './CourseBreadcrumbs';
+// import CourseBreadcrumbs from './CourseBreadcrumbs';
 import ContentTools from './content-tools';
 import Sequence from './sequence';
 
@@ -26,18 +26,18 @@ const Course = ({
   nextSequenceHandler,
   previousSequenceHandler,
   unitNavigationHandler,
-  windowWidth,
+  // windowWidth,
 }) => {
   const course = useModel('coursewareMeta', courseId);
   const {
     celebrations,
-    isStaff,
+    // isStaff,
     isNewDiscussionSidebarViewEnabled,
   } = useModel('courseHomeMeta', courseId);
   const sequence = useModel('sequences', sequenceId);
   const section = useModel('sections', sequence ? sequence.sectionId : null);
-  const { enableNavigationSidebar } = useSelector(getCoursewareOutlineSidebarSettings);
-  const navigationDisabled = enableNavigationSidebar || (sequence?.navigationDisabled ?? false);
+  // const { enableNavigationSidebar } = useSelector(getCoursewareOutlineSidebarSettings);
+  // const navigationDisabled = enableNavigationSidebar || (sequence?.navigationDisabled ?? false);
 
   const pageTitleBreadCrumbs = [
     sequence,
@@ -54,7 +54,7 @@ const Course = ({
   const [weeklyGoalCelebrationOpen, setWeeklyGoalCelebrationOpen] = useState(
     celebrations && !celebrations.streakLengthToCelebrate && celebrations.weeklyGoal,
   );
-  const shouldDisplayChat = windowWidth >= breakpoints.medium.minWidth;
+  // const shouldDisplayChat = windowWidth >= breakpoints.medium.minWidth;
   const daysPerWeek = course?.courseGoals?.selectedGoal?.daysPerWeek;
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Course = ({
       <Helmet>
         <title>{`${pageTitleBreadCrumbs.join(' | ')} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      <div className="position-relative d-flex align-items-xl-center mb-4 mt-1 flex-column flex-xl-row">
+      {/* <div className="position-relative d-flex align-items-xl-center mb-4 mt-1 flex-column flex-xl-row">
         {navigationDisabled || (
         <>
           <CourseBreadcrumbs
@@ -103,7 +103,7 @@ const Course = ({
           <CourseOutlineTrigger isMobileView />
           {isNewDiscussionSidebarViewEnabled ? <NewSidebarTriggers /> : <SidebarTriggers /> }
         </div>
-      </div>
+      </div> */}
 
       <AlertList topic="sequence" />
       <Sequence
@@ -137,7 +137,7 @@ Course.propTypes = {
   nextSequenceHandler: PropTypes.func.isRequired,
   previousSequenceHandler: PropTypes.func.isRequired,
   unitNavigationHandler: PropTypes.func.isRequired,
-  windowWidth: PropTypes.number.isRequired,
+  // windowWidth: PropTypes.number.isRequired,
 };
 
 Course.defaultProps = {
