@@ -1,0 +1,45 @@
+.notfound-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9fafc;
+  padding: 20px;
+}
+
+.notfound-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.notfound-code {
+  font-size: 72px;
+  color: #e63946;
+  margin-bottom: 16px;
+}
+
+.notfound-message {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.notfound-home-button {
+  background-color: #1d3557;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: #457b9d;
+  }
+}
