@@ -10,7 +10,7 @@ import abandonTour from './AbandonTour';
 import coursewareTour from './CoursewareTour';
 import existingUserCourseHomeTour from './ExistingUserCourseHomeTour';
 import newUserCourseHomeTour from './newUserCourseHomeTour/NewUserCourseHomeTour';
-import NewUserCourseHomeTourModal from './newUserCourseHomeTour/NewUserCourseHomeTourModal';
+// import NewUserCourseHomeTourModal from './newUserCourseHomeTour/NewUserCourseHomeTourModal';
 import {
   closeNewUserCourseHomeModal,
   endCourseHomeTour,
@@ -48,6 +48,17 @@ const ProductTours = ({
   const isCoursewareTab = activeTab === 'courseware';
   const isOutlineTab = activeTab === 'outline';
 
+  const onDismiss = () => {
+    sendTrackEvent('edx.ui.lms.new_user_modal.dismissed', {
+      org_key: org,
+      courserun_key: courseId,
+      is_staff: administrator,
+    });
+    dispatch(closeNewUserCourseHomeModal());
+    setIsAbandonTourEnabled(true);
+    dispatch(endCourseHomeTour(username));
+  };
+
   useEffect(() => {
     const isOutlineTabResolved = isOutlineTab && proctoringPanelStatus === 'loaded';
     const userIsAuthenticated = !!username;
@@ -77,6 +88,12 @@ const ProductTours = ({
       setIsNewUserCourseHomeTourEnabled(true);
     }
   }, [showNewUserCourseHomeTour]);
+
+  useEffect(() => {
+    if (isOutlineTab && showNewUserCourseHomeModal) {
+      onDismiss();
+    }
+  }, [showNewUserCourseHomeModal]);
 
   if (isStreakCelebrationOpen) {
     return null;
@@ -145,7 +162,7 @@ const ProductTours = ({
       <ProductTour
         tours={tours}
       />
-      <NewUserCourseHomeTourModal
+      {/* <NewUserCourseHomeTourModal
         isOpen={isOutlineTab && showNewUserCourseHomeModal}
         onDismiss={() => {
           sendTrackEvent('edx.ui.lms.new_user_modal.dismissed', {
@@ -166,7 +183,7 @@ const ProductTours = ({
           dispatch(closeNewUserCourseHomeModal());
           setIsNewUserCourseHomeTourEnabled(true);
         }}
-      />
+      /> */}
     </>
   );
 };
