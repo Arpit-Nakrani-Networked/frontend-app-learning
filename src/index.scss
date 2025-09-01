@@ -923,3 +923,10 @@ h6,
 .border-top-0{
   border-top: 0 !important;
 }
+
+.center-align{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

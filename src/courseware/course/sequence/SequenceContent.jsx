@@ -48,7 +48,7 @@ const SequenceContent = ({
   const unit = useModel('units', unitId);
   if (!unitId || !unit) {
     return (
-      <div>
+      <div className="center-align">
         {intl.formatMessage(messages.noContent)}
       </div>
     );

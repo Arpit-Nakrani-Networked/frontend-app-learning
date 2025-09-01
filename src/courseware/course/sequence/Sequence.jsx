@@ -28,6 +28,7 @@ import messages from './messages';
 import HiddenAfterDue from './hidden-after-due';
 import { SequenceNavigation, UnitNavigation } from './sequence-navigation';
 import SequenceContent from './SequenceContent';
+import EmptyPlaceholder from '../../../_components/empty-placeholder/EmptyPlaceholder';
 
 const Sequence = ({
   unitId,
@@ -130,7 +131,7 @@ const Sequence = ({
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
   if (loading) {
     if (!sequenceId) {
-      return (<div> {intl.formatMessage(messages.noContent)} </div>);
+      return <div className="center-align"><EmptyPlaceholder /></div>;
     }
     return (
       <PageLoading
