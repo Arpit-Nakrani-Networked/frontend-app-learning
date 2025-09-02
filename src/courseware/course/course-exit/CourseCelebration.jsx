@@ -29,7 +29,7 @@ import { useModel } from '../../../generic/model-store';
 // import ProgramCompletion from './ProgramCompletion';
 // import DashboardFootnote from './DashboardFootnote';
 // import UpgradeFootnote from './UpgradeFootnote';
-import SocialIcons from '../../social-share/SocialIcons';
+// import SocialIcons from '../../social-share/SocialIcons';
 import { logVisit } from './utils';
 // import { DashboardLink, IdVerificationSupportLink, ProfileLink } from '../../../shared/links';
 // import CourseRecommendations from './CourseRecommendations';
@@ -93,16 +93,16 @@ const CourseCelebration = ({ intl }) => {
         <div className="col-12 p-0 h2 text-center _text-2xl _text-black">
           {intl.formatMessage(messages.congratulationsHeader)}
         </div>
-        <div className="col-12 p-0 font-weight-normal lead text-center _text-lg _text-gray">
-          {intl.formatMessage(messages.completedCourseHeader)}
+        <div className="col-12 p-0 font-weight-normal text-center _text-lg _text-gray">
+          <p className="m-0 text-center _text-lg _text-gray px-5">{intl.formatMessage(messages.completedCourseHeader)}</p>
           {/* {marketingUrl && ` ${intl.formatMessage(messages.shareMessage)}`} */}
-          <SocialIcons
+          {/* <SocialIcons
             analyticsId="edx.ui.lms.course_exit.social_share.clicked"
             className="mt-2"
             courseId={courseId}
             emailSubject={messages.socialMessage}
             socialMessage={messages.socialMessage}
-          />
+          /> */}
 
           <Button variant="primary" className="CongratulationModal_Button" onClick={handleModalClose}>
             {intl.formatMessage(messages.backToCourse)}
