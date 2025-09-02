@@ -130,9 +130,9 @@ const Sequence = ({
   // it knows which sequence to actually go to.
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
   if (loading) {
-    if (!sequenceId) {
-      return <div className="center-align"><EmptyPlaceholder /></div>;
-    }
+    // if (!sequenceId) {
+    //   return <div className="center-align"><EmptyPlaceholder /></div>;
+    // }
     return (
       <PageLoading
         srMessage={intl.formatMessage(messages.loadingSequence)}
@@ -144,6 +144,10 @@ const Sequence = ({
     // Shouldn't even be here - these sequences are normally stripped out of the navigation.
     // But we are here, so render a notice instead of the normal content.
     return <HiddenAfterDue courseId={courseId} />;
+  }
+
+  if (!loading && !sequenceId) {
+    return <div className="center-align"><EmptyPlaceholder /></div>;
   }
 
   const gated = sequence && sequence.gatedContent !== undefined && sequence.gatedContent.gated;
