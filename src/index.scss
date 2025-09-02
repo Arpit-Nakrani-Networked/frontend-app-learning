@@ -581,7 +581,7 @@ h6,
 .raised-card {
   background-color: $v2-white-100 !important;
   border: 1px solid $v2-black-500 !important;
-  border-radius: 12px !important;
+  border-radius: 16px !important;
   box-shadow: none !important;
 
   .card-header-custom:not(.welcome-text),
@@ -877,7 +877,7 @@ h6,
 }
 
 #courseHome-outline .collapsible-card-lg .collapsible-body ol li {
-  padding: 5px 15px 5px 60px !important;
+  padding: 5px 15px 5px 55px !important;
 }
 
 .badge-activity {
@@ -911,6 +911,9 @@ h6,
 .border-black-500,.border-black-500.border-top,.border-black-500.border-bottom {
   border-color: $v2-black-500 !important;
 }
+.border-blue-500,.border-blue-500.border-top,.border-blue-500.border-bottom {
+  border-color: $v2-black-500 !important;
+}
 
 .bg-white-500{
   background-color: $v2-white-500 !important;
@@ -929,4 +932,11 @@ h6,
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// utils
+
+._intialism {
+  letter-spacing: normal !important;
+  line-height: normal !important;
 }

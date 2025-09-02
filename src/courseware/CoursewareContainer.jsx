@@ -17,6 +17,7 @@ import { TabPage } from '../tab-page';
 import Course from './course';
 import { handleNextSectionCelebration } from './course/celebration';
 import withParamsAndNavigation from './utils';
+import CourseCompleteModal from '../_components/congratulation-modal/CongratulationModal';
 
 // Look at where this is called in componentDidUpdate for more info about its usage
 const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, firstSequenceId, navigate) => {
@@ -293,6 +294,8 @@ class CoursewareContainer extends Component {
             previousSequenceHandler={this.handlePreviousSequenceClick}
             unitNavigationHandler={this.handleUnitNavigationClick}
           />
+
+          <CourseCompleteModal />
         </TabPage>
       </>
     );

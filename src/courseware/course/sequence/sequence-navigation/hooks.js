@@ -54,7 +54,7 @@ export function useSequenceNavigationMetadata(currentSequenceId, currentUnitId) 
 
   let nextLink;
   if (isLastUnit) {
-    nextLink = `/course/${courseId}/course-end`;
+    nextLink = '?course-completed=true';
   } else {
     const nextIndex = unitIndex + 1;
     if (nextIndex < sequence.unitIds.length) {

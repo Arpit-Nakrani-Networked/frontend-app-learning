@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { OuterExamTimer } from '@edx/frontend-lib-special-exams';
 
 import TabPage from './TabPage';
+import { fetchProgressTab } from '../course-home/data';
 
 const TabContainer = (props) => {
   const {
@@ -13,6 +14,7 @@ const TabContainer = (props) => {
     slice,
     tab,
     isProgressTab,
+    isOutlineTab,
   } = props;
 
   const { courseId: courseIdFromUrl, targetUserId } = useParams();
@@ -25,7 +27,10 @@ const TabContainer = (props) => {
     } else {
       dispatch(fetch(courseIdFromUrl));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (isOutlineTab) {
+      dispatch(fetchProgressTab(courseIdFromUrl, targetUserId));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseIdFromUrl, targetUserId]);
 
   // The courseId from the store is the course we HAVE loaded.  If the URL changes,
@@ -56,6 +61,7 @@ TabContainer.propTypes = {
   slice: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired,
   isProgressTab: PropTypes.bool,
+  isOutlineTab: PropTypes.bool,
 };
 
 TabContainer.defaultProps = {

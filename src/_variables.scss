@@ -1,3 +1,28 @@
+/* 🔠 Typography */
+$fonts-3xl: 30px;   // Example, depends on your global scale
+$fonts-2xl: 24px;   // Example, depends on your global scale
+$fonts-lg: 18px;
+$fonts-md: 16px;
+$fonts-sm: 14px;
+
+$font-bold: 700;
+$font-normal: 400;
+$font-semibold: 600;
+
+/* 📏 Spacing & Radius */
+$radius-2xl: 30px;  // used for modal radius
+$radius-lg: 12px;
+
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-xl: 40px;
+
+/* 🌫 Overlay */
+$overlay-bg: rgba(0, 0, 0, 0.5);
+
+
+
 // site commmon colors
 
 $v2-info-100: #F5F6FF;
@@ -6,7 +31,7 @@ $v2-info-300: #EFF4FF;
 $v2-info-400: #F6F7FA;
 
 $v2-blue-500: #0566FA;
-$v2-blue-600: #0D68F9;
+$v2-blue-600:#0D68F9;
 
 $v2-black-300: #000000b3;
 $v2-black-400: #000000CC;
@@ -15,3 +40,21 @@ $v2-black-600: #00000099;
 
 $v2-white-100: #fff;
 $v2-white-500: #F8F8F8;
+
+
+/* 🎨 Colors */
+$primary-color: $v2-blue-600;
+$text-black: $v2-black-400;
+$text-gray: $v2-black-600;
+$invertTextPrimaryColor: $v2-white-100;
+
+._text-2xl{
+    font-size: $fonts-2xl;
+}
+
+._text-black{
+    color: $text-black;
+}
+._text-gray{
+    color: $text-gray;
+}

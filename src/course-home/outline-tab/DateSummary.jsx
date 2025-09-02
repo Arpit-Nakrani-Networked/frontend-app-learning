@@ -1,43 +1,43 @@
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import { sendTrackEvent } from '@edx/frontend-platform/analytics';
+// import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { FormattedDate } from '@edx/frontend-platform/i18n';
-import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useModel } from '../../generic/model-store';
-import { isLearnerAssignment } from '../dates-tab/utils';
+// import { useModel } from '../../generic/model-store';
+// import { isLearnerAssignment } from '../dates-tab/utils';
 import './DateSummary.scss';
 
 const DateSummary = ({
   dateBlock,
   userTimezone,
 }) => {
-  const {
-    courseId,
-  } = useSelector(state => state.courseHome);
-  const {
-    org,
-  } = useModel('courseHomeMeta', courseId);
+  // const {
+  //   courseId,
+  // } = useSelector(state => state.courseHome);
+  // const {
+  //   org,
+  // } = useModel('courseHomeMeta', courseId);
 
-  const linkedTitle = dateBlock.link && isLearnerAssignment(dateBlock);
+  // const linkedTitle = dateBlock.link && isLearnerAssignment(dateBlock);
   const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
 
-  const logVerifiedUpgradeClick = () => {
-    sendTrackEvent('edx.bi.ecommerce.upsell_links_clicked', {
-      org_key: org,
-      courserun_key: courseId,
-      linkCategory: '(none)',
-      linkName: 'course_home_dates',
-      linkType: 'link',
-      pageName: 'course_home',
-    });
-  };
+  // const logVerifiedUpgradeClick = () => {
+  //   sendTrackEvent('edx.bi.ecommerce.upsell_links_clicked', {
+  //     org_key: org,
+  //     courserun_key: courseId,
+  //     linkCategory: '(none)',
+  //     linkName: 'course_home_dates',
+  //     linkType: 'link',
+  //     pageName: 'course_home',
+  //   });
+  // };
 
   return (
     <li className="p-0 mb-3 small text-dark-500">
       <div className="row">
-        <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mt-1 mr-1" fixedWidth />
+        <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mr-1" fixedWidth />
         <div className="ml-1">
           <FormattedDate
             value={dateBlock.date}
@@ -49,7 +49,7 @@ const DateSummary = ({
           />
         </div>
       </div>
-      <div className="row ml-4 pr-2">
+      {/* <div className="row ml-4 pr-2">
         <div className="date-summary-text">
           {linkedTitle && (
             <div className="font-weight-bold mt-2">
@@ -72,7 +72,7 @@ const DateSummary = ({
             {dateBlock.linkText}
           </a>
         )}
-      </div>
+      </div> */}
     </li>
   );
 };

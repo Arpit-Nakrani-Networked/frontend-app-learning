@@ -59,7 +59,7 @@ subscribe(APP_READY, () => {
                 path={DECODE_ROUTES.HOME}
                 element={(
                   <DecodePageRoute>
-                    <TabContainer tab="outline" fetch={fetchOutlineTab} slice="courseHome">
+                    <TabContainer tab="outline" fetch={fetchOutlineTab} slice="courseHome" isOutlineTab>
                       <OutlineTab />
                     </TabContainer>
                   </DecodePageRoute>

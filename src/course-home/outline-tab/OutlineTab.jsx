@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 // import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
-import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
-import { Button } from '@openedx/paragon';
+// import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+// import { Button } from '@openedx/paragon';
 // import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import { AlertList } from '../../generic/user-messages';
 
@@ -14,7 +14,7 @@ import StartOrResumeCourseCard from './widgets/StartOrResumeCourseCard';
 // import WeeklyLearningGoalCard from './widgets/WeeklyLearningGoalCard';
 // import CourseTools from './widgets/CourseTools';
 import { fetchOutlineTab } from '../data';
-import messages from './messages';
+// import messages from './messages';
 import Section from './Section';
 import ShiftDatesAlert from '../suggested-schedule-messaging/ShiftDatesAlert';
 // import UpgradeNotification from '../../generic/upgrade-notification/UpgradeNotification';
@@ -28,8 +28,9 @@ import { useModel } from '../../generic/model-store';
 import WelcomeMessage from './widgets/WelcomeMessage';
 import ProctoringInfoPanel from './widgets/ProctoringInfoPanel';
 import AccountActivationAlert from '../../alerts/logistration-alert/AccountActivationAlert';
+import CourseProgress from './widgets/CourseProgress';
 
-const OutlineTab = ({ intl }) => {
+const OutlineTab = () => {
   const {
     courseId,
     // proctoringPanelStatus,
@@ -66,7 +67,7 @@ const OutlineTab = ({ intl }) => {
     },
     // enableProctoredExams,
   } = outline;
-  const [expandAll, setExpandAll] = useState(false);
+  // const [expandAll, setExpandAll] = useState(false);
   const navigate = useNavigate();
 
   const eventProperties = {
@@ -157,20 +158,20 @@ const OutlineTab = ({ intl }) => {
           <WelcomeMessage courseId={courseId} />
           {rootCourseId && (
             <>
-              <div className="row w-100 m-0 mb-3 justify-content-end">
+              {/* <div className="row w-100 m-0 mb-3 justify-content-end">
                 <div className="col-12 col-md-auto p-0">
                   <Button variant="outline-primary" block onClick={() => { setExpandAll(!expandAll); }}>
                     {expandAll ? intl.formatMessage(messages.collapseAll) : intl.formatMessage(messages.expandAll)}
                   </Button>
                 </div>
-              </div>
+              </div> */}
               <ol id="courseHome-outline" className="list-unstyled">
                 {courses[rootCourseId].sectionIds.map((sectionId) => (
                   <Section
                     key={sectionId}
                     courseId={courseId}
                     defaultOpen={sections[sectionId].resumeBlock}
-                    expand={expandAll}
+                    expand={false}
                     section={sections[sectionId]}
                   />
                 ))}
@@ -194,6 +195,7 @@ const OutlineTab = ({ intl }) => {
             {/* <div className='card p-4'>
             <CourseOutlineTabNotificationsSlot courseId={courseId} />
               </div> */}
+            <CourseProgress />
             <CourseDates />
             {/* <CourseHandouts /> */}
           </div>
@@ -203,8 +205,4 @@ const OutlineTab = ({ intl }) => {
   );
 };
 
-OutlineTab.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(OutlineTab);
+export default OutlineTab;

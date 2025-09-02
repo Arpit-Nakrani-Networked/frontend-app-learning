@@ -92,7 +92,7 @@ export function normalizeMetadata(metadata) {
     marketingUrl: data.marketing_url,
     celebrations: camelCaseObject(data.celebrations),
     userHasPassingGrade: data.user_has_passing_grade,
-    courseExitPageIsActive: data.course_exit_page_is_active,
+    courseExitPageIsActive: data.course_exit_page_is_active || true,
     certificateData: camelCaseObject(data.certificate_data),
     entranceExamData: camelCaseObject(data.entrance_exam_data),
     language: data.language,

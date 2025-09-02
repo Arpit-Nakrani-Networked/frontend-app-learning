@@ -38,7 +38,7 @@ const SequenceLink = ({
 
   const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
 
-  const coursewareUrl = <Link to={`/course/${courseId}/${id}`}>{title}</Link>;
+  const coursewareUrl = <Link to={`/course/${courseId}/${id}`} className="_intialism">{title}</Link>;
   const displayTitle = showLink ? coursewareUrl : title;
 
   const dueDateMessage = (
@@ -88,7 +88,7 @@ const SequenceLink = ({
   return (
     <li>
       <div className={classNames('', { '': !first })}>
-        <div className="row w-100 m-0">
+        <div className="row w-100 m-0 py-1">
           <div className="col-auto p-0 d-flex align-items-center justify-content-center">
             {complete ? (
               <FontAwesomeIcon
@@ -109,7 +109,7 @@ const SequenceLink = ({
             )}
           </div>
           <div className="col-10 p-0 ml-3 text-break d-flex align-items-center">
-            <span className="align-middle subsection-title">{displayTitle}</span>
+            <span className="align-middle subsection-title _intialism">{displayTitle}</span>
             <span className="sr-only">
               , {intl.formatMessage(complete ? messages.completedAssignment : messages.incompleteAssignment)}
             </span>

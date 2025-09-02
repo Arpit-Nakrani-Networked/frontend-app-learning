@@ -36,6 +36,11 @@ const messages = defineMessages({
     defaultMessage: 'Completed section',
     description: 'Text used to describe the green checkmark icon in front of a section title',
   },
+  courseCompleted: {
+    id: 'learning.outline.completedCourse',
+    defaultMessage: 'Course completed',
+    description: 'Text used to describe the green checkmark icon in front of a course outline',
+  },
   hiddenSection: {
     id: 'learning.outline.hiddenSection',
     defaultMessage: 'Hidden in Course Outline, accessible via link',
@@ -48,7 +53,7 @@ const messages = defineMessages({
   },
   dates: {
     id: 'learning.outline.dates',
-    defaultMessage: 'Important dates',
+    defaultMessage: 'Course starts',
     description: 'Headline for the (summary of dates) section of the outline page',
   },
   editGoal: {
