@@ -34,9 +34,9 @@ const eventTypes = {
   POST_EVENT: 'post_event',
 };
 
-export function fetchTab(courseId, tab, getTabData, targetUserId) {
+export function fetchTab(courseId, tab, getTabData, targetUserId, byPass = false) {
   return async (dispatch) => {
-    dispatch(fetchTabRequest({ courseId }));
+    if (!byPass) { dispatch(fetchTabRequest({ courseId })); }
     try {
       const promisesToFulfill = [getCourseHomeCourseMetadata(courseId, 'outline')];
       if (getTabData) {
@@ -69,17 +69,17 @@ export function fetchTab(courseId, tab, getTabData, targetUserId) {
       } else if (!courseHomeCourseMetadataResult.value.courseAccess.hasAccess) {
         // If the learner does not have access to the course, short cut to dispatch to a denied response regardless of
         // the tabDataResult.
-        dispatch(fetchTabDenied({ courseId }));
+        if (!byPass) { dispatch(fetchTabDenied({ courseId })); }
       } else if (tabDataResult?.status === 'rejected') {
         throw tabDataResult.reason;
-      } else {
+      } else if (!byPass) {
         dispatch(fetchTabSuccess({
           courseId,
           targetUserId,
         }));
       }
     } catch (e) {
-      dispatch(fetchTabFailure({ courseId }));
+      if (!byPass) { dispatch(fetchTabFailure({ courseId })); }
       logError(e);
     }
   };
@@ -90,7 +90,7 @@ export function fetchDatesTab(courseId) {
 }
 
 export function fetchProgressTab(courseId, targetUserId) {
-  return fetchTab(courseId, 'progress', getProgressTabData, parseInt(targetUserId, 10) || targetUserId);
+  return fetchTab(courseId, 'progress', getProgressTabData, parseInt(targetUserId, 10) || targetUserId, true);
 }
 
 export function fetchOutlineTab(courseId) {

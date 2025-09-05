@@ -28,7 +28,7 @@ const TabContainer = (props) => {
       dispatch(fetch(courseIdFromUrl));
     }
     if (isOutlineTab) {
-      dispatch(fetchProgressTab(courseIdFromUrl, targetUserId));
+      setTimeout(() => dispatch(fetchProgressTab(courseIdFromUrl, targetUserId)), 0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseIdFromUrl, targetUserId]);

@@ -10,9 +10,13 @@ import { useModel } from '../../../generic/model-store';
 const CourseProgress = ({ intl }) => {
   const { courseId } = useSelector(state => state.courseHome);
   const {
+    courseBlocks = {},
     datesWidget: { courseDateBlocks },
   } = useModel('outline', courseId);
-
+  const {
+    sections = {},
+    sequences = { },
+  } = courseBlocks;
   const {
     completionSummary: {
       completeCount = 0,
@@ -32,6 +36,18 @@ const CourseProgress = ({ intl }) => {
   if (courseDateBlocks.length === 0) {
     return null;
   }
+  console.log('courseDateBlocks', courseBlocks);
+
+  const statesProgress = {
+    sections: {
+      total: Object.keys(sections)?.length || 0,
+      complete: Object.values(sections).filter(val => val?.complete && val?.complete)?.length || 0,
+    },
+    lessons: {
+      total: Object.keys(sequences)?.length || 0,
+      complete: Object.values(sequences).filter(val => val?.complete && val?.complete)?.length || 0,
+    },
+  };
 
   // ✅ Example progress value (replace with real logic from your model/store)
   const progressPercent = completePercentage; // TODO: calculate dynamically
@@ -47,13 +63,13 @@ const CourseProgress = ({ intl }) => {
         </div>
 
         {/* Progress row */}
-        <div className="d-flex justify-content-between mb-1">
+        <div className="d-flex justify-content-between mb-1 _text-gray _intialism">
           <span>{progressPercent}%</span>
           <span>{totalprogressPercent}%</span>
         </div>
 
         {/* Progress bar */}
-        <div className="progress border-blue-500" style={{ height: '8px', borderRadius: '4px' }}>
+        <div className="progress _bg-info-200" style={{ height: '8px', borderRadius: '4px', border: 'none' }}>
           <div
             className="progress-bar bg-blue-500"
             role="progressbar"
@@ -63,6 +79,11 @@ const CourseProgress = ({ intl }) => {
             aria-valuemax="100"
             aria-label={`Progress: ${progressPercent}%`}
           />
+        </div>
+        <div className="d-flex mt-3 font-weight-medium _text-black _intialism">
+          <span className="_intialism">{statesProgress.sections.complete}/{statesProgress.sections.total} {intl.formatMessage(messages.section)}</span>
+          <span className="mx-2">•</span>
+          <span className="_intialism">{statesProgress.lessons.complete}/{statesProgress.lessons.total} {intl.formatMessage(messages.lessons)}</span>
         </div>
       </div>
     </section>

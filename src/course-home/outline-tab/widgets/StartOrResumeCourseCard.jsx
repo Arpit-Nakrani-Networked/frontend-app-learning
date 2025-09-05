@@ -8,6 +8,7 @@ import messages from '../messages';
 import { useModel } from '../../../generic/model-store';
 
 const StartOrResumeCourseCard = ({ intl }) => {
+  const username = JSON.parse(localStorage.getItem('user') || '{}')?.name || '-';
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -50,7 +51,7 @@ const StartOrResumeCourseCard = ({ intl }) => {
 
   return (
     <Card className="mb-3 raised-card card p-4 d-flex flex-row justify-content-between align-items-center" data-testid="start-resume-card">
-      <h2 className="card-header-custom mr-3 mb-0 welcome-text">Welcome, John</h2>
+      <h2 className="card-header-custom mr-3 mb-0 welcome-text">{intl.formatMessage(messages.welcomeUser, { name: username })}</h2>
       <Button
         variant="brand"
         className="btn-filled"

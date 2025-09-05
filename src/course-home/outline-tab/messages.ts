@@ -36,6 +36,16 @@ const messages = defineMessages({
     defaultMessage: 'Completed section',
     description: 'Text used to describe the green checkmark icon in front of a section title',
   },
+  section: {
+    id: 'learning.outline.section',
+    defaultMessage: 'Section',
+    description: 'Text used to describe the green checkmark icon in front of a section title',
+  },
+  lessons: {
+    id: 'learning.outline.lessons',
+    defaultMessage: 'Lessons',
+    description: 'Text used to describe the green checkmark icon in front of a section title',
+  },
   courseCompleted: {
     id: 'learning.outline.completedCourse',
     defaultMessage: 'Course completed',
@@ -192,6 +202,10 @@ const messages = defineMessages({
   welcomeMessage: {
     id: 'learning.outline.welcomeMessage',
     defaultMessage: 'Welcome Message',
+  },
+  welcomeUser: {
+    id: 'learning.outline.welcomeUser',
+    defaultMessage: 'Welcome, {name}',
   },
   welcomeMessageShowMoreButton: {
     id: 'learning.outline.welcomeMessageShowMoreButton',
