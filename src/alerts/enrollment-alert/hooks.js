@@ -1,9 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import React, {
-  useContext, useMemo,
+  useContext, useEffect, useMemo,
 } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
 
+import { useNavigate } from 'react-router';
 import { useAlert } from '../../generic/user-messages';
 import { useModel } from '../../generic/model-store';
 
@@ -11,6 +12,7 @@ const EnrollmentAlert = React.lazy(() => import('./EnrollmentAlert'));
 
 export function useEnrollmentAlert(courseId) {
   const { authenticatedUser } = useContext(AppContext);
+  const navigate = useNavigate();
   const course = useModel('courseHomeMeta', courseId);
   const outline = useModel('outline', courseId);
   const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
@@ -29,11 +31,17 @@ export function useEnrollmentAlert(courseId) {
     isStaff: course && course.isStaff,
   }), [course, courseId, outline]);
 
-  useAlert(isVisible, {
+  useAlert(false, {
     code: 'clientEnrollmentAlert',
     payload,
     topic: 'outline',
   });
+
+  useEffect(() => {
+    if (isVisible && authenticatedUser && !window.location.pathname.split('/').includes('home')) {
+      navigate.push(`/courses/${courseId}/home`);
+    }
+  }, [isVisible]);
 
   return { clientEnrollmentAlert: EnrollmentAlert };
 }

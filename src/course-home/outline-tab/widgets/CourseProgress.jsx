@@ -36,7 +36,7 @@ const CourseProgress = ({ intl }) => {
   if (courseDateBlocks.length === 0) {
     return null;
   }
-  console.log('courseDateBlocks', courseBlocks);
+  // console.log('courseDateBlocks', courseBlocks);
 
   const statesProgress = {
     sections: {

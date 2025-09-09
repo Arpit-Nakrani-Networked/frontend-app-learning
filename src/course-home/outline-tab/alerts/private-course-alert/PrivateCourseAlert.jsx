@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { getConfig } from '@edx/frontend-platform';
 import { injectIntl, intlShape, FormattedMessage } from '@edx/frontend-platform/i18n';
 import { getLoginRedirectUrl } from '@edx/frontend-platform/auth';
-import { Alert, Button, Hyperlink } from '@openedx/paragon';
+import { Button, Hyperlink } from '@openedx/paragon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import enrollmentMessages from '../../../../alerts/enrollment-alert/messages';
 import genericMessages from '../../../../generic/messages';
-import messages from './messages';
+// import messages from './messages';
 import outlineMessages from '../../messages';
 import useEnrollClickHandler from '../../../../alerts/enrollment-alert/clickHook';
 import { useModel } from '../../../../generic/model-store';
@@ -32,18 +32,18 @@ const PrivateCourseAlert = ({ intl, payload }) => {
     intl.formatMessage(enrollmentMessages.success),
   );
 
-  const enrollNowButton = (
-    <Button
-      disabled={loading}
-      variant="link"
-      className="p-0 border-0 align-top mr-1"
-      style={{ textDecoration: 'underline' }}
-      size="sm"
-      onClick={enrollClickHandler}
-    >
-      {intl.formatMessage(enrollmentMessages.enrollNowInline)}
-    </Button>
-  );
+  // const enrollNowButton = (
+  //   <Button
+  //     disabled={loading}
+  //     variant="link"
+  //     className="p-0 border-0 align-top mr-1"
+  //     style={{ textDecoration: 'underline' }}
+  //     size="sm"
+  //     onClick={enrollClickHandler}
+  //   >
+  //     {intl.formatMessage(enrollmentMessages.enrollNowInline)}
+  //   </Button>
+  // );
   const enrollNowButtonNew = (
     <Button
       disabled={loading}
@@ -53,7 +53,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
       onClick={enrollClickHandler}
     >
       {intl.formatMessage(enrollmentMessages.enrollNowInline)}
-      {loading && <FontAwesomeIcon icon={faSpinner} spin />}
+      {loading && <FontAwesomeIcon icon={faSpinner} spin className="ml-2" />}
     </Button>
   );
 
@@ -76,7 +76,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
   );
 
   return (
-    <Alert variant="light" data-testid="private-course-alert" className="card p-4 mb-3">
+    <div className="card p-4 mb-3">
       {anonymousUser && (
         <>
           <p className="font-weight-bold">
@@ -95,14 +95,14 @@ const PrivateCourseAlert = ({ intl, payload }) => {
       )}
       {!anonymousUser && (
         <>
-          <h2 className="font-weight-bold">{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
-          {canEnroll && (
+          <h2 className="font-weight-bold _truncate">{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
+          {/* {canEnroll && (
             <div className="d-flex">
               {enrollNowButton}
               {intl.formatMessage(messages.toAccess)}
-              {/* {loading && <FontAwesomeIcon icon={faSpinner} spin />} */}
+              {loading && <FontAwesomeIcon icon={faSpinner} spin />}
             </div>
-          )}
+          )} */}
           {canEnroll && (
             <div className="d-flex">
               {enrollNowButtonNew}
@@ -115,7 +115,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
           )}
         </>
       )}
-    </Alert>
+    </div>
   );
 };
 
