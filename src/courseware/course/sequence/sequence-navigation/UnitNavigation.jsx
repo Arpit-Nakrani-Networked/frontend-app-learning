@@ -26,7 +26,9 @@ const UnitNavigation = ({
   const {
     isFirstUnit, isLastUnit, nextLink, previousLink,
   } = useSequenceNavigationMetadata(sequenceId, unitId);
-  const { courseId } = useSelector(state => state.courseware);
+  const { courseId, courseOutline } = useSelector(state => state.courseware);
+
+  const { sections = {} } = courseOutline;
 
   const renderPreviousButton = () => {
     const disabled = isFirstUnit;
@@ -47,10 +49,14 @@ const UnitNavigation = ({
   };
 
   const renderNextButton = () => {
+    const isAllComepleted = Object.keys(sections).length > 0 ?
+      Object.values(sections).filter(val => !val?.complete)?.length === 0
+      : false;
     const { exitActive, exitText } = GetCourseExitNavigation(courseId, intl);
     const buttonText = (isLastUnit && exitText) ? exitText : intl.formatMessage(messages.nextButton);
-    const disabled = isLastUnit && !exitActive;
+    const disabled = Boolean(isLastUnit && (!isAllComepleted || !exitActive));
     const nextArrow = isRtl(getLocale()) ? faChevronLeft : faChevronRight;
+
     return (
       <Button
         variant="outline-primary"

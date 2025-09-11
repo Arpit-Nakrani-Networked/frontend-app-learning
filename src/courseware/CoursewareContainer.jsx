@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { defaultMemoize as memoize } from 'reselect';
 
+import { Navigate } from 'react-router';
 import {
   checkBlockCompletion,
   fetchCourse,
@@ -274,9 +275,12 @@ class CoursewareContainer extends Component {
       courseId,
       sequenceId,
       routeUnitId,
+      course,
     } = this.props;
 
-    return (
+    const enrolledUser = course && course?.isEnrolled !== undefined && course?.isEnrolled;
+
+    return !enrolledUser && courseId && courseStatus === 'loaded' ? <Navigate to={`/course/${courseId}/home`} replace /> : (
       <>
         <TabPage
           activeTabSlug="courseware"
@@ -315,6 +319,7 @@ const sectionShape = PropTypes.shape({
 });
 
 const courseShape = PropTypes.shape({
+  isEnrolled: PropTypes.bool,
   celebrations: PropTypes.shape({
     firstSection: PropTypes.bool,
   }),

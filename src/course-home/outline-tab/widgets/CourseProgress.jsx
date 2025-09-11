@@ -11,7 +11,7 @@ const CourseProgress = ({ intl }) => {
   const { courseId } = useSelector(state => state.courseHome);
   const {
     courseBlocks = {},
-    datesWidget: { courseDateBlocks },
+    // datesWidget: { courseDateBlocks },
   } = useModel('outline', courseId);
   const {
     sections = {},
@@ -33,9 +33,9 @@ const CourseProgress = ({ intl }) => {
 
   // const incompletePercentage = numTotalUnits > 0 ? 100 - completePercentage - lockedPercentage : 0;
 
-  if (courseDateBlocks.length === 0) {
-    return null;
-  }
+  // if (courseDateBlocks.length === 0) {
+  //   return null;
+  // }
   // console.log('courseDateBlocks', courseBlocks);
 
   const statesProgress = {

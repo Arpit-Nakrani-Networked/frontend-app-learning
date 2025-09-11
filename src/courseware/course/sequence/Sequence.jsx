@@ -130,9 +130,9 @@ const Sequence = ({
   // it knows which sequence to actually go to.
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
   if (loading) {
-    // if (!sequenceId) {
-    //   return <div className="center-align"><EmptyPlaceholder /></div>;
-    // }
+    if (!sequenceId) {
+      return <div className="center-align"><EmptyPlaceholder /></div>;
+    }
     return (
       <PageLoading
         srMessage={intl.formatMessage(messages.loadingSequence)}
