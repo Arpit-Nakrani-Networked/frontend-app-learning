@@ -19,6 +19,7 @@ const Section = ({
   expand,
   intl,
   section,
+  hiddenURL = false,
 }) => {
   const {
     complete,
@@ -118,6 +119,7 @@ const Section = ({
               courseId={courseId}
               sequence={sequences[sequenceId]}
               first={index === 0}
+              hiddenURL={hiddenURL}
             />
           ))}
         </ol>
@@ -132,6 +134,7 @@ Section.propTypes = {
   expand: PropTypes.bool.isRequired,
   intl: intlShape.isRequired,
   section: PropTypes.shape().isRequired,
+  hiddenURL: PropTypes.bool,
 };
 
 export default injectIntl(Section);

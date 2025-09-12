@@ -23,6 +23,7 @@ const SequenceLink = ({
   courseId,
   first,
   sequence,
+  hiddenURL = false,
 }) => {
   const {
     complete,
@@ -39,7 +40,7 @@ const SequenceLink = ({
   const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
 
   const coursewareUrl = <Link to={`/course/${courseId}/${id}`} className="_intialism">{title}</Link>;
-  const displayTitle = showLink ? coursewareUrl : title;
+  const displayTitle = showLink && !hiddenURL ? coursewareUrl : title;
 
   const dueDateMessage = (
     <FormattedMessage
@@ -142,6 +143,7 @@ SequenceLink.propTypes = {
   courseId: PropTypes.string.isRequired,
   first: PropTypes.bool.isRequired,
   sequence: PropTypes.shape().isRequired,
+  hiddenURL: PropTypes.bool,
 };
 
 export default injectIntl(SequenceLink);

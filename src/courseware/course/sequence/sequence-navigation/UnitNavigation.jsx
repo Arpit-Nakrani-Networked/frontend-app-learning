@@ -49,8 +49,8 @@ const UnitNavigation = ({
   };
 
   const renderNextButton = () => {
-    const isAllComepleted = Object.keys(sections).length > 0 ?
-      Object.values(sections).filter(val => !val?.complete)?.length === 0
+    const isAllComepleted = Object.keys(sections).length > 0
+      ? Object.values(sections).filter(val => !val?.complete)?.length === 0
       : false;
     const { exitActive, exitText } = GetCourseExitNavigation(courseId, intl);
     const buttonText = (isLastUnit && exitText) ? exitText : intl.formatMessage(messages.nextButton);

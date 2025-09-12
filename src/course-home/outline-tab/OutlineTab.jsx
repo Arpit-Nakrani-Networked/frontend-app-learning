@@ -45,8 +45,8 @@ const OutlineTab = () => {
   // const expandButtonRef = useRef();
 
   const outline = useModel('outline', courseId);
-  // const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
-  // const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
+  const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
+  const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
 
   const {
     // resumeCourse: {
@@ -173,6 +173,7 @@ const OutlineTab = () => {
                     defaultOpen={sections[sectionId].resumeBlock}
                     expand={false}
                     section={sections[sectionId]}
+                    hiddenURL={needEnroll}
                   />
                 ))}
               </ol>
