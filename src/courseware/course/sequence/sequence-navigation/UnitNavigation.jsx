@@ -33,7 +33,7 @@ const UnitNavigation = ({
   const renderPreviousButton = () => {
     const disabled = isFirstUnit;
     const prevArrow = isRtl(getLocale()) ? faChevronRight : faChevronLeft;
-    return (
+    return isFirstUnit ? null : (
       <Button
         variant="outline-secondary"
         className="previous-button mr-sm-2 d-flex align-items-center justify-content-center"
