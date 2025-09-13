@@ -110,11 +110,11 @@ const SequenceLink = ({
             )}
           </div>
           <div className="col-10 p-0 ml-3 text-break d-flex align-items-center">
-            <span className="align-middle subsection-title _intialism">{displayTitle}</span>
+            <span className="_truncate align-middle subsection-title _intialism">{displayTitle}</span>
             <span className="sr-only">
               , {intl.formatMessage(complete ? messages.completedAssignment : messages.incompleteAssignment)}
             </span>
-            <EffortEstimate className="ml-3 align-middle" block={sequence} />
+            <EffortEstimate className="ml-3 align-middle text-nowrap" block={sequence} />
           </div>
         </div>
         {/* {hideFromTOC && (

@@ -36,7 +36,7 @@ const UnitNavigation = ({
     return isFirstUnit ? null : (
       <Button
         variant="outline-secondary"
-        className="previous-button mr-sm-2 d-flex align-items-center justify-content-center"
+        className="h-fit previous-button mr-sm-2 d-flex align-items-center justify-content-center px-3"
         disabled={disabled}
         onClick={onClickPrevious}
         as={disabled ? undefined : Link}
@@ -60,7 +60,7 @@ const UnitNavigation = ({
     return (
       <Button
         variant="outline-primary"
-        className="next-button d-flex align-items-center justify-content-center"
+        className="h-fit next-button d-flex align-items-center justify-content-center px-3"
         onClick={onClickNext}
         disabled={disabled}
         as={disabled ? undefined : Link}

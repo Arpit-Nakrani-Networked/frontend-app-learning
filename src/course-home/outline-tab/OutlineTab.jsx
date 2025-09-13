@@ -127,7 +127,7 @@ const OutlineTab = () => {
 
   return (
     <>
-      <div className="row course-outline-tab container-cs pt-3">
+      <div className="row course-outline-tab container-cs pt-4">
         <AccountActivationAlert />
         <div className="col col-12 col-md-8">
           {/* <div className="col-12"> */}

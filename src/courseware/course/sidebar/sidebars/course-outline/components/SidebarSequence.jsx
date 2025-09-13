@@ -9,7 +9,7 @@ import courseOutlineMessages from '@src/course-home/outline-tab/messages';
 import { getCourseOutline, getSequenceId } from '@src/courseware/data/selectors';
 import CompletionIcon from './CompletionIcon';
 import SidebarUnit from './SidebarUnit';
-import { UNIT_ICON_TYPES } from './UnitIcon';
+// import { UNIT_ICON_TYPES } from './UnitIcon';
 
 const SidebarSequence = ({
   intl,
@@ -24,7 +24,7 @@ const SidebarSequence = ({
     title,
     specialExamInfo,
     unitIds,
-    type,
+    // type,
     completionStat,
   } = sequence;
 
@@ -70,7 +70,7 @@ const SidebarSequence = ({
               isActive={activeUnitId === unitId}
               activeUnitId={activeUnitId}
               isFirst={index === 0}
-              isLocked={type === UNIT_ICON_TYPES.lock}
+              // isLocked={type === UNIT_ICON_TYPES.lock}
             />
           ))}
         </ol>

@@ -40,6 +40,7 @@ $v2-black-600: #00000099;
 
 $v2-white-100: #fff;
 $v2-white-500: #F8F8F8;
+$iconColor: #00000099;
 
 
 /* 🎨 Colors */
@@ -57,6 +58,9 @@ $invertTextPrimaryColor: $v2-white-100;
 }
 ._text-gray{
     color: $text-gray;
+}
+.iconColor{
+    color: $iconColor;
 }
 ._bg-info-200{
     background-color: $v2-info-200;

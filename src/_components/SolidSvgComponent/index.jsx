@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './SolidSvgComponent.module.scss';
+import './SolidSvgComponent.scss';
 
 const SolidSvgComponent = (props) => {
   const {
-    width, height, iconColor, url, fit, defaultClass, isPrimaryColor, onClick, ...p
+    width, height, iconColor, url, fit, defaultClass, isPrimaryColor, onClick, isIconColor, ...p
   } = props;
 
   return (
     <div
-      className={`${style.SvgIcon} ${isPrimaryColor ? style.primary : ''} ${defaultClass}`}
+      className={`SvgIcon ${isPrimaryColor ? 'primary' : ''} ${isIconColor ? 'iconColor' : ''} ${defaultClass}`}
       onClick={onClick}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { onClick?.(e); } }}
       role="button"
@@ -31,6 +31,7 @@ SolidSvgComponent.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   iconColor: PropTypes.string,
+  isIconColor: PropTypes.bool,
   url: PropTypes.string.isRequired,
   fit: PropTypes.bool,
   defaultClass: PropTypes.string,

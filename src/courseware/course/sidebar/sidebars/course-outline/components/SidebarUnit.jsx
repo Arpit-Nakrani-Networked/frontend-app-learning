@@ -7,8 +7,12 @@ import { sendTrackEvent, sendTrackingLogEvent } from '@edx/frontend-platform/ana
 
 import { checkBlockCompletion } from '@src/courseware/data';
 import { getCourseOutline } from '@src/courseware/data/selectors';
+import SolidSvgComponent from '@src/_components/SolidSvgComponent';
+import unCheckIcon from '@src/assets/images/checkbox-unchecked-active.svg';
+import checkIcon from '@src/assets/images/checkbox-checked.svg';
+import lessonIcon from '@src/assets/images/lessonIcon.svg';
+// import { UNIT_ICON_TYPES } from './UnitIcon';
 import messages from '../messages';
-import UnitIcon, { UNIT_ICON_TYPES } from './UnitIcon';
 
 const SidebarUnit = ({
   id,
@@ -18,13 +22,13 @@ const SidebarUnit = ({
   isFirst,
   unit,
   isActive,
-  isLocked,
+  // isLocked,
   activeUnitId,
 }) => {
   const {
     complete,
     title,
-    icon = UNIT_ICON_TYPES.other,
+    // icon = UNIT_ICON_TYPES.other,
   } = unit;
   const dispatch = useDispatch();
   const { sequences = {} } = useSelector(getCourseOutline);
@@ -55,7 +59,16 @@ const SidebarUnit = ({
     dispatch(checkBlockCompletion(courseId, sequenceId, activeUnitId));
   };
 
-  const iconType = isLocked ? UNIT_ICON_TYPES.lock : icon;
+  // const iconType = isLocked ? UNIT_ICON_TYPES.lock : icon;
+
+  const getIcon = () => {
+    if (complete) {
+      return <SolidSvgComponent url={checkIcon} width={20} height={20} defaultClass="mr-1" isIconColor />;
+    } if (isActive) {
+      return <SolidSvgComponent url={unCheckIcon} width={20} height={20} defaultClass="mr-1" isIconColor />;
+    }
+    return <SolidSvgComponent url={lessonIcon} width={20} height={20} defaultClass="mr-1" isIconColor />;
+  };
 
   return (
     <li className={classNames({ active: isActive, '': !isFirst, 'bg-white-500': complete })}>
@@ -65,7 +78,7 @@ const SidebarUnit = ({
         onClick={handleClick}
       >
         <div className="col-auto p-0">
-          <UnitIcon type={iconType} isCompleted={complete} />
+          {getIcon()}
         </div>
         <div className="col-10 p-0 ml-3 text-break text-sm v2-text-black-400">
           <span className="align-middle">
@@ -92,7 +105,7 @@ SidebarUnit.propTypes = {
     type: PropTypes.string,
   }).isRequired,
   isActive: PropTypes.bool.isRequired,
-  isLocked: PropTypes.bool.isRequired,
+  // isLocked: PropTypes.bool.isRequired,
   courseId: PropTypes.string.isRequired,
   sequenceId: PropTypes.string.isRequired,
   activeUnitId: PropTypes.string.isRequired,

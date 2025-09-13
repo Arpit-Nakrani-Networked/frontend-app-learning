@@ -10,7 +10,7 @@ import { getCourseOutline, getSequenceId } from '@src/courseware/data/selectors'
 import { useEffect, useState } from 'react';
 import CompletionIcon from './CompletionIcon';
 import SidebarUnit from './SidebarUnit';
-import { UNIT_ICON_TYPES } from './UnitIcon';
+// import { UNIT_ICON_TYPES } from './UnitIcon';
 
 const NewSidebarSection = ({
   intl, section, courseId, activeUnitId,
@@ -100,7 +100,7 @@ const NewSidebarSection = ({
                 isActive={activeUnitId === unitId}
                 activeUnitId={activeUnitId}
                 isFirst={index === 0}
-                isLocked={mapping.type === UNIT_ICON_TYPES.lock}
+                // isLocked={mapping.type === UNIT_ICON_TYPES.lock}
               />
             );
           })}
