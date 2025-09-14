@@ -1009,3 +1009,22 @@ h6,
   text-wrap: nowrap;
   text-overflow: ellipsis;
 }
+
+.btn-primary.focus::before, .modal .modal-footer button.focus::before, .btn-primary:focus::before, .modal .modal-footer button:focus::before{
+  border: none !important;
+}
+
+button:focus-visible{
+  outline :none !important
+}
+
+.pgn__modal-body.pgn__modal-body-scroll-top.pgn__modal-body-scroll-bottom::before,
+.pgn__modal-body.pgn__modal-body-scroll-top.pgn__modal-body-scroll-bottom::after,
+.pgn__modal-body.pgn__modal-body-scroll-top::after,
+.pgn__modal-body::before,
+.pgn__modal-body.pgn__modal-body-scroll-bottom::after,
+.pgn__modal-body::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before {
+  display: none !important;
+}

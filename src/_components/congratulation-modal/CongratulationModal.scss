@@ -8,7 +8,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%) !important;
-		max-width: 772px !important;
+		max-width: 600px !important;
 		border-radius: 24px;
 		.modal-content {
 			border-radius: 30px;
@@ -25,6 +25,10 @@
 		// justify-content: center;
 		border-radius: 30px;
 		overflow: auto !important;
+
+		p{
+			line-height: normal !important;
+		}
 	}
 
 

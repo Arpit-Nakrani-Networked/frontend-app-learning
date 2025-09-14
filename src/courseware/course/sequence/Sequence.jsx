@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import SequenceExamWrapper from '@edx/frontend-lib-special-exams';
 import { useToggle } from '@openedx/paragon';
 
-import PageLoading from '@src/generic/PageLoading';
+// import PageLoading from '@src/generic/PageLoading';
 import { useModel } from '@src/generic/model-store';
 import { useSequenceBannerTextAlert, useSequenceEntranceExamAlert } from '@src/alerts/sequence-alerts/hooks';
 import SequenceContainerSlot from '../../../plugin-slots/SequenceContainerSlot';
@@ -53,6 +53,7 @@ const Sequence = ({
   const unit = useModel('units', unitId);
   const sequenceStatus = useSelector(state => state.courseware.sequenceStatus);
   const sequenceMightBeUnit = useSelector(state => state.courseware.sequenceMightBeUnit);
+  // const courseOutlineStatus = useSelector(getCourseOutlineStatus);
   const { enableNavigationSidebar: isEnabledOutlineSidebar } = useSelector(getCoursewareOutlineSidebarSettings);
   const handleNext = () => {
     const nextIndex = sequence.unitIds.indexOf(unitId) + 1;
@@ -128,17 +129,19 @@ const Sequence = ({
 
   // If sequence might be a unit, we want to keep showing a spinner - the courseware container will redirect us when
   // it knows which sequence to actually go to.
+  // console.log("sequenceStatus",sequenceStatus,sequenceId,unitId,isEnabledOutlineSidebar,unitHasLoaded);
+
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
-  if (loading) {
-    if (!sequenceId) {
-      return <div className="center-align"><EmptyPlaceholder /></div>;
-    }
-    return (
-      <PageLoading
-        srMessage={intl.formatMessage(messages.loadingSequence)}
-      />
-    );
+  // if (loading) {
+  if (!sequenceId || !unitId) {
+    return <div className="center-align"><EmptyPlaceholder /></div>;
   }
+  //   return (
+  //     <PageLoading
+  //       srMessage={intl.formatMessage(messages.loadingSequence)}
+  //     />
+  //   );
+  // }
 
   if (sequenceStatus === 'loaded' && sequence.isHiddenAfterDue) {
     // Shouldn't even be here - these sequences are normally stripped out of the navigation.
@@ -173,33 +176,34 @@ const Sequence = ({
       <div className="sequence-container d-inline-flex flex-row w-100 mb-0">
         <CourseOutlineTrigger />
         <CourseOutlineTray />
+        {sequenceStatus === 'loaded' && (
         <div className="w-100 p-3">
           {!isEnabledOutlineSidebar && (
-            <div className="sequence-navigation-container">
-              <SequenceNavigation
-                sequenceId={sequenceId}
-                unitId={unitId}
-                nextHandler={() => {
-                  logEvent('edx.ui.lms.sequence.next_selected', 'top');
-                  handleNext();
-                }}
-                onNavigate={(destinationUnitId) => {
-                  logEvent('edx.ui.lms.sequence.tab_selected', 'top', destinationUnitId);
-                  handleNavigate(destinationUnitId);
-                }}
-                previousHandler={() => {
-                  logEvent('edx.ui.lms.sequence.previous_selected', 'top');
-                  handlePrevious();
-                }}
-                {...{
-                  nextSequenceHandler,
-                  handleNavigate,
-                  isOpen,
-                  open,
-                  close,
-                }}
-              />
-            </div>
+          <div className="sequence-navigation-container">
+            <SequenceNavigation
+              sequenceId={sequenceId}
+              unitId={unitId}
+              nextHandler={() => {
+                logEvent('edx.ui.lms.sequence.next_selected', 'top');
+                handleNext();
+              }}
+              onNavigate={(destinationUnitId) => {
+                logEvent('edx.ui.lms.sequence.tab_selected', 'top', destinationUnitId);
+                handleNavigate(destinationUnitId);
+              }}
+              previousHandler={() => {
+                logEvent('edx.ui.lms.sequence.previous_selected', 'top');
+                handlePrevious();
+              }}
+              {...{
+                nextSequenceHandler,
+                handleNavigate,
+                isOpen,
+                open,
+                close,
+              }}
+            />
+          </div>
           )}
 
           <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
@@ -211,41 +215,44 @@ const Sequence = ({
               unitId={unitId}
               unitLoadedHandler={handleUnitLoaded}
               isEnabledOutlineSidebar={isEnabledOutlineSidebar}
-              renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => {}}
+              renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => { }}
             />
           </div>
         </div>
-        {isNewDiscussionSidebarViewEnabled ? <NewSidebar /> : <Sidebar />}
+        )}
+        {sequenceStatus === 'loaded' && isNewDiscussionSidebarViewEnabled ? <NewSidebar /> : <Sidebar />}
       </div>
-      <SequenceContainerSlot courseId={courseId} unitId={unitId} />
+      {sequenceStatus === 'loaded' && <SequenceContainerSlot courseId={courseId} unitId={unitId} />}
     </>
   );
 
-  if (sequenceStatus === 'loaded') {
+  // sequence status 'failed' and any other unexpected sequence status.
+  if (sequenceStatus === 'failed') {
     return (
-      <>
-        <div className="d-flex flex-column flex-grow-1 justify-content-center ">
-          <SequenceExamWrapper
-            sequence={sequence}
-            courseId={courseId}
-            isStaff={isStaff}
-            originalUserIsStaff={originalUserIsStaff}
-            canAccessProctoredExams={canAccessProctoredExams}
-          >
-            {defaultContent}
-          </SequenceExamWrapper>
-        </div>
-        {/* <CourseLicense license={license || undefined} /> */}
-      </>
+      <p className="text-center py-5 mx-auto" style={{ maxWidth: '30em' }}>
+        {intl.formatMessage(messages.loadFailure)}
+      </p>
     );
   }
 
-  // sequence status 'failed' and any other unexpected sequence status.
+  // if (sequenceStatus === 'loaded') {
   return (
-    <p className="text-center py-5 mx-auto" style={{ maxWidth: '30em' }}>
-      {intl.formatMessage(messages.loadFailure)}
-    </p>
+    <>
+      <div className="d-flex flex-column flex-grow-1 justify-content-center ">
+        <SequenceExamWrapper
+          sequence={sequence}
+          courseId={courseId}
+          isStaff={isStaff}
+          originalUserIsStaff={originalUserIsStaff}
+          canAccessProctoredExams={canAccessProctoredExams}
+        >
+          {defaultContent}
+        </SequenceExamWrapper>
+      </div>
+      {/* <CourseLicense license={license || undefined} /> */}
+    </>
   );
+  // }
 };
 
 Sequence.propTypes = {

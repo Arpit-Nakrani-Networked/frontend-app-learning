@@ -118,6 +118,8 @@ const CourseOutlineTray = ({ intl }) => {
     );
   }
 
+  if (courseOutlineStatus === LOADED && sectionsIds?.length === 0) { return null; }
+
   return (
     <div className={classNames('outline-sidebar-wrapper card card-square', {
       'flex-shrink-0 h-fit': !shouldDisplayFullScreen,

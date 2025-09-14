@@ -9,17 +9,17 @@ import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import {
   // Alert,
-  breakpoints,
+  // breakpoints,
   Button,
   // Hyperlink,
-  useWindowSize,
+  // useWindowSize,
 } from '@openedx/paragon';
 // import { CheckCircle } from '@openedx/paragon/icons';
 import { getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
-import CelebrationMobile from './assets/celebration_456x328.gif';
-import CelebrationDesktop from './assets/celebration_750x540.gif';
+// import CelebrationMobile from './assets/celebration_456x328.gif';
+// import CelebrationDesktop from './assets/celebration_750x540.gif';
 // import certificate from '../../../generic/assets/edX_certificate.png';
 // import certificateLocked from '../../../generic/assets/edX_locked_certificate.png';
 // import { FormattedPricing } from '../../../generic/upgrade-button';
@@ -38,7 +38,7 @@ import { NETWORKED_FRONTEND_URL } from '../../../helper/constants';
 // const LINKEDIN_BLUE = '#2867B2';
 
 const CourseCelebration = ({ intl }) => {
-  const wideScreen = useWindowSize().width >= breakpoints.medium.minWidth;
+  // const wideScreen = useWindowSize().width >= breakpoints.medium.minWidth;
   const { courseId } = useSelector(state => state.courseware);
   // const dispatch = useDispatch();
   const {
@@ -72,8 +72,8 @@ const CourseCelebration = ({ intl }) => {
       <Helmet>
         <title>{`${intl.formatMessage(messages.congratulationsHeader)} | ${title} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      <div className="row w-100 mx-0 px-5 py-4">
-        <div className="col-12 mt-3 mb-4 px-0 px-md-5 text-center">
+      <div className="row w-100 mx-0 pt-3">
+        {/* <div className="col-12 mt-3 mb-4 px-0 px-md-5 text-center">
           {!wideScreen && (
             <img
               src={CelebrationMobile}
@@ -89,12 +89,12 @@ const CourseCelebration = ({ intl }) => {
               style={{ width: '36rem' }}
             />
           )}
-        </div>
+        </div> */}
         <div className="col-12 p-0 h2 text-center _text-2xl _text-black">
           {intl.formatMessage(messages.congratulationsHeader)}
         </div>
         <div className="col-12 p-0 font-weight-normal text-center _text-lg _text-gray">
-          <p className="m-0 text-center _text-lg _text-gray px-5">{intl.formatMessage(messages.completedCourseHeader)}</p>
+          <p className="m-0 text-center _text-lg _text-gray px-2">{intl.formatMessage(messages.completedCourseHeader)}</p>
           {/* {marketingUrl && ` ${intl.formatMessage(messages.shareMessage)}`} */}
           {/* <SocialIcons
             analyticsId="edx.ui.lms.course_exit.social_share.clicked"
