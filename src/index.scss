@@ -1025,6 +1025,10 @@ button:focus-visible{
 .pgn__modal-body.pgn__modal-body-scroll-bottom::after,
 .pgn__modal-body::after,
 .pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::after,
-.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before {
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,.unit-navigation .previous-button:focus:before, .unit-navigation .next-button:focus:before {
   display: none !important;
+}
+
+.btn:focus-visible{
+  outline:none !important;
 }

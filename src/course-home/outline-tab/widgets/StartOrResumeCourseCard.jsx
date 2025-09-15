@@ -30,6 +30,22 @@ const StartOrResumeCourseCard = ({ intl }) => {
       url: resumeCourseUrl,
     },
   } = outline;
+
+  const {
+    completionSummary: {
+      completeCount = 0,
+      incompleteCount = 0,
+      lockedCount = 0,
+    } = {}, // fallback to empty object if completionSummary is undefined
+  } = useModel('progress', courseId) || {}; // fallback if useModel returns null/undefined
+
+  const numTotalUnits = completeCount + incompleteCount + lockedCount;
+
+  const completePercentage = numTotalUnits > 0 ? Math.round((completeCount / numTotalUnits) * 100) : 0;
+  // ✅ Example progress value (replace with real logic from your model/store)
+  const progressPercent = completePercentage; // TODO: calculate dynamically
+  const isCompleted = progressPercent >= 100; // TODO: calculate dynamically
+
   const enrolledUser = course && course.isEnrolled !== undefined && course.isEnrolled;
   const needEnroll = !enrolledUser && outline && outline.enrollAlert ? outline.enrollAlert.canEnroll : false;
 
@@ -49,6 +65,15 @@ const StartOrResumeCourseCard = ({ intl }) => {
     return null;
   }
 
+  let buttonLabel;
+  if (hasVisitedCourse) {
+    buttonLabel = isCompleted
+      ? intl.formatMessage(messages.completed)
+      : intl.formatMessage(messages.resume);
+  } else {
+    buttonLabel = intl.formatMessage(messages.start);
+  }
+
   return (
     <Card className="mb-4 raised-card card p-4 d-flex flex-row justify-content-between align-items-center" data-testid="start-resume-card">
       <h2 className="card-header-custom mr-3 mb-0 welcome-text">{intl.formatMessage(messages.welcomeUser, { name: username })}</h2>
@@ -58,7 +83,7 @@ const StartOrResumeCourseCard = ({ intl }) => {
         href={resumeCourseUrl}
         onClick={() => logResumeCourseClick()}
       >
-        {hasVisitedCourse ? intl.formatMessage(messages.resume) : intl.formatMessage(messages.start)}
+        {buttonLabel}
       </Button>
     </Card>
   );
