@@ -95,7 +95,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
       )}
       {!anonymousUser && (
         <>
-          <h2 className="font-weight-bold _truncate">{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
+          <h2 className="font-weight-bold _truncate" title={title}>{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
           {/* {canEnroll && (
             <div className="d-flex">
               {enrollNowButton}

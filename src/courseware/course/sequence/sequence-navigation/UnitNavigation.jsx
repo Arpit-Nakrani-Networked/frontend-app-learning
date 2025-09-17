@@ -75,7 +75,7 @@ const UnitNavigation = ({
   };
 
   return (
-    <div className={classNames('unit-navigation d-flex', { 'top-unit-navigation mb-3 w-100': isAtTop })}>
+    <div className={classNames('unit-navigation d-flex', { 'top-unit-navigation mb-3': isAtTop })}>
       {renderPreviousButton()}
       {renderNextButton()}
     </div>

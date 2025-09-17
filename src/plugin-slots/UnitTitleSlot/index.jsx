@@ -23,7 +23,7 @@ const UnitTitleSlot = ({
   >
     <div className="d-flex justify-content-between">
       <div className="mb-0 w-100">
-        <h3 className="h3">{unit.title}</h3>
+        <h3 className="h3" title={unit.title}>{unit.title}</h3>
       </div>
       {/* <div className='mr-3'>
         <BookmarkButton

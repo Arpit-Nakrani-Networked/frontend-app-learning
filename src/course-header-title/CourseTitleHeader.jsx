@@ -9,7 +9,7 @@ const CourseTitleHeader = ({ slice }) => {
 
   return (
     <div className="container-fluid main-course-header">
-      <h1 className="h2" data-course-id={courseIdFromUrl}>
+      <h1 className="h2" title={title} data-course-id={courseIdFromUrl}>
         {title}
       </h1>
     </div>
