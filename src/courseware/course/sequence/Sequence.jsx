@@ -134,7 +134,7 @@ const Sequence = ({
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
   // if (loading) {
   if (!sequenceId || !unitId) {
-    return <div className="center-align"><EmptyPlaceholder /></div>;
+    return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
   }
   //   return (
   //     <PageLoading
@@ -150,7 +150,7 @@ const Sequence = ({
   }
 
   if (!loading && !sequenceId) {
-    return <div className="center-align"><EmptyPlaceholder /></div>;
+    return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
   }
 
   const gated = sequence && sequence.gatedContent !== undefined && sequence.gatedContent.gated;
