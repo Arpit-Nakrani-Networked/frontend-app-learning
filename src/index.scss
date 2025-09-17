@@ -331,8 +331,8 @@ html>body>#root,
   }
 }
 
-.unit-container{
-      max-height: calc(100vh - 170px);
+.unit-container {
+  max-height: calc(100vh - 170px);
 }
 
 .unit {
@@ -392,18 +392,19 @@ html>body>#root,
   }
 
   .next-button {
-    flex-basis: 75%;
+    // flex-basis: 75%;
 
     @media (max-width: -1 + map-get($grid-breakpoints, "sm")) {
-      flex-basis: 100%;
+      // flex-basis: 100%;
     }
   }
 
   .previous-button {
-    flex-basis: 25%;
+    margin-right: 0 !important;
+    // flex-basis: 25%;
 
     @media (max-width: -1 + map-get($grid-breakpoints, "sm")) {
-      flex-basis: 100%;
+      // flex-basis: 100%;
     }
   }
 }
@@ -414,10 +415,13 @@ html>body>#root,
 
   .next-button,
   .previous-button {
-    @media (min-width: map-get($grid-breakpoints, "md")) {
-      flex-basis: auto;
-      min-width: 8rem;
-    }
+    min-width: 83px;
+    height: 40px;
+    padding: 10px 16px;
+    // @media (min-width: map-get($grid-breakpoints, "md")) {
+    // flex-basis: auto;
+    // min-width: 8rem;
+    // }
   }
 }
 
@@ -746,8 +750,7 @@ h6,
 
   &:focus::before,
   &:focus::after,
-  &:focus-visible 
-  &:focus-visible {
+  &:focus-visible &:focus-visible {
     // display: none !important;
     outline: none !important;
   }
@@ -790,10 +793,36 @@ h6,
   text-wrap: nowrap;
 
   &:focus::before,
-  &:focus::after{
+  &:focus::after {
     display: none !important;
     outline: none !important;
   }
+
+  &:focus-visible {
+    outline: none !important;
+  }
+}
+
+.btn-secondary {
+  width: fit-content !important;
+  background-color: $v2-info-200 !important;
+  border-color: $v2-info-200 !important;
+  color: $v2-black-400 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+  padding: 8px 16px !important;
+  text-wrap: nowrap;
+
+  &:focus::before,
+  &:focus::after {
+    display: none !important;
+    outline: none !important;
+  }
+
   &:focus-visible {
     outline: none !important;
   }
@@ -990,7 +1019,7 @@ h6,
 }
 
 .center-align {
-  flex: 1;
+  // flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1010,12 +1039,15 @@ h6,
   text-overflow: ellipsis;
 }
 
-.btn-primary.focus::before, .modal .modal-footer button.focus::before, .btn-primary:focus::before, .modal .modal-footer button:focus::before{
+.btn-primary.focus::before,
+.modal .modal-footer button.focus::before,
+.btn-primary:focus::before,
+.modal .modal-footer button:focus::before {
   border: none !important;
 }
 
-button:focus-visible{
-  outline :none !important
+button:focus-visible {
+  outline: none !important
 }
 
 .pgn__modal-body.pgn__modal-body-scroll-top.pgn__modal-body-scroll-bottom::before,
@@ -1025,10 +1057,12 @@ button:focus-visible{
 .pgn__modal-body.pgn__modal-body-scroll-bottom::after,
 .pgn__modal-body::after,
 .pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::after,
-.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,.unit-navigation .previous-button:focus:before, .unit-navigation .next-button:focus:before {
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,
+.unit-navigation .previous-button:focus:before,
+.unit-navigation .next-button:focus:before {
   display: none !important;
 }
 
-.btn:focus-visible{
-  outline:none !important;
+.btn:focus-visible {
+  outline: none !important;
 }

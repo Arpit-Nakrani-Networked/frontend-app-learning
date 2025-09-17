@@ -77,14 +77,23 @@ const StartOrResumeCourseCard = ({ intl }) => {
   return (
     <Card className="mb-4 raised-card card p-4 d-flex flex-row justify-content-between align-items-center" data-testid="start-resume-card">
       <h2 className="card-header-custom mr-3 mb-0 welcome-text">{intl.formatMessage(messages.welcomeUser, { name: username })}</h2>
-      <Button
-        variant="brand"
-        className="btn-filled"
-        href={resumeCourseUrl}
-        onClick={() => logResumeCourseClick()}
-      >
-        {buttonLabel}
-      </Button>
+      {isCompleted && hasVisitedCourse ? (
+        <Button
+          variant="secondary"
+        >
+          {buttonLabel}
+        </Button>
+      ) : (
+        <Button
+          variant="brand"
+          className="btn-filled"
+          href={resumeCourseUrl}
+          onClick={() => logResumeCourseClick()}
+          disabled={isCompleted && hasVisitedCourse}
+        >
+          {buttonLabel}
+        </Button>
+      )}
     </Card>
   );
 };

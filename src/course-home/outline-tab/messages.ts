@@ -152,7 +152,7 @@ const messages = defineMessages({
   },
   completed: {
     id: 'learning.outline.completed',
-    defaultMessage: 'Revisit Content',
+    defaultMessage: 'Course Completed',
     description: 'Anchor text for button that completed course',
   },
   setGoal: {

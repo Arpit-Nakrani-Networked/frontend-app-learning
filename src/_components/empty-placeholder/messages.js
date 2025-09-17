@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   title: {
     id: 'learn.sequence.course-outline.empty-placeholder.title',
-    defaultMessage: 'No Course Outline Yet',
+    defaultMessage: 'No course outline yet',
   },
   description: {
     id: 'learn.sequence.no.content',
