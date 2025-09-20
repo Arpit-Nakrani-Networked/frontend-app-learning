@@ -15,6 +15,8 @@ const CourseDates = ({
   } = useSelector(state => state.courseHome);
   const {
     userTimezone,
+    isEnrolled,
+    enrolledDate,
   } = useModel('courseHomeMeta', courseId);
   const {
     datesWidget: {
@@ -32,19 +34,22 @@ const CourseDates = ({
       <div id="courseHome-dates">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2 className="h4 card-header-custom">{intl.formatMessage(messages.dates)}</h2>
+          {isEnrolled && (
           <a id="dates-tab-link" className="ml-4 small btn-blue" href={datesTabLink}>
             {intl.formatMessage(messages.allDates)}
           </a>
+          )}
         </div>
 
         <ol className="list-unstyled">
-          {courseDateBlocks.map((courseDateBlock) => (
-            <DateSummary
-              key={courseDateBlock.title + courseDateBlock.date}
-              dateBlock={courseDateBlock}
-              userTimezone={userTimezone}
-            />
-          ))}
+          {/* {courseDateBlocks.map((courseDateBlock) => ( */}
+          <DateSummary
+            key={enrolledDate}
+            dateBlock={enrolledDate}
+            userTimezone={userTimezone}
+            isEnrolled={isEnrolled}
+          />
+          {/* ))} */}
         </ol>
       </div>
     </section>

@@ -18,7 +18,8 @@ import {
 import { getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
-// import CelebrationMobile from './assets/celebration_456x328.gif';
+import Celebration from '../../../assets/images/celebration.svg';
+import CelebrationMobile from '../../../assets/images/celebrationIcon.svg';
 // import CelebrationDesktop from './assets/celebration_750x540.gif';
 // import certificate from '../../../generic/assets/edX_certificate.png';
 // import certificateLocked from '../../../generic/assets/edX_locked_certificate.png';
@@ -72,14 +73,25 @@ const CourseCelebration = ({ intl }) => {
       <Helmet>
         <title>{`${intl.formatMessage(messages.congratulationsHeader)} | ${title} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      <div className="row w-100 mx-0 pt-3">
+      <div
+        className="row w-100 mx-0 pt-3 pb-2"
+        style={{
+          backgroundImage: `url(${Celebration})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'top',
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        <img
+          src={CelebrationMobile}
+          alt={`${intl.formatMessage(messages.congratulationsImage)}`}
+          className="img-fluid"
+          style={{ margin: '0 auto 35px' }}
+        />
         {/* <div className="col-12 mt-3 mb-4 px-0 px-md-5 text-center">
           {!wideScreen && (
-            <img
-              src={CelebrationMobile}
-              alt={`${intl.formatMessage(messages.congratulationsImage)}`}
-              className="img-fluid"
-            />
           )}
           {wideScreen && (
             <img

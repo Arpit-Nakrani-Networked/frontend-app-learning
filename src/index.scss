@@ -22,6 +22,18 @@ html>body>#root,
   letter-spacing: 0.5px !important;
 }
 
+*,
+.text-monospace,
+body {
+    font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none;
+  font-family: 'Proxima Nova' !important;
+  line-height: 100%;
+  letter-spacing: 0.5px !important;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -314,7 +326,7 @@ html>body>#root,
 }
 
 .unit-container {
-  padding-top: 0;
+  padding-top: 21.5px !important;
   padding-bottom: 2rem;
   max-width: 100%;
   margin-left: auto;
@@ -650,7 +662,7 @@ h6,
 }
 
 .main-course-header {
-   background-color: $v2-white-100 !important;
+  background-color: $v2-white-100 !important;
   padding: 14px 15px !important;
   height: 64px;
   border-bottom: 1px solid $v2-black-500;
@@ -933,6 +945,9 @@ h6,
       line-height: 100%;
       letter-spacing: 0%;
       color: #000000CC;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
 
@@ -999,7 +1014,8 @@ h6,
   padding: 0 $grid-gutter-width;
 }
 
-.container-csm, #root .unit-container.container-csm{
+.container-csm,
+#root .unit-container.container-csm {
   max-width: 1024px !important;
   width: 100%;
   margin: 0 auto !important;
@@ -1079,6 +1095,6 @@ button:focus-visible {
   outline: none !important;
 }
 
-.pt-135{
+.pt-135 {
   padding-top: 135px;
 }

@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import SequenceExamWrapper from '@edx/frontend-lib-special-exams';
 import { useToggle } from '@openedx/paragon';
 
-// import PageLoading from '@src/generic/PageLoading';
+import PageLoading from '@src/generic/PageLoading';
 import { useModel } from '@src/generic/model-store';
 import { useSequenceBannerTextAlert, useSequenceEntranceExamAlert } from '@src/alerts/sequence-alerts/hooks';
 import SequenceContainerSlot from '../../../plugin-slots/SequenceContainerSlot';
@@ -43,6 +43,7 @@ const Sequence = ({
   const {
     canAccessProctoredExams,
     // license,
+    sectionIds,
   } = useModel('coursewareMeta', courseId);
   const {
     isStaff,
@@ -132,16 +133,22 @@ const Sequence = ({
   // console.log("sequenceStatus",sequenceStatus,sequenceId,unitId,isEnabledOutlineSidebar,unitHasLoaded);
 
   const loading = sequenceStatus === 'loading' || (sequenceStatus === 'failed' && sequenceMightBeUnit);
-  // if (loading) {
+
+  if (sectionIds?.length === 0) {
+    return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
+  }
+
+  if (sequenceStatus === 'loading') {
+    return (
+      <PageLoading
+        srMessage={intl.formatMessage(messages.loadingSequence)}
+      />
+    );
+  }
+
   if (!sequenceId || !unitId) {
     return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
   }
-  //   return (
-  //     <PageLoading
-  //       srMessage={intl.formatMessage(messages.loadingSequence)}
-  //     />
-  //   );
-  // }
 
   if (sequenceStatus === 'loaded' && sequence.isHiddenAfterDue) {
     // Shouldn't even be here - these sequences are normally stripped out of the navigation.
@@ -177,48 +184,48 @@ const Sequence = ({
         <CourseOutlineTrigger />
         <CourseOutlineTray />
         {sequenceStatus === 'loaded' && (
-        <div className="w-100 p-3">
-          {!isEnabledOutlineSidebar && (
-          <div className="sequence-navigation-container">
-            <SequenceNavigation
-              sequenceId={sequenceId}
-              unitId={unitId}
-              nextHandler={() => {
-                logEvent('edx.ui.lms.sequence.next_selected', 'top');
-                handleNext();
-              }}
-              onNavigate={(destinationUnitId) => {
-                logEvent('edx.ui.lms.sequence.tab_selected', 'top', destinationUnitId);
-                handleNavigate(destinationUnitId);
-              }}
-              previousHandler={() => {
-                logEvent('edx.ui.lms.sequence.previous_selected', 'top');
-                handlePrevious();
-              }}
-              {...{
-                nextSequenceHandler,
-                handleNavigate,
-                isOpen,
-                open,
-                close,
-              }}
-            />
-          </div>
-          )}
+          <div className="w-100 p-3">
+            {!isEnabledOutlineSidebar && (
+              <div className="sequence-navigation-container">
+                <SequenceNavigation
+                  sequenceId={sequenceId}
+                  unitId={unitId}
+                  nextHandler={() => {
+                    logEvent('edx.ui.lms.sequence.next_selected', 'top');
+                    handleNext();
+                  }}
+                  onNavigate={(destinationUnitId) => {
+                    logEvent('edx.ui.lms.sequence.tab_selected', 'top', destinationUnitId);
+                    handleNavigate(destinationUnitId);
+                  }}
+                  previousHandler={() => {
+                    logEvent('edx.ui.lms.sequence.previous_selected', 'top');
+                    handlePrevious();
+                  }}
+                  {...{
+                    nextSequenceHandler,
+                    handleNavigate,
+                    isOpen,
+                    open,
+                    close,
+                  }}
+                />
+              </div>
+            )}
 
-          <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
-            {/* {unitHasLoaded && renderUnitNavigation(false)} */}
-            <SequenceContent
-              courseId={courseId}
-              gated={gated}
-              sequenceId={sequenceId}
-              unitId={unitId}
-              unitLoadedHandler={handleUnitLoaded}
-              isEnabledOutlineSidebar={isEnabledOutlineSidebar}
-              renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => { }}
-            />
+            <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
+              {/* {unitHasLoaded && renderUnitNavigation(false)} */}
+              <SequenceContent
+                courseId={courseId}
+                gated={gated}
+                sequenceId={sequenceId}
+                unitId={unitId}
+                unitLoadedHandler={handleUnitLoaded}
+                isEnabledOutlineSidebar={isEnabledOutlineSidebar}
+                renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => { }}
+              />
+            </div>
           </div>
-        </div>
         )}
         {sequenceStatus === 'loaded' && isNewDiscussionSidebarViewEnabled ? <NewSidebar /> : <Sidebar />}
       </div>

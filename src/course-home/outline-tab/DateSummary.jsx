@@ -12,6 +12,7 @@ import './DateSummary.scss';
 const DateSummary = ({
   dateBlock,
   userTimezone,
+  isEnrolled,
 }) => {
   // const {
   //   courseId,
@@ -39,14 +40,16 @@ const DateSummary = ({
       <div className="row">
         <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mr-1" fixedWidth />
         <div className="ml-1">
-          <FormattedDate
-            value={dateBlock.date}
-            day="numeric"
-            month="short"
-            weekday="short"
-            year="numeric"
-            {...timezoneFormatArgs}
-          />
+          {isEnrolled ? (
+            <FormattedDate
+              value={dateBlock}
+              day="numeric"
+              month="short"
+              weekday="short"
+              year="numeric"
+              {...timezoneFormatArgs}
+            />
+          ) : '-'}
         </div>
       </div>
       {/* <div className="row ml-4 pr-2">
@@ -88,6 +91,7 @@ DateSummary.propTypes = {
     learnerHasAccess: PropTypes.bool,
   }).isRequired,
   userTimezone: PropTypes.string,
+  isEnrolled: PropTypes.bool,
 };
 
 DateSummary.defaultProps = {
