@@ -15,19 +15,16 @@ const CourseDates = ({
   } = useSelector(state => state.courseHome);
   const {
     userTimezone,
-    isEnrolled,
     enrolledDate,
   } = useModel('courseHomeMeta', courseId);
   const {
     datesWidget: {
-      courseDateBlocks,
       datesTabLink,
     },
+    resumeCourse,
   } = useModel('outline', courseId);
 
-  if (courseDateBlocks.length === 0) {
-    return null;
-  }
+  const isEnrolled = resumeCourse?.hasVisitedCourse;
 
   return (
     <section className="mb-4 card px-4 pt-3 pb-4">
