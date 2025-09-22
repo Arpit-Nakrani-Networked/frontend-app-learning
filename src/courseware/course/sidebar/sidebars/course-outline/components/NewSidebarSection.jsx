@@ -13,7 +13,7 @@ import SidebarUnit from './SidebarUnit';
 // import { UNIT_ICON_TYPES } from './UnitIcon';
 
 const NewSidebarSection = ({
-  intl, section, courseId, activeUnitId,
+  intl, section, courseId, activeUnitId, isLastUnCompleted,
 }) => {
   const {
     // id,
@@ -90,6 +90,26 @@ const NewSidebarSection = ({
             const mapping = unitMapping[unitId];
             if (!mapping) { return null; }
 
+            const lastIndex = index === unitIds.length - 1;
+
+            let isAllCompletedExcludeLast = false;
+
+            if (lastIndex && isLastUnCompleted) {
+              // Exclude the last section
+              const sectionsExcludeLast = unitIds.slice(0, -1) || [];
+
+              // Case 1: if only one section exists
+              if (unitIds.length === 1) {
+                isAllCompletedExcludeLast = true;
+              } else {
+                // Case 2: if more than one, check all except last
+                const allCompletedExcludeLast = sectionsExcludeLast.every(
+                  sid => unitMapping[sid]?.complete,
+                );
+                isAllCompletedExcludeLast = allCompletedExcludeLast;
+              }
+            }
+
             return (
               <SidebarUnit
                 key={unitId}
@@ -100,6 +120,7 @@ const NewSidebarSection = ({
                 isActive={activeUnitId === unitId}
                 activeUnitId={activeUnitId}
                 isFirst={index === 0}
+                isAllCompletedExcludeLast={isAllCompletedExcludeLast}
                 // isLocked={mapping.type === UNIT_ICON_TYPES.lock}
               />
             );
@@ -124,6 +145,7 @@ NewSidebarSection.propTypes = {
   }).isRequired,
   activeUnitId: PropTypes.string.isRequired,
   courseId: PropTypes.string.isRequired,
+  isLastUnCompleted: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(NewSidebarSection);

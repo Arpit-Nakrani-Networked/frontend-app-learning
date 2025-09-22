@@ -148,14 +148,36 @@ const CourseOutlineTray = ({ intl }) => {
               />
               ))} */}
 
-          {sectionsIds.map((sectionId) => (
-            <NewSidebarSection
-              key={sectionId}
-              courseId={courseId}
-              section={sections[sectionId]}
-              activeUnitId={unitId}
-            />
-          ))}
+          {sectionsIds.map((sectionId, index) => {
+            const lastIndex = index === sectionsIds.length - 1;
+
+            let isAllCompletedExcludeLast = false;
+
+            if (lastIndex) {
+              // Exclude the last section
+              const sectionsExcludeLast = sectionsIds.slice(0, -1) || [];
+
+              // Case 1: if only one section exists
+              if (sectionsIds.length === 1) {
+                isAllCompletedExcludeLast = true;
+              } else {
+                // Case 2: if more than one, check all except last
+                const allCompletedExcludeLast = sectionsExcludeLast.every(
+                  sid => sections[sid]?.complete,
+                );
+                isAllCompletedExcludeLast = allCompletedExcludeLast;
+              }
+            }
+            return (
+              <NewSidebarSection
+                key={sectionId}
+                courseId={courseId}
+                section={sections[sectionId]}
+                activeUnitId={unitId}
+                isLastUnCompleted={isAllCompletedExcludeLast}
+              />
+            );
+          })}
 
         </ol>
       </section>

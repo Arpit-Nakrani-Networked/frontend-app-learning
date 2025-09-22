@@ -12,6 +12,7 @@ import unCheckIcon from '@src/assets/images/checkbox-unchecked-active.svg';
 import checkIcon from '@src/assets/images/checkbox-checked.svg';
 import lessonIcon from '@src/assets/images/lessonIcon.svg';
 // import { UNIT_ICON_TYPES } from './UnitIcon';
+import { useEffect } from 'react';
 import messages from '../messages';
 
 const SidebarUnit = ({
@@ -24,6 +25,7 @@ const SidebarUnit = ({
   isActive,
   // isLocked,
   activeUnitId,
+  isAllCompletedExcludeLast,
 }) => {
   const {
     complete,
@@ -58,6 +60,22 @@ const SidebarUnit = ({
     logEvent('edx.ui.lms.sequence.tab_selected', 'left');
     dispatch(checkBlockCompletion(courseId, sequenceId, activeUnitId));
   };
+
+  useEffect(() => {
+    let intervalId;
+
+    if (!complete && isAllCompletedExcludeLast) {
+      intervalId = setInterval(() => {
+        dispatch(checkBlockCompletion(courseId, sequenceId, activeUnitId));
+      }, 7000); // every 7 seconds
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId); // cleanup on unmount or deps change
+      }
+    };
+  }, [complete, courseId, sequenceId, activeUnitId, dispatch, isAllCompletedExcludeLast]);
 
   // const iconType = isLocked ? UNIT_ICON_TYPES.lock : icon;
 
@@ -109,6 +127,7 @@ SidebarUnit.propTypes = {
   courseId: PropTypes.string.isRequired,
   sequenceId: PropTypes.string.isRequired,
   activeUnitId: PropTypes.string.isRequired,
+  isAllCompletedExcludeLast: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(SidebarUnit);
