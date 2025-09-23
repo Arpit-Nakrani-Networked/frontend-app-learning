@@ -11,7 +11,8 @@ $font-family-base: 'Proxima Nova' !important;
 @import "~@edx/frontend-component-footer/dist/footer";
 @import "~@edx/frontend-component-header/dist/index";
 
-html body, html body * {
+html body,
+html body * {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1096,4 +1097,11 @@ button:focus-visible {
 
 .pt-135 {
   padding-top: 135px;
+}
+
+.component-block-wrappper {
+  p {
+    white-space: normal;
+    line-break: anywhere;
+  }
 }
