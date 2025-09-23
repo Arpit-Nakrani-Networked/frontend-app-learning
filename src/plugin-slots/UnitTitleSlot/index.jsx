@@ -21,9 +21,9 @@ const UnitTitleSlot = ({
       renderUnitNavigation,
     }}
   >
-    <div className="d-flex justify-content-between">
-      <div className="mb-0 w-100">
-        <h3 className="h3" title={unit.title}>{unit.title}</h3>
+    <div className="d-flex justify-content-between align-items-center">
+      <div className="mb-0 w-100 overflow-hidden">
+        <h3 className="h3 text-truncate text-nowrap mb-0" title={unit.title}>{unit.title}</h3>
       </div>
       {/* <div className='mr-3'>
         <BookmarkButton
