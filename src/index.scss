@@ -11,8 +11,7 @@ $font-family-base: 'Proxima Nova' !important;
 @import "~@edx/frontend-component-footer/dist/footer";
 @import "~@edx/frontend-component-header/dist/index";
 
-html>body>#root,
-* {
+html body, html body * {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,17 +21,17 @@ html>body>#root,
   letter-spacing: 0.5px !important;
 }
 
-*,
-.text-monospace,
-body {
-    font-size: 1rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scrollbar-width: none;
-  font-family: 'Proxima Nova' !important;
-  line-height: 100%;
-  letter-spacing: 0.5px !important;
-}
+// *,
+// .text-monospace,
+// body {
+//     font-size: 1rem;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   scrollbar-width: none;
+//   font-family: 'Proxima Nova' !important;
+//   line-height: 100%;
+//   letter-spacing: 0.5px !important;
+// }
 
 #root {
   display: flex;
