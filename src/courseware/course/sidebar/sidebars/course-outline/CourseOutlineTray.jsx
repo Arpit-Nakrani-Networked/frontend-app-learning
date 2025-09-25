@@ -92,8 +92,8 @@ const CourseOutlineTray = ({ intl }) => {
   // );
 
   useEffect(() => {
-    if ((isEnabledSidebar && courseOutlineStatus !== LOADED) || courseOutlineShouldUpdate) {
-      dispatch(getCourseOutlineStructure(courseId));
+    if (isEnabledSidebar || courseOutlineShouldUpdate) {
+      dispatch(getCourseOutlineStructure(courseId, Boolean(courseOutlineStatus === LOADED)));
     }
   }, [courseId, isEnabledSidebar, courseOutlineShouldUpdate]);
 

@@ -84,12 +84,14 @@ const CourseCelebration = ({ intl }) => {
           width: '100%',
         }}
       >
-        <img
-          src={CelebrationMobile}
-          alt={`${intl.formatMessage(messages.congratulationsImage)}`}
-          className="img-fluid"
-          style={{ margin: '0 auto 35px' }}
-        />
+        <div style={{ margin: 'auto auto 35px', height: '120px' }}>
+          <img
+            src={CelebrationMobile}
+            alt={`${intl.formatMessage(messages.congratulationsImage)}`}
+            className="img-fluid"
+            style={{ margin: '0 auto' }}
+          />
+        </div>
         {/* <div className="col-12 mt-3 mb-4 px-0 px-md-5 text-center">
           {!wideScreen && (
           )}
@@ -102,13 +104,14 @@ const CourseCelebration = ({ intl }) => {
             />
           )}
         </div> */}
-        <div className="col-12 p-0 h2 text-center _text-2xl _text-black">
-          {intl.formatMessage(messages.congratulationsHeader)}
-        </div>
-        <div className="col-12 p-0 font-weight-normal text-center _text-lg _text-gray">
-          <p className="m-0 text-center _text-lg _text-gray px-2">{intl.formatMessage(messages.completedCourseHeader)}</p>
-          {/* {marketingUrl && ` ${intl.formatMessage(messages.shareMessage)}`} */}
-          {/* <SocialIcons
+        <div style={{ marginTop: 'auto' }}>
+          <div className="col-12 p-0 h2 text-center _text-2xl _text-black" style={{ marginTop: 'auto' }}>
+            {intl.formatMessage(messages.congratulationsHeader)}
+          </div>
+          <div className="col-12 p-0 font-weight-normal text-center _text-lg _text-gray" style={{ marginTop: 'auto' }}>
+            <p className="m-0 text-center _text-lg _text-gray px-2">{intl.formatMessage(messages.completedCourseHeader)}</p>
+            {/* {marketingUrl && ` ${intl.formatMessage(messages.shareMessage)}`} */}
+            {/* <SocialIcons
             analyticsId="edx.ui.lms.course_exit.social_share.clicked"
             className="mt-2"
             courseId={courseId}
@@ -116,9 +119,10 @@ const CourseCelebration = ({ intl }) => {
             socialMessage={messages.socialMessage}
           /> */}
 
-          <Button variant="primary" className="CongratulationModal_Button" onClick={handleModalClose}>
-            {intl.formatMessage(messages.backToCourse)}
-          </Button>
+            <Button variant="primary" className="CongratulationModal_Button" onClick={handleModalClose}>
+              {intl.formatMessage(messages.backToCourse)}
+            </Button>
+          </div>
         </div>
         {/* <div className="col-12 px-0 px-md-5">
           {certHeader && (

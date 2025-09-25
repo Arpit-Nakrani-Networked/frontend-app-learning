@@ -67,7 +67,7 @@ const SidebarUnit = ({
     if (!complete && isAllCompletedExcludeLast) {
       intervalId = setInterval(() => {
         dispatch(checkBlockCompletion(courseId, sequenceId, activeUnitId));
-      }, 5000); // every 5 seconds
+      }, 2000); // every 2 seconds
     }
 
     return () => {

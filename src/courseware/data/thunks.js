@@ -274,9 +274,9 @@ export function getCourseDiscussionTopics(courseId) {
   };
 }
 
-export function getCourseOutlineStructure(courseId) {
+export function getCourseOutlineStructure(courseId, byPass) {
   return async (dispatch) => {
-    dispatch(fetchCourseOutlineRequest());
+    if (!byPass) { dispatch(fetchCourseOutlineRequest()); }
     try {
       const courseOutline = await getCourseOutline(courseId);
       dispatch(fetchCourseOutlineSuccess({ courseOutline }));
