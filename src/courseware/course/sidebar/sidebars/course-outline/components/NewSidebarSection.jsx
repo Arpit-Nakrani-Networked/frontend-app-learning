@@ -92,23 +92,23 @@ const NewSidebarSection = ({
 
             const lastIndex = index === unitIds.length - 1;
 
-            let isAllCompletedExcludeLast = false;
+            // let isAllCompletedExcludeLast = false;
 
-            if (lastIndex && isLastUnCompleted) {
-              // Exclude the last section
-              const sectionsExcludeLast = unitIds.slice(0, -1) || [];
+            // if (lastIndex && isLastUnCompleted) {
+            //   // Exclude the last section
+            //   const sectionsExcludeLast = unitIds.slice(0, -1) || [];
 
-              // Case 1: if only one section exists
-              if (unitIds.length === 1) {
-                isAllCompletedExcludeLast = true;
-              } else {
-                // Case 2: if more than one, check all except last
-                const allCompletedExcludeLast = sectionsExcludeLast.every(
-                  sid => unitMapping[sid]?.complete,
-                );
-                isAllCompletedExcludeLast = allCompletedExcludeLast;
-              }
-            }
+            //   // Case 1: if only one section exists
+            //   if (unitIds.length === 1) {
+            //     isAllCompletedExcludeLast = true;
+            //   } else {
+            //     // Case 2: if more than one, check all except last
+            //     const allCompletedExcludeLast = sectionsExcludeLast.every(
+            //       sid => unitMapping[sid]?.complete,
+            //     );
+            //     isAllCompletedExcludeLast = allCompletedExcludeLast;
+            //   }
+            // }
 
             return (
               <SidebarUnit
@@ -120,7 +120,7 @@ const NewSidebarSection = ({
                 isActive={activeUnitId === unitId}
                 activeUnitId={activeUnitId}
                 isFirst={index === 0}
-                isAllCompletedExcludeLast={isAllCompletedExcludeLast}
+                isAllCompletedExcludeLast={lastIndex && isLastUnCompleted}
                 // isLocked={mapping.type === UNIT_ICON_TYPES.lock}
               />
             );

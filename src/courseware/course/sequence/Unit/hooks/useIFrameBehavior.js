@@ -53,9 +53,30 @@ const useIFrameBehavior = ({
       setIframeHeight(payload.height);
 
       if (!hasLoaded && iframeHeight === 0 && payload.height > 0) {
-        setHasLoaded(true);
         if (onLoaded) {
           onLoaded();
+          setTimeout(() => {
+            setHasLoaded(true);
+
+            // Auto trigger visibility update after 2 seconds to trigger completion
+            setTimeout(() => {
+              const iframeElement = document.getElementById(elementId);
+              if (iframeElement && iframeElement.contentWindow) {
+                const rect = iframeElement.getBoundingClientRect();
+                const visibleInfo = {
+                  type: 'unit.visibilityStatus',
+                  data: {
+                    topPosition: rect.top,
+                    viewportHeight: window.innerHeight,
+                  },
+                };
+                iframeElement.contentWindow.postMessage(
+                  visibleInfo,
+                  `${getConfig().LMS_BASE_URL}`,
+                );
+              }
+            }, 2000);
+          }, 100);
         }
       }
     } else if (type === messageTypes.videoFullScreen) {
