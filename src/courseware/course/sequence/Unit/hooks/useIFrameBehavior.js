@@ -2,7 +2,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { throttle } from 'lodash';
+// import { throttle } from 'lodash';
 
 import { StrictDict, useKeyedState } from '@edx/react-unit-test-utils';
 import { logError } from '@edx/frontend-platform/logging';
@@ -133,20 +133,15 @@ const useIFrameBehavior = ({
       );
     };
 
-    // Throttle the update function to prevent it from sending too many messages to the iframe.
-    const throttledUpdateVisibility = throttle(updateIframeVisibility, 100);
-
-    // Update the visibility of the iframe in case the element is already visible.
+    // Run once immediately
     updateIframeVisibility();
 
-    // Add event listeners to update the visibility of the iframe when the window is scrolled or resized.
-    window.addEventListener('scroll', throttledUpdateVisibility);
-    window.addEventListener('resize', throttledUpdateVisibility);
+    // Run every second
+    const intervalId = setInterval(updateIframeVisibility, 1000);
 
-    // Clean up event listeners on unmount.
+    // Cleanup
     return () => {
-      window.removeEventListener('scroll', throttledUpdateVisibility);
-      window.removeEventListener('resize', throttledUpdateVisibility);
+      clearInterval(intervalId);
     };
   }, [hasLoaded, elementId]);
 

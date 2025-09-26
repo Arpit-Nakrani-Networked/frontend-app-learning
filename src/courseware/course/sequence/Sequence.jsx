@@ -138,15 +138,15 @@ const Sequence = ({
     return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
   }
 
-  if (sequenceStatus === 'loading') {
-    return (
-      <PageLoading
-        srMessage={intl.formatMessage(messages.loadingSequence)}
-      />
-    );
-  }
+  // if (sequenceStatus === 'loading') {
+  //   return (
+  //     <PageLoading
+  //       srMessage={intl.formatMessage(messages.loadingSequence)}
+  //     />
+  //   );
+  // }
 
-  if (!sequenceId || !unitId) {
+  if ((!sequenceId || !unitId) && sequenceStatus !== 'loading') {
     return <div className="center-align pt-135"><EmptyPlaceholder /></div>;
   }
 
@@ -183,9 +183,9 @@ const Sequence = ({
       <div className="sequence-container d-inline-flex flex-row w-100 mb-0">
         <CourseOutlineTrigger />
         <CourseOutlineTray />
-        {sequenceStatus === 'loaded' && (
+        {(sequenceStatus === 'loading' || sequenceStatus === 'loaded') && (
           <div className="w-100 p-3">
-            {!isEnabledOutlineSidebar && (
+            {!isEnabledOutlineSidebar && sequenceStatus === 'loaded' && (
               <div className="sequence-navigation-container">
                 <SequenceNavigation
                   sequenceId={sequenceId}
@@ -215,6 +215,12 @@ const Sequence = ({
 
             <div className="unit-container card container-csm flex-grow-1 p-4 w-100 overflow-hidden">
               {/* {unitHasLoaded && renderUnitNavigation(false)} */}
+              {sequenceStatus === 'loading' && (
+              <PageLoading
+                srMessage={intl.formatMessage(messages.loadingSequence)}
+              />
+              )}
+              {sequenceStatus === 'loaded' && (
               <SequenceContent
                 courseId={courseId}
                 gated={gated}
@@ -224,6 +230,7 @@ const Sequence = ({
                 isEnabledOutlineSidebar={isEnabledOutlineSidebar}
                 renderUnitNavigation={unitHasLoaded ? renderUnitNavigation : () => { }}
               />
+              )}
             </div>
           </div>
         )}
