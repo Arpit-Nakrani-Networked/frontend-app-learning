@@ -3,21 +3,25 @@ import { useSelector } from 'react-redux';
 import { breakpoints, useWindowSize } from '@openedx/paragon';
 
 import { useModel } from '../../../../generic/model-store';
-import { sequenceIdsSelector } from '../../../data';
+// import { sequenceIdsSelector } from '../../../data';
 import SidebarContext from '../../sidebar/SidebarContext';
 import NewSidebarContext from '../../new-sidebar/SidebarContext';
 import { WIDGETS } from '../../../../constants';
 
 export function useSequenceNavigationMetadata(currentSequenceId, currentUnitId) {
-  const sequenceIds = useSelector(sequenceIdsSelector);
+  // const sequenceIds = useSelector(sequenceIdsSelector);
   const sequence = useModel('sequences', currentSequenceId);
   const courseId = useSelector(state => state.courseware.courseId);
   const courseStatus = useSelector(state => state.courseware.courseStatus);
   const { entranceExamData: { entranceExamPassed } } = useModel('coursewareMeta', courseId);
   const sequenceStatus = useSelector(state => state.courseware.sequenceStatus);
+  const courseOutlineStatus = useSelector(state => state.courseware.courseOutlineStatus);
+  const courseware = useSelector(state => state.courseware.courseOutline);
+  const sequences = Object.keys(courseware?.sequences || {}).filter(k => courseware?.sequences[k]?.unitIds?.length > 0);
+  const sequenceIds = sequences;
 
   // If we don't know the sequence and unit yet, then assume no.
-  if (courseStatus !== 'loaded' || sequenceStatus !== 'loaded' || !currentSequenceId || !currentUnitId) {
+  if (courseStatus !== 'loaded' || sequenceStatus !== 'loaded' || !currentSequenceId || !currentUnitId || courseOutlineStatus !== 'loaded') {
     return {
       isFirstUnit: false,
       isLastUnit: false,
