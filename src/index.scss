@@ -1105,3 +1105,19 @@ button:focus-visible {
     line-break: anywhere;
   }
 }
+
+.btn-icon.btn-icon-primary.focus,
+.btn-icon.btn-icon-primary:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-icon.btn-icon-primary {
+  color: $iconColor !important;
+  background-color: transparent !important;
+
+  &:hover {
+    color: $iconColor !important;
+    background-color: transparent !important;
+  }
+}

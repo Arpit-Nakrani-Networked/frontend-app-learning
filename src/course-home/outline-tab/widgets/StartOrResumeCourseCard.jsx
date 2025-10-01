@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card } from '@openedx/paragon';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux';
 import { sendTrackingLogEvent } from '@edx/frontend-platform/analytics';
 import messages from '../messages';
 import { useModel } from '../../../generic/model-store';
+import CourseRulesModal from '../../../_components/course-rules-modal/CourseRulesModal';
 
 const StartOrResumeCourseCard = ({ intl }) => {
   const username = JSON.parse(localStorage.getItem('user') || '{}')?.name || '-';
+  const [IsOpenRules, setIsOpenRules] = useState(false);
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -87,12 +89,28 @@ const StartOrResumeCourseCard = ({ intl }) => {
         <Button
           variant="brand"
           className="btn-filled"
+          onClick={() => (hasVisitedCourse ? logResumeCourseClick() : setIsOpenRules(true))}
+          disabled={isCompleted && hasVisitedCourse}
+          {...(hasVisitedCourse ? { href: resumeCourseUrl } : {})}
+        >
+          {buttonLabel}
+        </Button>
+      )}
+      {!hasVisitedCourse && (
+      <CourseRulesModal isOpen={IsOpenRules} onClose={() => setIsOpenRules(false)}>
+        <Button
+          variant="brand"
+          className="btn-filled"
           href={resumeCourseUrl}
-          onClick={() => logResumeCourseClick()}
+          onClick={() => {
+            logResumeCourseClick();
+            setIsOpenRules(false);
+          }}
           disabled={isCompleted && hasVisitedCourse}
         >
           {buttonLabel}
         </Button>
+      </CourseRulesModal>
       )}
     </Card>
   );

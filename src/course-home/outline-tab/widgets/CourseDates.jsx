@@ -16,6 +16,7 @@ const CourseDates = ({
   const {
     userTimezone,
     enrolledDate,
+    isEnrolled: isEnrolledOrNot,
   } = useModel('courseHomeMeta', courseId);
   const {
     datesWidget: {
@@ -25,6 +26,10 @@ const CourseDates = ({
   } = useModel('outline', courseId);
 
   const isEnrolled = resumeCourse?.hasVisitedCourse;
+
+  if (!isEnrolledOrNot) {
+    return null;
+  }
 
   return (
     <section className="mb-4 card px-4 pt-3 pb-4">

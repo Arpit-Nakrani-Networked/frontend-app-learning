@@ -31,36 +31,7 @@ const CourseCompleteModal = () => {
     };
   }, [location.search]);
 
-  // const handleModalClose = () => {
-  //   setIsOpen(false);
-
-  //   window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
-  // };
-
   if (!isOpen || !courseId) { return null; }
-
-  // const modalContent = (
-  //   <div className="course-complete-inner">
-  //     {/* <Confetti
-  //       width={width}
-  //       height={height}
-  //       recycle={false}
-  //       gravity={0.15}
-  //       numberOfPieces={200}
-  //       tweenDuration={2000}
-  //     /> */}
-  //     <div className="emoji">🎉</div>
-  //     <h2 className="text-center congrats-text">
-  //       {intl.formatMessage(messages.title)}
-  //     </h2>
-  //     <p className="text-center">
-  //       {intl.formatMessage(messages.description)}
-  //     </p>
-  //     <Button variant="primary" className="CongratulationModal_Button" onClick={handleModalClose}>
-  //       {intl.formatMessage(messages.button)}
-  //     </Button>
-  //   </div>
-  // );
 
   const body = <CourseExit />;
 

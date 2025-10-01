@@ -10,12 +10,15 @@ import { useModel } from '../../../generic/model-store';
 const CourseProgress = ({ intl }) => {
   const { courseId } = useSelector(state => state.courseHome);
   const {
+    isEnrolled: isEnrolledOrNot,
+  } = useModel('courseHomeMeta', courseId);
+  const {
     courseBlocks = {},
     // datesWidget: { courseDateBlocks },
   } = useModel('outline', courseId);
   const {
     sections = {},
-    sequences = { },
+    sequences = {},
   } = courseBlocks;
   const {
     completionSummary: {
@@ -41,16 +44,20 @@ const CourseProgress = ({ intl }) => {
   const statesProgress = {
     sections: {
       total: Object.keys(sections)?.length || 0,
-      complete: Object.values(sections).filter(val => val?.complete && val?.complete)?.length || 0,
+      complete: isEnrolledOrNot
+        ? Object.values(sections).filter(val => val?.complete && val?.complete)?.length || 0
+        : 0,
     },
     lessons: {
       total: Object.keys(sequences)?.length || 0,
-      complete: Object.values(sequences).filter(val => val?.complete && val?.complete)?.length || 0,
+      complete: isEnrolledOrNot
+        ? Object.values(sequences).filter(val => val?.complete && val?.complete)?.length || 0
+        : 0,
     },
   };
 
   // ✅ Example progress value (replace with real logic from your model/store)
-  const progressPercent = completePercentage; // TODO: calculate dynamically
+  const progressPercent = isEnrolledOrNot ? completePercentage : 0; // TODO: calculate dynamically
   const totalprogressPercent = 100; // TODO: calculate dynamically
 
   return (

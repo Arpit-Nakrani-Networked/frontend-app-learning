@@ -29,6 +29,7 @@ import WelcomeMessage from './widgets/WelcomeMessage';
 import ProctoringInfoPanel from './widgets/ProctoringInfoPanel';
 import AccountActivationAlert from '../../alerts/logistration-alert/AccountActivationAlert';
 import CourseProgress from './widgets/CourseProgress';
+// import CourseRulesModal from '../../_components/course-rules-modal/CourseRulesModal';
 
 const OutlineTab = () => {
   const {

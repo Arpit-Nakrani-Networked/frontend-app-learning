@@ -1,0 +1,362 @@
+@import '../../variables';
+/* modal style */
+
+.pgn__modal-content-container {
+
+	.pgn__modal {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) !important;
+		max-width: 500px !important;
+		border-radius: 24px;
+		width:500px;
+
+		.modal-content {
+			border-radius: 30px;
+		}
+	}
+
+	.pgn__modal-body::after {
+		background-image: none;
+	}
+
+	.courserules-modal-body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 24px;
+		background: linear-gradient(145deg, #f9fbfd, #ffffff);
+		min-height: fit-content;
+		border-radius: 30px !important;
+
+		.modal-header-icon {
+			width: 64px;
+			height: 64px;
+			background: #e8f0fe;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 16px;
+
+			svg {
+				color: #1a73e8;
+				font-size: 32px;
+			}
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: #1a1a1a;
+			margin-bottom: 16px;
+			text-align: center;
+		}
+
+		.rules-list {
+			list-style: none;
+			padding-left: 0;
+
+			li {
+				display: flex;
+				align-items: center;
+				margin-bottom: 12px;
+				font-size: 1rem;
+				color: #444;
+
+				&::before {
+					content: "✔";
+					color: #1a73e8;
+					margin-right: 10px;
+					font-weight: bold;
+				}
+			}
+		}
+
+		.CongratulationModal_Button {
+			margin-top: 10px;
+			// padding: 12px 24px;
+			// font-size: 1rem;
+			// border-radius: 12px;
+			// background: linear-gradient(90deg, #1a73e8, #4a90e2);
+			// border: none;
+			// color: #fff;
+			// transition: all 0.3s ease;
+
+			// &:hover {
+			// 	transform: translateY(-2px);
+			// 	box-shadow: 0px 6px 15px rgba(26, 115, 232, 0.3);
+			// }
+		}
+	}
+
+
+	.modal-content:has(.no-padding) {
+		padding: 0;
+	}
+
+
+	.course-complete-inner {
+		padding: 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-end;
+		max-width: 616px;
+		width: 100%;
+		height: 382px;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+		border-radius: 24px;
+		// background-color: #ffffff;
+		z-index: 5;
+
+		.confetti {
+			position: absolute;
+			width: 100%;
+			height: 158px;
+			top: -158px;
+			animation-name: confetti;
+			animation-duration: 1s;
+			animation-delay: 0.2s;
+			animation-fill-mode: forwards;
+		}
+
+		.congrats-modal-img-wrapper {
+			position: relative;
+			margin-top: 109px;
+			margin-bottom: 17px;
+
+			.CongratulationBalloon1 {
+				position: absolute;
+				top: 20px;
+				left: -70px;
+				transform: scale(0.5);
+				opacity: 0.05;
+				animation-name: CongratulationBalloon1;
+				animation-duration: 3s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+
+			.CongratulationBalloon2 {
+				position: absolute;
+				left: 10px;
+				top: -62px;
+				transform: scale(0.5) rotate(45deg);
+				opacity: 0.05;
+				animation-name: CongratulationBalloon2;
+				animation-duration: 3s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+
+			.CongratulationBalloon3 {
+				position: absolute;
+				right: -44px;
+				top: 0px;
+				animation-name: CongratulationBalloon3;
+				animation-duration: 3s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+				transform: scale(0.5);
+				opacity: 0.05;
+			}
+
+			.cloud1 {
+				position: absolute;
+				max-width: 212px;
+				left: -164px;
+				top: -70px;
+				animation-name: CongratulationBalloon1;
+				animation-duration: 1s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+
+			.cloud2 {
+				position: absolute;
+				max-width: 207px;
+				bottom: -1px;
+				left: -162px;
+				animation-name: CongratulationBalloon2;
+				animation-duration: 1s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+
+			.cloud3 {
+				position: absolute;
+				max-width: 222px;
+				bottom: 0;
+				left: 68px;
+				animation-name: CongratulationBalloon3;
+				animation-duration: 1s;
+				animation-delay: 0.2s;
+				animation-fill-mode: forwards;
+			}
+		}
+
+		.congrats-modal-balloon {
+			width: 109px;
+			height: auto;
+		}
+
+		// h2,.congrats-text {
+		// 	color: $text-black;
+		// 	text-align: center;
+		// 	font-size: $fonts-2xl;
+		// 	font-weight: $font-bold;
+		// 	line-height: normal;
+		// 	margin-bottom: 12px;
+		// 	margin-top: 12px;
+		// }
+
+		// p {
+		// 	color: $text-gray;
+		// 	font-size: $fonts-md;
+		// 	font-weight: $font-normal;
+		// 	line-height: normal;
+		// 	margin-bottom: 24px;
+		// }
+
+	}
+
+	.no-padding {
+		padding: 0px
+	}
+
+	.CongratulationModal_Button {
+		margin-top: 24px;
+		color: $invertTextPrimaryColor;
+		text-align: center;
+		font-size: $fonts-sm;
+		font-style: normal;
+		font-weight: $font-normal;
+		line-height: 18px;
+		border-radius: 12px;
+		padding: 9px 16px;
+		// width: 100%;
+		background-color: $primary-color;
+		border: none;
+
+	}
+
+}
+
+@keyframes confetti {
+	0% {
+		top: -158px;
+	}
+
+	100% {
+		top: 0;
+	}
+}
+
+@keyframes CongratulationBalloon1 {
+	0% {
+		top: 20px;
+		left: -70px;
+		transform: scale(0.5);
+		opacity: 0.5;
+	}
+
+	50% {
+		top: -30px;
+		left: -60px;
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		top: -30px;
+		left: -60px;
+		transform: scale(1);
+		opacity: 0;
+	}
+}
+
+@keyframes CongratulationBalloon2 {
+	0% {
+		left: 10px;
+		top: -62px;
+		transform: scale(0.5) rotate(45deg);
+		opacity: 0.5;
+	}
+
+	50% {
+		left: 0px;
+		top: -80px;
+		transform: scale(1) rotate(0);
+		opacity: 1;
+	}
+
+	100% {
+		left: 0px;
+		top: -80px;
+		transform: scale(1) rotate(0);
+		opacity: 0;
+	}
+}
+
+@keyframes CongratulationBalloon3 {
+	0% {
+		right: -44px;
+		top: 0px;
+		transform: scale(0.5);
+		opacity: 0.5;
+	}
+
+	50% {
+		right: -45px;
+		top: -35px;
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		right: -45px;
+		top: -35px;
+		transform: scale(1);
+		opacity: 0;
+	}
+}
+
+@keyframes cloud1 {
+	0% {
+		left: -164px;
+		top: -70px;
+	}
+
+	100% {
+		left: 0;
+		top: -50px;
+	}
+}
+
+@keyframes cloud2 {
+	0% {
+		bottom: -1px;
+		left: -162px;
+	}
+
+	100% {
+		bottom: 0;
+		left: 10px;
+	}
+}
+
+@keyframes cloud3 {
+	0% {
+		bottom: 0;
+		left: 68px;
+	}
+
+	100% {
+		bottom: -10px;
+		left: -164px;
+	}
+}
