@@ -1121,3 +1121,28 @@ button:focus-visible {
     background-color: transparent !important;
   }
 }
+
+
+.custom-scrollbar,.unit-iframe-wrapper,#unit-iframe {
+  // Show and style scrollbar for WebKit browsers
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: #F6F7FA;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cfd8dc;
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #F6F7FA;
+    border-radius: 8px;
+  }
+
+  // For Firefoxs
+  scrollbar-width: thin;
+  scrollbar-color: #cfd8dc #F6F7FA;
+}
+
+.unit-iframe-wrapper{
+  margin-right: 0;
+}

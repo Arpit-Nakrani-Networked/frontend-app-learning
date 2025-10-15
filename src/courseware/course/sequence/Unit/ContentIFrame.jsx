@@ -97,7 +97,7 @@ const ContentIFrame = ({
         )
       )}
       {shouldShowContent && (
-        <div className="unit-iframe-wrapper">
+        <div className="unit-iframe-wrapper custom-scrollbar mt-2">
           <iframe title={title} {...contentIFrameProps} data-testid={testIDs.contentIFrame} />
         </div>
       )}

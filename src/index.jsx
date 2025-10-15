@@ -1,7 +1,7 @@
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
   mergeConfig,
-  getConfig,
+  // getConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageWrap } from '@edx/frontend-platform/react';
 import React from 'react';
@@ -41,7 +41,7 @@ subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
-        <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
       </Helmet>
       <PathFixesProvider>
         <NoticesProvider>
@@ -176,6 +176,7 @@ initialize({
         PROCTORED_EXAM_RULES_URL: process.env.PROCTORED_EXAM_RULES_URL || null,
         CHAT_RESPONSE_URL: process.env.CHAT_RESPONSE_URL || null,
         PRIVACY_POLICY_URL: process.env.PRIVACY_POLICY_URL || null,
+        FAVICON_URL: process.env.FAVICON_URL || null,
       }, 'LearnerAppConfig');
     },
   },
