@@ -1,7 +1,7 @@
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
   mergeConfig,
-  // getConfig,
+  getConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageWrap } from '@edx/frontend-platform/react';
 import React from 'react';
@@ -41,7 +41,7 @@ subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
-        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href={`${getConfig().LMS_BASE_URL}/favicon.ico`} type="image/x-icon" />
       </Helmet>
       <PathFixesProvider>
         <NoticesProvider>
