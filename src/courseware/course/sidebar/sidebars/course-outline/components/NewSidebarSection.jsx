@@ -30,6 +30,9 @@ const NewSidebarSection = ({
   const [unitIds, setUnitIds] = useState([]);
   const [unitMapping, setUnitMapping] = useState({});
 
+  // Check if the current active unit is in this section
+  const hasActiveUnit = unitIds.includes(activeUnitId);
+
   useEffect(() => {
     const mapping = {};
     const ids = [];
@@ -54,6 +57,13 @@ const NewSidebarSection = ({
     setUnitMapping(mapping);
     setUnitIds(ids);
   }, [sequenceIds, sequences]);
+
+  // Auto-expand section if it contains the active unit
+  useEffect(() => {
+    if (hasActiveUnit && !open) {
+      setOpen(true);
+    }
+  }, [hasActiveUnit, open]);
 
   // console.log('new-sequence-unitIds', unitIds, unitMapping);
 
