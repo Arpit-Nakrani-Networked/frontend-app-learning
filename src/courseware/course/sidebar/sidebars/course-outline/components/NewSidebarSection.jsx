@@ -94,7 +94,7 @@ const NewSidebarSection = ({
 
             let isAllCompletedExcludeLast = false;
 
-            if (lastIndex && isLastUnCompleted) {
+            if (lastIndex || isLastUnCompleted) {
               // // Exclude the last section
               // const sectionsExcludeLast = unitIds.slice(0, -1) || [];
 
