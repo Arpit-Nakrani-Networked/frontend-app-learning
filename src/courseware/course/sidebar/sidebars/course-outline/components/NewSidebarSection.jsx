@@ -95,20 +95,20 @@ const NewSidebarSection = ({
             let isAllCompletedExcludeLast = false;
 
             if (lastIndex && isLastUnCompleted) {
-              // Exclude the last section
-              const sectionsExcludeLast = unitIds.slice(0, -1) || [];
+              // // Exclude the last section
+              // const sectionsExcludeLast = unitIds.slice(0, -1) || [];
 
-              // Case 1: if only one section exists
-              if (unitIds.length === 1) {
-                isAllCompletedExcludeLast = true;
-              } else {
-                // Case 2: if more than one, check all except last
+              // // Case 1: if only one section exists
+              // if (unitIds.length === 1) {
+              //   isAllCompletedExcludeLast = true;
+              // } else {
+              //   // Case 2: if more than one, check all except last
 
-                const allCompletedExcludeLast = sectionsExcludeLast.every(
-                  sid => units[sid]?.complete,
-                );
-                isAllCompletedExcludeLast = allCompletedExcludeLast;
-              }
+              //   const allCompletedExcludeLast = sectionsExcludeLast.every(
+              //     sid => units[sid]?.complete,
+              //   );
+              // }
+              isAllCompletedExcludeLast = true;
             }
 
             return (
