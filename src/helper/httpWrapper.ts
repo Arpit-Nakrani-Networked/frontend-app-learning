@@ -40,6 +40,15 @@ axiosInstance.interceptors.response.use(
 
 // --- HTTP WRAPPER CLASS ---
 
+export function handleStatusCatch(status?: number) {
+  if (status === 401 || status === 552 || status === 405) {
+    localStorage.removeItem('communityName');
+    localStorage.removeItem('user');
+    localStorage.removeItem('communityImage');
+    window.location.href = `${NETWORKED_FRONTEND_URL}/login`;
+  }
+}
+
 export class HttpWrapper {
   private static getDefaultHeader() {
     const cookies = new Cookies();
@@ -121,12 +130,7 @@ export class HttpWrapper {
     const { status } = error;
     const message = error.response.data?.message || error.response.statusText || 'Something went wrong';
 
-    if (status === 401 || status === 552) {
-      localStorage.removeItem('communityName');
-      localStorage.removeItem('user');
-      localStorage.removeItem('communityImage');
-      window.location.href = `${NETWORKED_FRONTEND_URL}/login`;
-    }
+    handleStatusCatch(status);
 
     return {
       message,

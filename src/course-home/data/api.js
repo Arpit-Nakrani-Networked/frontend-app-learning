@@ -2,6 +2,7 @@ import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logInfo } from '@edx/frontend-platform/logging';
 import { appendBrowserTimezoneToUrl } from '../../utils';
+import { handleStatusCatch } from '../../helper/httpWrapper';
 
 const calculateAssignmentTypeGrades = (points, assignmentWeight, numDroppable) => {
   let dropCount = numDroppable;
@@ -276,6 +277,7 @@ export async function getProgressTabData(courseId, targetUserId) {
     if (httpErrorStatus === 401) {
       // The backend sends this for unenrolled and unauthenticated learners, but we handle those cases by examining
       // courseAccess in the metadata call, so just ignore this status for now.
+      handleStatusCatch(httpErrorStatus);
       return {};
     }
     if (httpErrorStatus === 403) {
