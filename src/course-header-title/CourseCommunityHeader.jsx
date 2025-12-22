@@ -1,14 +1,14 @@
 // import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 // import { useModel } from '../generic/model-store';
-import { NETWORKED_FRONTEND_URL } from '../helper/constants';
+// import { NETWORKED_FRONTEND_URL } from '../helper/constants';
 import { HttpMethod, HttpWrapper } from '../helper/httpWrapper';
 import './css/CourseHeader.scss';
 
 const CourseCommunityHeader = () => {
-  const navigate = useNavigate();
-  const { courseId, sequenceId, unitId } = useParams();
+  // const navigate = useNavigate();
+  // const { courseId, sequenceId, unitId } = useParams();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   // State initialized from localStorage or fallback default
@@ -58,13 +58,13 @@ const CourseCommunityHeader = () => {
     );
   };
 
-  const handleBackClick = () => {
-    if (sequenceId || unitId) {
-      navigate(`/course/${courseId}/home`);
-    } else {
-      window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
-    }
-  };
+  // const handleBackClick = () => {
+  //   if (sequenceId || unitId) {
+  //     navigate(`/course/${courseId}/home`);
+  //   } else {
+  //     window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
+  //   }
+  // };
 
   const fetchUserProfile = async () => {
     setIsLoading(true);
@@ -112,9 +112,9 @@ const CourseCommunityHeader = () => {
           <span className="course-title">{communityName}</span>
         </div>
         <div className="course-actions">
-          <button type="button" className="back-button" onClick={handleBackClick}>
+          {/* <button type="button" className="back-button" onClick={handleBackClick}>
             &lt; Back to Course
-          </button>
+          </button> */}
           {getDefaultUserImage()}
         </div>
       </div>
