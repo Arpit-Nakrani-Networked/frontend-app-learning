@@ -43,7 +43,7 @@ const UnitNavigation = ({
         to={disabled ? undefined : previousLink}
       >
         <FontAwesomeIcon icon={prevArrow} className="mr-2" size="sm" />
-        {intl.formatMessage(messages.previousButton)}
+        <span className="hide-after-360">{intl.formatMessage(messages.previousButton)}</span>
       </Button>
     );
   };
@@ -66,9 +66,11 @@ const UnitNavigation = ({
         as={disabled ? undefined : Link}
         to={disabled ? undefined : nextLink}
       >
-        <UnitNavigationEffortEstimate sequenceId={sequenceId} unitId={unitId}>
-          {buttonText}
-        </UnitNavigationEffortEstimate>
+        <span className="hide-after-360">
+          <UnitNavigationEffortEstimate sequenceId={sequenceId} unitId={unitId}>
+            {buttonText}
+          </UnitNavigationEffortEstimate>
+        </span>
         <FontAwesomeIcon icon={nextArrow} className="ml-2" size="sm" />
       </Button>
     );

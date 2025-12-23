@@ -45,7 +45,7 @@ const Section = ({
   }, []);
 
   const sectionTitle = (
-    <div className="d-flex row w-100 m-0">
+    <div className="d-flex w-100 m-0 overflow-hidden">
       <div className="col-auto p-0">
         {complete ? (
           <FontAwesomeIcon
@@ -65,7 +65,7 @@ const Section = ({
           />
         )}
       </div>
-      <div className="col-11 ml-3 p-0 font-weight-bold text-dark-500 d-flex align-items-center">
+      <div className="col-11 pl-3 p-0 font-weight-bold text-dark-500 d-flex align-items-center">
         <span className="align-middle p-0 section-title" title={title}>{title}</span>
         <span className="sr-only">
           , {intl.formatMessage(complete ? messages.completedSection : messages.incompleteSection)}

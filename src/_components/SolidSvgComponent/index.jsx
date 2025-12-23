@@ -30,6 +30,7 @@ const SolidSvgComponent = (props) => {
 SolidSvgComponent.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  id: PropTypes.string,
   iconColor: PropTypes.string,
   isIconColor: PropTypes.bool,
   url: PropTypes.string.isRequired,

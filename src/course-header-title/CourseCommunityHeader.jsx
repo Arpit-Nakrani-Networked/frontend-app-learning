@@ -105,7 +105,7 @@ const CourseCommunityHeader = () => {
     fetchUserProfile();
   }, []);
   return !isLoading && (
-    <div className="container-fluid community-header">
+    <div className="container-fluid community-header hide-after-360">
       <div className="course-content">
         <div className="course-info">
           {getDefaultCommunityImage()}

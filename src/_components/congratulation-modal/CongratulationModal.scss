@@ -10,14 +10,16 @@
 		transform: translate(-50%, -50%) !important;
 		max-width: 600px !important;
 		border-radius: 24px;
+
 		.modal-content {
 			border-radius: 30px;
 		}
 	}
 
-.pgn__modal-body::after{
-	background-image: none;
-}
+	.pgn__modal-body::after {
+		background-image: none;
+	}
+
 	.congrats-modal-body {
 		min-height: 341px;
 		display: flex;
@@ -27,7 +29,7 @@
 		border-radius: 30px;
 		overflow: auto !important;
 
-		p{
+		p {
 			line-height: normal !important;
 		}
 	}
@@ -182,9 +184,56 @@
 		// width: 100%;
 		background-color: $primary-color;
 		border: none;
-		
+
 	}
 
+}
+
+@media (max-width: 360px) {
+	.pgn__modal-content-container {
+
+		.congrats-modal-body {
+			min-height: 348px;
+		}
+
+		.pgn__modal {
+			max-width: 328px !important;
+			margin: 0;
+
+			.pgn__modal-body {
+				padding: 1rem;
+
+				.pgn__modal-body-content div {
+					padding-bottom: 0 !important;
+				}
+
+
+				.celebrationContainer {
+					padding: 0 !important;
+				}
+
+				.congratulationsHeader {
+					font-weight: 600;
+					font-size: 20px;
+				}
+
+				.completedCourseDescription {
+					font-weight: 400;
+					font-size: 16px;
+					padding: 0 !important;
+					letter-spacing: 0 !important;
+				}
+
+				.CongratulationModal_Button {
+					margin-top: 16px;
+				}
+
+				.celebrationImage {
+					height: 109px !important;
+				}
+			}
+		}
+	}
 }
 
 @keyframes confetti {

@@ -74,7 +74,7 @@ const CourseCelebration = ({ intl }) => {
         <title>{`${intl.formatMessage(messages.congratulationsHeader)} | ${title} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
       <div
-        className="row w-100 mx-0 pt-3 pb-2"
+        className="row w-100 mx-0 pt-3 pb-2 celebrationContainer"
         style={{
           backgroundImage: `url(${Celebration})`,
           backgroundSize: 'contain',
@@ -84,7 +84,7 @@ const CourseCelebration = ({ intl }) => {
           width: '100%',
         }}
       >
-        <div style={{ margin: 'auto auto 35px', height: '120px' }}>
+        <div className="celebrationImage" style={{ margin: 'auto auto 35px', height: '120px' }}>
           <img
             src={CelebrationMobile}
             alt={`${intl.formatMessage(messages.congratulationsImage)}`}
@@ -105,11 +105,11 @@ const CourseCelebration = ({ intl }) => {
           )}
         </div> */}
         <div style={{ marginTop: 'auto' }}>
-          <div className="col-12 p-0 h2 text-center _text-2xl _text-black" style={{ marginTop: 'auto' }}>
+          <div className="col-12 p-0 h2 text-center _text-2xl _text-black congratulationsHeader" style={{ marginTop: 'auto' }}>
             {intl.formatMessage(messages.congratulationsHeader)}
           </div>
           <div className="col-12 p-0 font-weight-normal text-center _text-lg _text-gray" style={{ marginTop: 'auto' }}>
-            <p className="m-0 text-center _text-lg _text-gray px-2">{intl.formatMessage(messages.completedCourseHeader)}</p>
+            <p className="m-0 text-center _text-lg _text-gray px-2 completedCourseDescription">{intl.formatMessage(messages.completedCourseHeader)}</p>
             {/* {marketingUrl && ` ${intl.formatMessage(messages.shareMessage)}`} */}
             {/* <SocialIcons
             analyticsId="edx.ui.lms.course_exit.social_share.clicked"
