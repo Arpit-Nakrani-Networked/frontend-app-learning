@@ -41,7 +41,7 @@ axiosInstance.interceptors.response.use(
 // --- HTTP WRAPPER CLASS ---
 
 export function handleStatusCatch(status?: number) {
-  if (status === 401 || status === 552 || status === 405) {
+  if (Boolean(status === 401 || status === 552 || status === 405) && process.env.NODE_ENV !== 'development') {
     localStorage.removeItem('communityName');
     localStorage.removeItem('user');
     localStorage.removeItem('communityImage');

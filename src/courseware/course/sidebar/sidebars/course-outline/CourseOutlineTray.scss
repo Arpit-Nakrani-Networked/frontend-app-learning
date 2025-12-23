@@ -30,7 +30,7 @@
         font-weight: $font-weight-semi-bold;
         font-size: 20px;
         line-height: 100%;
-        color : #000000CC;
+        color: #000000CC;
     }
 }
 
@@ -86,7 +86,7 @@
         .collapsible-trigger {
             border: 0;
             border-radius: 0px;
-            padding: map-get($spacers, 3\.7) map-get($spacers, 3) ;
+            padding: map-get($spacers, 3\.7) map-get($spacers, 3);
             font-weight: 500;
             font-size: 16px;
             line-height: 100%;
@@ -105,6 +105,7 @@
             .collapsible-icon {
                 margin-inline-start: initial;
             }
+
         }
 
         &:last-child .pgn_collapsible {
@@ -122,12 +123,13 @@
         ol li>a {
             border: 0;
             border-radius: 0px;
-            padding: map-get($spacers, 2\.5) map-get($spacers, 4) map-get($spacers,  2\.5) map-get($spacers, 5);
+            padding: map-get($spacers, 2\.5) map-get($spacers, 4) map-get($spacers, 2\.5) map-get($spacers, 5);
             font-weight: 400;
             font-size: 14px;
             line-height: 100%;
             letter-spacing: 0%;
             color: #000000CC;
+            flex-wrap: nowrap;
 
 
 
@@ -146,5 +148,100 @@
             text-decoration: none;
             background-color: #F5F5F5;
         }
+    }
+}
+
+@media (max-width: 360px) {
+    #outline-sidebar-outline li {
+        .collapsible-trigger {
+            padding: 14px 1rem !important;
+            justify-content: flex-start;
+            gap: 8px;
+
+            div {
+                font-size: 14px;
+
+                svg{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            .collapsible-icon{
+                margin-left: 8px;
+            }
+        }
+
+        ol li a {
+            padding: 14px 18px !important;
+            font-size: 14px;
+            justify-content: space-between;
+
+            div,
+            span {
+                font-size: 14px;
+                margin: 0 !important;
+
+                svg,.SvgIcon{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+
+    .outline-sidebar-wrapper.card-square {
+        position: fixed !important;
+        top: 0;
+        bottom: 0;
+        width: 70% !important;
+
+        /* start hidden */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        will-change: transform;
+
+        .outline-sidebar-heading-wrapper {
+            height: 64px;
+            padding: 16px 21px;
+            display: flex;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+
+            .outline-sidebar-heading {
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 100%;
+            }
+        }
+
+    }
+
+    /* slide in */
+    .outline-sidebar-wrapper.card-square.left-0 {
+        transform: translateX(0);
+    }
+
+    .outline-sidebar-backdrop {
+        position: fixed !important;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+}
+
+/* optional backdrop fade */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

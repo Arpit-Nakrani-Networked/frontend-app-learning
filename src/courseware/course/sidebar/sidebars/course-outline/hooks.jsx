@@ -20,7 +20,7 @@ export const useCourseOutlineSidebar = () => {
   } = useContext(SidebarContext);
 
   const isOpenSidebar = !initialSidebar && isEnabledSidebar && !isCollapsedOutlineSidebar;
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const course = useModel('coursewareMeta', courseId);
   const {

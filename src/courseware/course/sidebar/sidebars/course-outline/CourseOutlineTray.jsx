@@ -41,7 +41,9 @@ const CourseOutlineTray = ({ intl }) => {
     unitId,
     isEnabledSidebar,
     currentSidebar,
-    // handleToggleCollapse,
+    handleToggleCollapse,
+    setIsOpen,
+    isOpen,
     isActiveEntranceExam,
     shouldDisplayFullScreen,
   } = useCourseOutlineSidebar();
@@ -90,12 +92,34 @@ const CourseOutlineTray = ({ intl }) => {
   //     />
   //   </div>
   // );
+  const sidebarHeading = (
+    <div className="sticky justify-content-between align-self-start align-items-center show-after-360 outline-sidebar-heading-wrapper">
+      <span className="outline-sidebar-heading mb-0 h4 text-dark-500">
+        {intl.formatMessage(messages.courseOutlineTitle)}
+      </span>
+    </div>
+  );
 
   useEffect(() => {
     if (isEnabledSidebar || courseOutlineShouldUpdate) {
       dispatch(getCourseOutlineStructure(courseId, Boolean(courseOutlineStatus === LOADED)));
     }
   }, [courseId, isEnabledSidebar, courseOutlineShouldUpdate]);
+
+  useEffect(() => {
+    const toggleElement = document.getElementById('mobile-sidebar-toggle');
+
+    if (toggleElement) {
+      const handleClick = () => {
+        setIsOpen(!isOpen);
+      };
+      toggleElement.addEventListener('click', handleClick);
+      return () => {
+        toggleElement.removeEventListener('click', handleClick);
+      };
+    }
+    return undefined;
+  }, [currentSidebar, handleToggleCollapse]);
 
   if (!isEnabledSidebar || isActiveEntranceExam || currentSidebar !== ID) {
     return null;
@@ -106,10 +130,11 @@ const CourseOutlineTray = ({ intl }) => {
       <div className={classNames('outline-sidebar-wrapper card card-square', {
         'flex-shrink-0 mr-4 h-fit': !shouldDisplayFullScreen,
         'bg-white m-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
+        'left-0': isOpen,
       })}
       >
         <section className="outline-sidebar w-100 p-4">
-          {/* {sidebarHeading} */}
+          {sidebarHeading}
           <PageLoading
             srMessage={intl.formatMessage(messages.loading)}
           />
@@ -121,15 +146,17 @@ const CourseOutlineTray = ({ intl }) => {
   if (courseOutlineStatus === LOADED && sectionsIds?.length === 0) { return null; }
 
   return (
-    <div className={classNames('outline-sidebar-wrapper card card-square', {
-      'flex-shrink-0 h-fit': !shouldDisplayFullScreen,
-      'm-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
-    })}
-    >
-      <section className="outline-sidebar w-100">
-        {/* {sidebarHeading} */}
-        <ol id="outline-sidebar-outline" className="list-unstyled">
-          {/* {isDisplaySequenceLevel
+    <>
+      <div className={classNames('outline-sidebar-wrapper card card-square', {
+        'flex-shrink-0 h-fit': !shouldDisplayFullScreen,
+        'm-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
+        'left-0': isOpen,
+      })}
+      >
+        <section className="outline-sidebar w-100">
+          {sidebarHeading}
+          <ol id="outline-sidebar-outline" className="list-unstyled">
+            {/* {isDisplaySequenceLevel
             ? sequenceIds.map((sequenceId) => (
               <SidebarSequence
                 key={sequenceId}
@@ -148,40 +175,52 @@ const CourseOutlineTray = ({ intl }) => {
               />
               ))} */}
 
-          {sectionsIds.map((sectionId, index) => {
-            const lastIndex = index === sectionsIds.length - 1;
+            {sectionsIds.map((sectionId, index) => {
+              const lastIndex = index === sectionsIds.length - 1;
 
-            let isAllCompletedExcludeLast = false;
+              let isAllCompletedExcludeLast = false;
 
-            if (lastIndex) {
-              // Exclude the last section
-              const sectionsExcludeLast = sectionsIds.slice(0, -1) || [];
+              if (lastIndex) {
+                // Exclude the last section
+                const sectionsExcludeLast = sectionsIds.slice(0, -1) || [];
 
-              // Case 1: if only one section exists
-              if (sectionsIds.length === 1) {
-                isAllCompletedExcludeLast = true;
-              } else {
-                // Case 2: if more than one, check all except last
-                const allCompletedExcludeLast = sectionsExcludeLast.every(
-                  sid => sections[sid]?.complete,
-                );
-                isAllCompletedExcludeLast = allCompletedExcludeLast;
+                // Case 1: if only one section exists
+                if (sectionsIds.length === 1) {
+                  isAllCompletedExcludeLast = true;
+                } else {
+                  // Case 2: if more than one, check all except last
+                  const allCompletedExcludeLast = sectionsExcludeLast.every(
+                    sid => sections[sid]?.complete,
+                  );
+                  isAllCompletedExcludeLast = allCompletedExcludeLast;
+                }
               }
-            }
-            return (
-              <NewSidebarSection
-                key={sectionId}
-                courseId={courseId}
-                section={sections[sectionId]}
-                activeUnitId={unitId}
-                isLastUnCompleted={isAllCompletedExcludeLast}
-              />
-            );
-          })}
+              return (
+                <NewSidebarSection
+                  key={sectionId}
+                  courseId={courseId}
+                  section={sections[sectionId]}
+                  activeUnitId={unitId}
+                  isLastUnCompleted={isAllCompletedExcludeLast}
+                />
+              );
+            })}
 
-        </ol>
-      </section>
-    </div>
+          </ol>
+        </section>
+      </div>
+      {isOpen && (
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          className={classNames(
+            'outline-sidebar-backdrop vh-100 w-100 show-after-360',
+          )}
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+    </>
   );
 };
 
