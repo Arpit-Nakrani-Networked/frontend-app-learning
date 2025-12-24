@@ -3,6 +3,7 @@ export const DECODE_ROUTES = {
   HOME: '/course/:courseId/home',
   LIVE: '/course/:courseId/live',
   DATES: '/course/:courseId/dates',
+  COMMON_REDIRECTION: '/course/:courseId/common-redirection',
   DISCUSSION: '/course/:courseId/discussion/:path/*',
   PROGRESS: [
     '/course/:courseId/progress/:targetUserId/',

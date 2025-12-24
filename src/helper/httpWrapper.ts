@@ -49,6 +49,16 @@ export function handleStatusCatch(status?: number) {
   }
 }
 
+export const getParamfromUrl = (url, param) => {
+  try {
+    if (!url) { return ''; }
+    const params = new URLSearchParams(url);
+    return params && param ? params.get(param) : '';
+  } catch (e) {
+    return '';
+  }
+};
+
 export class HttpWrapper {
   private static getDefaultHeader() {
     const cookies = new Cookies();
