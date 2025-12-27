@@ -6,14 +6,18 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 
+import { useSelector } from 'react-redux';
 import messages from './messages';
 
 const ContentLock = ({
   intl, courseId, prereqSectionName, prereqId, sequenceTitle,
 }) => {
   const navigate = useNavigate();
+  const sequences = useSelector(state => state?.courseware?.courseOutline?.sequences);
+
   const handleClick = useCallback(() => {
-    navigate(`/course/${courseId}/${prereqId}`);
+    const unitId = prereqId && sequences && sequences[prereqId] && sequences[prereqId]?.unitIds?.length > 0 ? sequences[prereqId]?.unitIds[0] : '';
+    navigate(`/course/${courseId}/${prereqId}/${unitId}`);
   }, [courseId, prereqId]);
 
   return (

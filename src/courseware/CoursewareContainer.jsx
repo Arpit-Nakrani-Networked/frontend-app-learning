@@ -9,6 +9,7 @@ import {
   checkBlockCompletion,
   fetchCourse,
   fetchSequence,
+  getCourseOutlineStructure,
   getResumeBlock,
   getSequenceForUnitDeprecated,
   saveSequencePosition,
@@ -48,7 +49,7 @@ const checkSectionToSequenceRedirect = memoize((courseStatus, courseId, sequence
     // If the section is non-empty, redirect to its first sequence.
     if (section.sequenceIds && section.sequenceIds[0]) {
       navigate(`/course/${courseId}/${section.sequenceIds[0]}`, { replace: true });
-    // Otherwise, just go to the course root, letting the resume redirect take care of things.
+      // Otherwise, just go to the course root, letting the resume redirect take care of things.
     } else {
       navigate(`/course/${courseId}`, { replace: true });
     }
@@ -108,7 +109,7 @@ const checkSequenceUnitMarkerToSequenceUnitRedirect = memoize(
         const firstUnitId = sequence.unitIds[0];
         navigate(`/course/${courseId}/${sequence.id}/${firstUnitId}`, { replace: true });
       } else {
-      // No units... go to general sequence page
+        // No units... go to general sequence page
         navigate(`/course/${courseId}/${sequence.id}`, { replace: true });
       }
     } else if (unitId === 'last') {
@@ -116,9 +117,31 @@ const checkSequenceUnitMarkerToSequenceUnitRedirect = memoize(
         const lastUnitId = sequence.unitIds[sequence.unitIds.length - 1];
         navigate(`/course/${courseId}/${sequence.id}/${lastUnitId}`, { replace: true });
       } else {
-      // No units... go to general sequence page
+        // No units... go to general sequence page
         navigate(`/course/${courseId}/${sequence.id}`, { replace: true });
       }
+    }
+  },
+);
+
+// Look at where this is called in componentDidUpdate for more info about its usage
+const checkUnitIdFromOnlySequenceIdRedirect = memoize(
+  (courseId, sequenceStatus, sequence, unitId, courseOutline, navigate) => {
+    if (!sequence || unitId || !courseOutline) {
+      return;
+    }
+    const { sequences } = courseOutline;
+
+    let hasUnits = null;
+
+    if (sequence && !unitId
+      && sequences && sequences?.[sequence?.id]
+      && sequences?.[sequence?.id]?.unitIds?.length > 0) {
+      hasUnits = sequences[sequence?.id]?.unitIds[0];
+    }
+
+    if (hasUnits) {
+      navigate(`/course/${courseId}/${sequence?.id}/${hasUnits}`, { replace: true });
     }
   },
 );
@@ -141,6 +164,10 @@ class CoursewareContainer extends Component {
     this.props.fetchCourse(courseId);
   });
 
+  getCourseOutlineAPI = memoize((courseId) => {
+    this.props.getCourseOutlineStructure(courseId);
+  });
+
   checkFetchSequence = memoize((sequenceId) => {
     if (sequenceId) {
       this.props.fetchSequence(sequenceId);
@@ -153,6 +180,7 @@ class CoursewareContainer extends Component {
       routeSequenceId,
     } = this.props;
     // Load data whenever the course or sequence ID changes.
+    this.getCourseOutlineAPI(routeCourseId);
     this.checkFetchCourse(routeCourseId);
     this.checkFetchSequence(routeSequenceId);
   }
@@ -171,9 +199,11 @@ class CoursewareContainer extends Component {
       routeSequenceId,
       routeUnitId,
       navigate,
+      courseOutline,
     } = this.props;
 
     // Load data whenever the course or sequence ID changes.
+    this.getCourseOutlineAPI(routeCourseId);
     this.checkFetchCourse(routeCourseId);
     this.checkFetchSequence(routeSequenceId);
 
@@ -189,6 +219,9 @@ class CoursewareContainer extends Component {
       // until the ids match and thus the redux states got updated. So just bail for now.
       return;
     }
+
+    // if only this  /course/:courseId/:sequenceId
+    checkUnitIdFromOnlySequenceIdRedirect(courseId, sequenceStatus, sequence, routeUnitId, courseOutline, navigate);
 
     // All courseware URLs should normalize to the format /course/:courseId/:sequenceId/:unitId
     // via the series of redirection rules below.
@@ -267,7 +300,7 @@ class CoursewareContainer extends Component {
     }
   };
 
-  handlePreviousSequenceClick = () => {};
+  handlePreviousSequenceClick = () => { };
 
   render() {
     const {
@@ -324,6 +357,13 @@ const courseShape = PropTypes.shape({
     firstSection: PropTypes.bool,
   }),
 });
+const courseOutlineShape = PropTypes.shape({
+  sequences: PropTypes.objectOf(
+    PropTypes.shape({
+      unitIds: PropTypes.arrayOf(PropTypes.string),
+    }),
+  ),
+});
 
 CoursewareContainer.propTypes = {
   routeCourseId: PropTypes.string.isRequired,
@@ -340,10 +380,12 @@ CoursewareContainer.propTypes = {
   sectionViaSequenceId: sectionShape,
   course: courseShape,
   sequence: sequenceShape,
+  courseOutline: courseOutlineShape,
   saveSequencePosition: PropTypes.func.isRequired,
   checkBlockCompletion: PropTypes.func.isRequired,
   fetchCourse: PropTypes.func.isRequired,
   fetchSequence: PropTypes.func.isRequired,
+  getCourseOutlineStructure: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
 };
 
@@ -356,6 +398,7 @@ CoursewareContainer.defaultProps = {
   nextSequence: null,
   previousSequence: null,
   sectionViaSequenceId: null,
+  courseOutline: null,
   course: null,
   sequence: null,
 };
@@ -444,6 +487,7 @@ const mapStateToProps = (state) => {
     courseStatus,
     sequenceStatus,
     sequenceMightBeUnit,
+    courseOutline,
   } = state.courseware;
 
   return {
@@ -452,6 +496,7 @@ const mapStateToProps = (state) => {
     courseStatus,
     sequenceStatus,
     sequenceMightBeUnit,
+    courseOutline,
     course: currentCourseSelector(state),
     sequence: currentSequenceSelector(state),
     previousSequence: previousSequenceSelector(state),
@@ -466,4 +511,5 @@ export default connect(mapStateToProps, {
   saveSequencePosition,
   fetchCourse,
   fetchSequence,
+  getCourseOutlineStructure,
 })(withParamsAndNavigation(CoursewareContainer));

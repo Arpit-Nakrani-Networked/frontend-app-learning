@@ -252,7 +252,7 @@ const Sequence = ({
   // if (sequenceStatus === 'loaded') {
   return (
     <>
-      <div className="d-flex flex-column flex-grow-1 justify-content-center ">
+      <div className="d-flex flex-column flex-grow-1">
         <SequenceExamWrapper
           sequence={sequence}
           courseId={courseId}
