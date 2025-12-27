@@ -4,6 +4,7 @@ export {
   checkBlockCompletion,
   saveIntegritySignature,
   saveSequencePosition,
+  getCourseOutlineStructure,
 } from './thunks';
 export {
   getResumeBlock,
