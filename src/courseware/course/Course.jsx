@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getConfig } from '@edx/frontend-platform';
 import { useWindowSize } from '@openedx/paragon';
 
-import { AlertList } from '@src/generic/user-messages';
+// import { AlertList } from '@src/generic/user-messages';
 import { useModel } from '@src/generic/model-store';
 // import { getCoursewareOutlineSidebarSettings } from '../data/selectors';
 // import { Trigger as CourseOutlineTrigger } from './sidebar/sidebars/course-outline';
@@ -105,7 +105,7 @@ const Course = ({
         </div>
       </div> */}
 
-      <AlertList topic="sequence" />
+      {/* <AlertList topic="sequence" /> */}
       <Sequence
         unitId={unitId}
         sequenceId={sequenceId}
