@@ -53,22 +53,19 @@ const CommonRedirection = () => {
         CookieManager.setTokenId(res.tokendId || tokenId);
 
         if (!communityId) {
-          communityId = getCurrentCommunityId(res.user.userId);
+          communityId = getCurrentCommunityId(res.user.userId) || res?.communityDetails?.communityId;
         }
 
         if (!openedx.cookies) {
           throw new Error('Courses Cookies not found');
         }
 
-        CookieManager.setOpenedxCookies(openedx.cookies);
-
-        if (!communityId || communityId === res?.communityDetails?.communityId) {
-          CookieManager.setCommunityToken(community.token);
-        } else {
-          CookieManager.removeCommunityToken();
+        CookieManager.setOpenedxCookies(openedx.cookies);        
+        CookieManager.setCommunityToken(community.token);
+        if (communityId ||  res?.communityDetails?.communityId){
           CookieManager.setCookie(
             `selected_community_${res.user.userId}`,
-            communityId,
+            communityId || res?.communityDetails?.communityId,
             CookieManager.calculateDomain(),
           );
         }
