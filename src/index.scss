@@ -1,7 +1,7 @@
-@import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
+// @import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
 @import 'variables';
 
-$font-family-base: 'Proxima Nova' !important;
+$font-family-base: 'Figtree' !important;
 
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
@@ -17,7 +17,7 @@ html body * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none;
-  font-family: 'Proxima Nova' !important;
+  font-family: 'Figtree' !important;
   line-height: 100%;
   letter-spacing: 0.5px !important;
 }
@@ -29,7 +29,7 @@ html body * {
 //   -webkit-font-smoothing: antialiased;
 //   -moz-osx-font-smoothing: grayscale;
 //   scrollbar-width: none;
-//   font-family: 'Proxima Nova' !important;
+//   font-family: 'Figtree' !important;
 //   line-height: 100%;
 //   letter-spacing: 0.5px !important;
 // }
@@ -1006,7 +1006,7 @@ h6,
   font-size: 0.8em !important;
   background: $v2-info-200;
   padding: 3px 6px;
-  font-family: Proxima Nova;
+  font-family: Figtree;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -1315,4 +1315,48 @@ button:focus-visible {
   .unit-iframe-wrapper {
     margin: 0px 0px 0px -10px;
   }
+}
+
+
+//Figtree-font definitions
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 400;
+	src: url('./fonts/Figtree/Figtree-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 500;
+	src: url('./fonts/Figtree/Figtree-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 600;
+	src: url('./fonts/Figtree/Figtree-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 700;
+	src: url('./fonts/Figtree/Figtree-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 800;
+	src: url('./fonts/Figtree/Figtree-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 900;
+	src: url('./fonts/Figtree/Figtree-Black.ttf') format('truetype');
 }

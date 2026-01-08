@@ -60,9 +60,9 @@ const CommonRedirection = () => {
           throw new Error('Courses Cookies not found');
         }
 
-        CookieManager.setOpenedxCookies(openedx.cookies);        
+        CookieManager.setOpenedxCookies(openedx.cookies);
         CookieManager.setCommunityToken(community.token);
-        if (communityId ||  res?.communityDetails?.communityId){
+        if (communityId || res?.communityDetails?.communityId) {
           CookieManager.setCookie(
             `selected_community_${res.user.userId}`,
             communityId || res?.communityDetails?.communityId,
