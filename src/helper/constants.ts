@@ -2,7 +2,7 @@ let env: 'lab' | 'qa' | 'prod' = 'qa'; // default QA
 
 if (typeof window !== 'undefined') {
   const host = window.location.hostname;
-  if (host.includes('lab')) { env = 'lab'; } else if (host.includes('qa')) { env = 'qa'; } else { env = 'prod'; }
+  if (host.includes('lab')) { env = 'lab'; } else if (host.includes('qa') || host.includes('local')) { env = 'qa'; } else { env = 'prod'; }
 }
 
 const FRONTEND_URLS = {
