@@ -1,6 +1,7 @@
 @import '../../variables';
 /* modal style */
 
+
 .pgn__modal-content-container {
 
 	.pgn__modal {
@@ -10,7 +11,7 @@
 		transform: translate(-50%, -50%) !important;
 		max-width: 500px !important;
 		border-radius: 24px;
-		width:500px;
+		width: 500px;
 
 		.modal-content {
 			border-radius: 30px;
@@ -53,6 +54,13 @@
 			margin-bottom: 16px;
 			text-align: center;
 		}
+
+		@media (max-width: 425px) {
+			div.h2 {
+				font-size: 1.25rem !important;
+			}
+		}
+
 
 		.rules-list {
 			list-style: none;

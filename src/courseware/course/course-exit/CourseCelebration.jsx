@@ -9,10 +9,10 @@ import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import {
   // Alert,
-  // breakpoints,
+  breakpoints,
   Button,
   // Hyperlink,
-  // useWindowSize,
+  useWindowSize,
 } from '@openedx/paragon';
 // import { CheckCircle } from '@openedx/paragon/icons';
 import { getConfig } from '@edx/frontend-platform';
@@ -39,7 +39,7 @@ import { NETWORKED_FRONTEND_URL } from '../../../helper/constants';
 // const LINKEDIN_BLUE = '#2867B2';
 
 const CourseCelebration = ({ intl }) => {
-  // const wideScreen = useWindowSize().width >= breakpoints.medium.minWidth;
+  const wideScreen = useWindowSize().width >= breakpoints.medium.minWidth;
   const { courseId } = useSelector(state => state.courseware);
   // const dispatch = useDispatch();
   const {
@@ -63,7 +63,8 @@ const CourseCelebration = ({ intl }) => {
   const visitEvent = 'celebration_generic';
 
   const handleModalClose = () => {
-    window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
+    if (wideScreen) { window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`; }
+    if (!wideScreen) { window.location.href = `/learning/course/${courseId}/home`; }
   };
 
   useEffect(() => logVisit(org, courseId, administrator, visitEvent), [org, courseId, administrator, visitEvent]);
