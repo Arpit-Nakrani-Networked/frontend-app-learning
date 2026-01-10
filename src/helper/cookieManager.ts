@@ -28,6 +28,7 @@ export default class CookieManager {
   };
 
   static setOpenedxCookies = (cookies = {}): void => {
+    this.clearCoursesCookies();
     Object.entries(cookies).forEach(([key, value]) => {
       CookieManager.setCookie(key, value, CookieManager.calculateDomain());
     });
@@ -126,6 +127,9 @@ export default class CookieManager {
       'openedx-language-preference',
       'sessionid',
       'studio_session_id',
+      'edx-user-info',
+      'edx-jwt-cookie-signature',
+      'edx-jwt-cookie-header-payload',
     ];
 
     const baseDomain = 'networked.co';

@@ -80,7 +80,7 @@ const CommonRedirection = () => {
         localStorage.setItem('selected_community', communityId);
 
         const nextPage = getParamfromUrl(window.location.search, 'nextPage');
-        let url = `/course/${courseId}`;
+        let url = `/learning/course/${courseId}`;
 
         switch (nextPage) {
           case 'add-lesson':
