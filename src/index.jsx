@@ -4,7 +4,6 @@ import {
   getConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageWrap } from '@edx/frontend-platform/react';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { Routes, Route } from 'react-router-dom';
 
@@ -12,6 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { fetchDiscussionTab, fetchLiveTab } from './course-home/data/thunks';
 // import DiscussionTab from './course-home/discussion-tab/DiscussionTab';
 
+import React, { Suspense } from 'react';
 import messages from './i18n';
 import { UserMessagesProvider } from './generic/user-messages';
 
@@ -36,7 +36,9 @@ import DecodePageRoute from './decode-page-route';
 import { DECODE_ROUTES, ROUTES } from './constants';
 // import PreferencesUnsubscribe from './preferences-unsubscribe';
 import NotFoundPage from './404/404';
-import CommonRedirection from './common-redirection/CommonRedirection';
+import PageLoading from './generic/PageLoading';
+
+const CommonRedirection = React.lazy(() => import('./common-redirection/CommonRedirection'));
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
@@ -68,7 +70,11 @@ subscribe(APP_READY, () => {
               />
               <Route
                 path={DECODE_ROUTES.COMMON_REDIRECTION}
-                element={<CommonRedirection />}
+                element={(
+                  <Suspense fallback={<PageLoading />}>
+                    <CommonRedirection />
+                  </Suspense>
+                )}
               />
               {/* <Route
                 path={DECODE_ROUTES.LIVE}

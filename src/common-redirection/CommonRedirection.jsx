@@ -5,6 +5,7 @@ import { getParamfromUrl, HttpMethod, HttpWrapper } from '../helper/httpWrapper'
 import PageLoading from '../generic/PageLoading';
 
 const CommonRedirection = () => {
+  // Loader should be visible immediately on mount
   const [loading, setLoading] = useState(true);
   const { courseId } = useParams();
   const navigate = useNavigate();
@@ -23,22 +24,28 @@ const CommonRedirection = () => {
   };
 
   const redirectToPage = (url) => {
-    if (!url) { return; }
+    if (!url) {
+      setLoading(false);
+      return;
+    }
 
-    if (url.includes('authoring')) {
-      if (window.location.hostname.includes('local')) {
-        window.location.href = `http://${window.location.hostname}:2001${url}`;
+    // Keep loader visible until redirect
+    setTimeout(() => {
+      if (url.includes('authoring')) {
+        if (window.location.hostname.includes('local')) {
+          window.location.href = `http://${window.location.hostname}:2001${url}`;
+        } else {
+          window.location.href = url;
+        }
       } else {
         window.location.href = url;
       }
-    } else {
-      navigate(url);
-    }
+    }, 100); // slight delay to ensure loader renders
   };
 
   const signinRedirection = (tokenId, communityid) => {
     let communityId = getCurrentCommunityId() || communityid;
-
+    setLoading(true); // Ensure loader is visible during API call
     HttpWrapper.call(HttpMethod.GET, '/auth/login/data', { tokenId }, {})
       .then((res) => {
         const {
@@ -91,30 +98,31 @@ const CommonRedirection = () => {
             break;
           case 'resume-course':
           case 'start-course':
-            url = `/course/${courseId}`;
+            url = `/learning/course/${courseId}`;
             break;
           default:
-            url = `/course/${courseId}/home`;
+            url = `/learning/course/${courseId}/home`;
         }
 
+        // Loader remains until redirect
         redirectToPage(url);
       })
       .catch(() => {
-        navigate(`/course/${courseId}/not-found`);
-      })
-      .finally(() => {
         setLoading(false);
+        window.location.href = `/learning/course/${courseId}/not-found`;
       });
   };
 
   useEffect(() => {
+    setLoading(true); // Show loader immediately on mount
     const signInToken = getParamfromUrl(window.location.search, 'token');
     const communityId = getParamfromUrl(window.location.search, 'communityId');
 
     if (signInToken && communityId) {
       signinRedirection(signInToken, communityId);
     } else {
-      navigate(`/course/${courseId}/not-found`);
+      setLoading(false);
+      window.location.href = `/learning/course/${courseId}/not-found`;
     }
   }, [courseId, navigate]);
 
