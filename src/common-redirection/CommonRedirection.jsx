@@ -46,7 +46,7 @@ const CommonRedirection = () => {
   const signinRedirection = (tokenId, communityid) => {
     let communityId = getCurrentCommunityId() || communityid;
     setLoading(true); // Ensure loader is visible during API call
-    HttpWrapper.call(HttpMethod.GET, '/auth/login/data', { tokenId }, {})
+    HttpWrapper.call(HttpMethod.GET, '/auth/openedx-login/data', { tokenId, communityId }, {})
       .then((res) => {
         const {
           user,
@@ -59,8 +59,8 @@ const CommonRedirection = () => {
         CookieManager.setSessionToken(sessionToken);
         CookieManager.setTokenId(res.tokendId || tokenId);
 
-        if (!communityId) {
-          communityId = getCurrentCommunityId(res.user.userId) || res?.communityDetails?.communityId;
+        if (res?.communityDetails?.communityId) {
+          communityId = res?.communityDetails?.communityId || getCurrentCommunityId(res.user.userId);
         }
 
         if (!openedx.cookies) {
