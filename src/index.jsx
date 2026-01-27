@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { fetchDiscussionTab, fetchLiveTab } from './course-home/data/thunks';
 // import DiscussionTab from './course-home/discussion-tab/DiscussionTab';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import messages from './i18n';
 import { UserMessagesProvider } from './generic/user-messages';
 
@@ -36,9 +36,9 @@ import DecodePageRoute from './decode-page-route';
 import { DECODE_ROUTES, ROUTES } from './constants';
 // import PreferencesUnsubscribe from './preferences-unsubscribe';
 import NotFoundPage from './404/404';
-import PageLoading from './generic/PageLoading';
+// import PageLoading from './generic/PageLoading';
 
-const CommonRedirection = React.lazy(() => import('./common-redirection/CommonRedirection'));
+// const CommonRedirection = React.lazy(() => import('./common-redirection/CommonRedirection'));
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
@@ -68,14 +68,14 @@ subscribe(APP_READY, () => {
                   </DecodePageRoute>
                 )}
               />
-              <Route
+              {/* <Route
                 path={DECODE_ROUTES.COMMON_REDIRECTION}
                 element={(
                   <Suspense fallback={<PageLoading />}>
                     <CommonRedirection />
                   </Suspense>
                 )}
-              />
+              /> */}
               {/* <Route
                 path={DECODE_ROUTES.LIVE}
                 element={(
