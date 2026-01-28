@@ -22,7 +22,7 @@ const CourseCommunityHeader = () => {
     localStorage.getItem('communityName'),
   );
   const [userProfile, setUserProfile] = useState(
-    user?.image?.url,
+    user?.image,
   );
   const [username, setUserName] = useState(
     user?.name,
@@ -77,7 +77,7 @@ const CourseCommunityHeader = () => {
       );
 
       const newCommunityName = res?.community?.name;
-      const newCommunityImage = res?.community?.image?.url;
+      const newCommunityImage = res?.community?.image;
       const newUser = res?.user || '-';
 
       // Update localStorage
@@ -88,7 +88,7 @@ const CourseCommunityHeader = () => {
       // Update state
       setCommunityName(newCommunityName);
       setCommunityImage(newCommunityImage);
-      setUserProfile(newUser?.image?.url);
+      setUserProfile(newUser?.image);
       setUserName(newUser?.name);
     } catch (error) {
       setCommunityName('');
