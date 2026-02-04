@@ -89,9 +89,10 @@ const StartOrResumeCourseCard = ({ intl }) => {
         <Button
           variant="brand"
           className="btn-filled"
-          onClick={() => (hasVisitedCourse ? logResumeCourseClick() : setIsOpenRules(true))}
+          // onClick={() => (hasVisitedCourse ? logResumeCourseClick() : setIsOpenRules(true))}
+          onClick={() => (logResumeCourseClick())}
           disabled={isCompleted && hasVisitedCourse}
-          {...(hasVisitedCourse ? { href: resumeCourseUrl } : {})}
+          {...(hasVisitedCourse ? { href: resumeCourseUrl } : { href: resumeCourseUrl })}
         >
           {buttonLabel}
         </Button>
