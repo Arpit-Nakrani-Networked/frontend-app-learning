@@ -44,6 +44,62 @@ const Unit = ({
 
   const iframeUrl = getUrl();
 
+  // In React repo - add this to the component that contains #unit-iframe
+  React.useEffect(() => {
+    const handleFullscreenToggle = (event) => {
+      // Optional: validate origin for security
+      // if (event.origin !== 'https://your-lms-domain.com') return;
+
+      if (event.data.type === 'UNIT_FULLSCREEN_TOGGLE') {
+        const unitIframe = document.getElementById('unit-iframe');
+
+        if (!unitIframe) {
+          // eslint-disable-next-line no-console
+          console.warn('[React] #unit-iframe not found');
+          return;
+        }
+
+        // Toggle fullscreen state
+        const isCurrentlyFullscreen = unitIframe.dataset.fullscreen === 'true';
+
+        if (!isCurrentlyFullscreen) {
+          // Enter fullscreen
+          unitIframe.dataset.origStyle = unitIframe.getAttribute('style') || '';
+          unitIframe.dataset.fullscreen = 'true';
+
+          unitIframe.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9999 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+          `;
+          // eslint-disable-next-line no-console
+          console.log('[React] Fullscreen applied to #unit-iframe');
+        } else {
+          // Exit fullscreen
+          unitIframe.setAttribute('style', unitIframe.dataset.origStyle || '');
+          delete unitIframe.dataset.origStyle;
+          delete unitIframe.dataset.fullscreen;
+          // eslint-disable-next-line no-console
+          console.log('[React] Fullscreen removed from #unit-iframe');
+        }
+      }
+    };
+
+    window.addEventListener('message', handleFullscreenToggle);
+
+    return () => {
+      window.removeEventListener('message', handleFullscreenToggle);
+    };
+  }, []);
+
   return (
     <div className="unit">
       <div className="mb-0">
