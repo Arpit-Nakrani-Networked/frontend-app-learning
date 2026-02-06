@@ -74,7 +74,7 @@ const Unit = ({
             right: 0 !important;
             bottom: 0 !important;
             width: 100vw !important;
-            height: 100vh !important;
+            height: 87vh !important;
             z-index: 9999 !important;
             margin: 0 !important;
             padding: 0 !important;
