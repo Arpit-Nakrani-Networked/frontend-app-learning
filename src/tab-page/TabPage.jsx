@@ -17,6 +17,7 @@ import LoadedTabPage from './LoadedTabPage';
 import { setCallToActionToast } from '../course-home/data/slice';
 import LaunchCourseHomeTourButton from '../product-tours/newUserCourseHomeTour/LaunchCourseHomeTourButton';
 import CourseMultiHeader from '../course-header-title/CourseMultiHeader';
+import IntractiveLoader from '../_components/interactive-loader/IntractiveLoader';
 
 const TabPage = ({ intl, ...props }) => {
   const {
@@ -69,7 +70,9 @@ const TabPage = ({ intl, ...props }) => {
       {/* <HeaderSlot courseOrg={org} courseNumber={number} courseTitle={title} /> */}
 
       {courseStatus === 'loading' && (
-        <PageLoading srMessage={intl.formatMessage(messages.loading)} />
+        window.history.length > 1
+          ? <PageLoading srMessage={intl.formatMessage(messages.loading)} />
+          : <IntractiveLoader />
       )}
 
       {['loaded', 'denied'].includes(courseStatus) && (
