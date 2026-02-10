@@ -63,8 +63,24 @@ const CourseCelebration = ({ intl }) => {
   const visitEvent = 'celebration_generic';
 
   const handleModalClose = () => {
-    if (wideScreen) { window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`; }
-    if (!wideScreen) { window.location.href = `/learning/course/${courseId}/home`; }
+    let url = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
+    let organization = org;
+    if (!organization) {
+      const [, orgPart] = courseId.split(':');
+      const [orgName] = orgPart.split('+');
+      organization = orgName;
+    }
+    const isGroupOrg = organization && organization.split('_').length > 1;
+    const community = isGroupOrg ? organization.split('_')[1] : organization.split('_')[0];
+    if (!wideScreen) {
+      url = `/learning/course/${courseId}/home`;
+    } else if (isGroupOrg && community) {
+      url = `${NETWORKED_FRONTEND_URL}/groups/${community}/courses/${courseId}`;
+    } else {
+      url = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
+    }
+
+    window.location.href = url;
   };
 
   useEffect(() => logVisit(org, courseId, administrator, visitEvent), [org, courseId, administrator, visitEvent]);
