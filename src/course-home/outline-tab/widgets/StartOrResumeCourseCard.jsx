@@ -9,7 +9,9 @@ import { useModel } from '../../../generic/model-store';
 import CourseRulesModal from '../../../_components/course-rules-modal/CourseRulesModal';
 
 const StartOrResumeCourseCard = ({ intl }) => {
-  const username = JSON.parse(localStorage.getItem('user') || '{}')?.name || '-';
+  // Get user data from Redux store
+  const networkedUserData = useSelector(state => state.courseHome.networkedUserData);
+  const username = networkedUserData?.name || '-';
   const [IsOpenRules, setIsOpenRules] = useState(false);
   const {
     courseId,

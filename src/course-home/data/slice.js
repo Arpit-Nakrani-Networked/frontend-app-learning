@@ -18,6 +18,8 @@ const slice = createSlice({
     toastBodyLink: null,
     toastHeader: '',
     showSearch: false,
+    networkedUserData: null,
+    networkedCommunityData: null,
   },
   reducers: {
     fetchProctoringInfoResolved: (state) => {
@@ -53,6 +55,12 @@ const slice = createSlice({
     setShowSearch: (state, { payload }) => {
       state.showSearch = payload;
     },
+    setNetworkedUserData: (state, { payload }) => {
+      state.networkedUserData = payload;
+    },
+    setNetworkedCommunityData: (state, { payload }) => {
+      state.networkedCommunityData = payload;
+    },
   },
 });
 
@@ -64,6 +72,8 @@ export const {
   fetchTabSuccess,
   setCallToActionToast,
   setShowSearch,
+  setNetworkedUserData,
+  setNetworkedCommunityData,
 } = slice.actions;
 
 export const {

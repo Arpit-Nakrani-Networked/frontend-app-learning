@@ -1,32 +1,28 @@
-// import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 // import { useNavigate, useParams } from 'react-router-dom';
 // import { useModel } from '../generic/model-store';
 // import { NETWORKED_FRONTEND_URL } from '../helper/constants';
 import { HttpMethod, HttpWrapper } from '../helper/httpWrapper';
+import { setNetworkedUserData, setNetworkedCommunityData } from '../course-home/data/slice';
 import './css/CourseHeader.scss';
 
 const CourseCommunityHeader = () => {
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const { courseId, sequenceId, unitId } = useParams();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  // State initialized from localStorage or fallback default
-  const [isLoading, setIsLoading] = useState(
-    false,
-  );
-  const [communityImage, setCommunityImage] = useState(
-    localStorage.getItem('communityImage'),
-  );
-  const [communityName, setCommunityName] = useState(
-    localStorage.getItem('communityName'),
-  );
-  const [userProfile, setUserProfile] = useState(
-    user?.image,
-  );
-  const [username, setUserName] = useState(
-    user?.name,
-  );
+  // Get data from Redux store
+  const networkedUserData = useSelector(state => state.courseHome.networkedUserData);
+  const networkedCommunityData = useSelector(state => state.courseHome.networkedCommunityData);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Use Redux data or fallback to defaults
+  const communityImage = networkedCommunityData?.image;
+  const communityName = networkedCommunityData?.name;
+  const userProfile = networkedUserData?.image;
+  const username = networkedUserData?.name;
 
   const getDefaultCommunityImage = () => {
     const getInitials = (name) => {
@@ -76,25 +72,16 @@ const CourseCommunityHeader = () => {
         undefined,
       );
 
-      const newCommunityName = res?.community?.name;
-      const newCommunityImage = res?.community?.image;
-      const newUser = res?.user || '-';
+      const communityData = res?.community || {};
+      const userData = res?.user || {};
 
-      // Update localStorage
-      localStorage.setItem('communityName', newCommunityName);
-      localStorage.setItem('communityImage', newCommunityImage);
-      localStorage.setItem('user', JSON.stringify(newUser));
-
-      // Update state
-      setCommunityName(newCommunityName);
-      setCommunityImage(newCommunityImage);
-      setUserProfile(newUser?.image);
-      setUserName(newUser?.name);
+      // Update Redux store only
+      dispatch(setNetworkedCommunityData(communityData));
+      dispatch(setNetworkedUserData(userData));
     } catch (error) {
-      setCommunityName('');
-      setCommunityImage('');
-      setUserProfile('');
-      setUserName('');
+      // On error, set empty data
+      dispatch(setNetworkedCommunityData({}));
+      dispatch(setNetworkedUserData({}));
       // console.error('❌ Error fetching user profile:', error);
     } finally {
       setIsLoading(false);
