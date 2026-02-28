@@ -1334,6 +1334,42 @@ button:focus-visible {
   }
 }
 
+// Mobile landscape orientation - maximize viewport space
+@media (max-width: 1024px) and (max-height: 600px) and (orientation: landscape) {
+  .unit-container {
+    max-height: none !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .unit {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .unit-iframe-wrapper {
+    overflow: visible !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .main-course-header {
+    position: relative !important;
+    height: 56px !important;
+    padding: 10px 15px !important;
+
+    h1 {
+      font-size: 18px !important;
+    }
+  }
+
+  // Make sequence navigation non-sticky too
+  .sequence-container {
+    position: relative !important;
+  }
+}
+
 
 //Figtree-font definitions
 @font-face {

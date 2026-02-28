@@ -60,10 +60,10 @@ const NewSidebarSection = ({
 
   // Auto-expand section if it contains the active unit
   useEffect(() => {
-    if (hasActiveUnit && !open) {
+    if (hasActiveUnit) {
       setOpen(true);
     }
-  }, [hasActiveUnit, open]);
+  }, [hasActiveUnit]);
 
   // console.log('new-sequence-unitIds', unitIds, unitMapping);
 
@@ -93,7 +93,7 @@ const NewSidebarSection = ({
         style={{ borderRadius: '0px !important', borderTop: '0px !important' }}
         title={sectionTitle}
         open={open}
-        onToggle={() => setOpen(!open)}
+        onToggle={(isOpen) => setOpen(isOpen)}
       >
         <ol className={classNames('list-unstyled border-left-0 border-right-0 border-bottom-0 border-black-500', { 'bg-white-500': isCompleted, 'border-top-0': !open, 'border-top': open })}>
           {unitIds.map((unitId, index) => {

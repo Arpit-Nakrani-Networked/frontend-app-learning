@@ -222,13 +222,11 @@ const CourseOutlineTray = ({ intl }) => {
           </ol>
         </section>
       </div>
-      {isOpen && (
+      {isOpen && shouldDisplayFullScreen && (
         <button
           type="button"
           aria-label="Close sidebar"
-          className={classNames(
-            'outline-sidebar-backdrop vh-100 w-100 show-after-360',
-          )}
+          className="outline-sidebar-backdrop vh-100 w-100"
           onClick={() => setIsOpen(false)}
         />
       )}

@@ -36,7 +36,7 @@
     .sidebar-close-btn {
         background: transparent;
         border: none;
-        padding: 8px;
+        padding: 2px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -177,8 +177,9 @@
     #outline-sidebar-outline li {
         .collapsible-trigger {
             padding: 14px 1rem !important;
-            justify-content: flex-start;
+            justify-content: space-between;
             gap: 8px;
+            align-items: center;
 
             div {
                 font-size: 14px;
@@ -190,7 +191,9 @@
             }
 
             .collapsible-icon{
-                margin-left: 8px;
+                margin-left: auto;
+                display: flex;
+                align-items: center;
             }
         }
 
@@ -227,7 +230,9 @@
         .outline-sidebar-heading-wrapper {
             height: 64px;
             padding: 16px 21px;
+            padding-right: 14px;
             display: flex;
+            align-items: center;
             border-left: none;
             border-right: none;
             border-top: none;
@@ -236,6 +241,10 @@
                 font-weight: 600;
                 font-size: 18px;
                 line-height: 100%;
+            }
+
+            .sidebar-close-btn {
+                margin-left: auto;
             }
         }
 
@@ -253,7 +262,7 @@
         right: 0;
         left: 0;
         border: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.7);
         z-index: 1040;
         animation: fadeIn 0.3s ease-in-out;
     }
