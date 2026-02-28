@@ -13,7 +13,7 @@ import SidebarUnit from './SidebarUnit';
 // import { UNIT_ICON_TYPES } from './UnitIcon';
 
 const NewSidebarSection = ({
-  intl, section, courseId, activeUnitId, isLastUnCompleted,
+  intl, section, courseId, activeUnitId, isLastUnCompleted, onUnitClick,
 }) => {
   const {
     // id,
@@ -132,6 +132,7 @@ const NewSidebarSection = ({
                 isFirst={index === 0}
                 isActive={activeUnitId === unitId}
                 isAllCompletedExcludeLast={isAllCompletedExcludeLast}
+                onUnitClick={onUnitClick}
                 // isLocked={mapping.type === UNIT_ICON_TYPES.lock}
               />
             );
@@ -157,6 +158,7 @@ NewSidebarSection.propTypes = {
   activeUnitId: PropTypes.string.isRequired,
   courseId: PropTypes.string.isRequired,
   isLastUnCompleted: PropTypes.bool.isRequired,
+  onUnitClick: PropTypes.func.isRequired,
 };
 
 export default injectIntl(NewSidebarSection);

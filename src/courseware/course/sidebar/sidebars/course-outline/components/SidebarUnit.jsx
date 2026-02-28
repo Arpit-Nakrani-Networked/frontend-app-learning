@@ -26,6 +26,7 @@ const SidebarUnit = ({
   // isLocked,
   activeUnitId,
   isAllCompletedExcludeLast,
+  onUnitClick,
 }) => {
   const {
     complete,
@@ -59,6 +60,9 @@ const SidebarUnit = ({
   const handleClick = () => {
     logEvent('edx.ui.lms.sequence.tab_selected', 'left');
     dispatch(checkBlockCompletion(courseId, sequenceId, activeUnitId));
+    if (onUnitClick) {
+      onUnitClick();
+    }
   };
 
   useEffect(() => {
@@ -128,6 +132,7 @@ SidebarUnit.propTypes = {
   sequenceId: PropTypes.string.isRequired,
   activeUnitId: PropTypes.string.isRequired,
   isAllCompletedExcludeLast: PropTypes.bool.isRequired,
+  onUnitClick: PropTypes.func.isRequired,
 };
 
 export default injectIntl(SidebarUnit);

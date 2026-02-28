@@ -32,6 +32,28 @@
         line-height: 100%;
         color: #000000CC;
     }
+
+    .sidebar-close-btn {
+        background: transparent;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000CC;
+        transition: all 0.2s ease;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: #F5F5F5;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
 }
 
 .course-sidebar-section {
@@ -151,7 +173,7 @@
     }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
     #outline-sidebar-outline li {
         .collapsible-trigger {
             padding: 14px 1rem !important;
@@ -195,6 +217,7 @@
         top: 0;
         bottom: 0;
         width: 70% !important;
+        z-index: 1050;
 
         /* start hidden */
         transform: translateX(-100%);
@@ -231,7 +254,7 @@
         left: 0;
         border: 0;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1;
+        z-index: 1040;
         animation: fadeIn 0.3s ease-in-out;
     }
 }

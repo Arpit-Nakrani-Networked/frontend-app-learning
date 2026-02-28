@@ -97,6 +97,18 @@ const CourseOutlineTray = ({ intl }) => {
       <span className="outline-sidebar-heading mb-0 h4 text-dark-500">
         {intl.formatMessage(messages.courseOutlineTitle)}
       </span>
+      {shouldDisplayFullScreen && (
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          className="sidebar-close-btn"
+          onClick={() => setIsOpen(false)}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 
@@ -202,6 +214,7 @@ const CourseOutlineTray = ({ intl }) => {
                   section={sections[sectionId]}
                   activeUnitId={unitId}
                   isLastUnCompleted={isAllCompletedExcludeLast}
+                  onUnitClick={() => shouldDisplayFullScreen && setIsOpen(false)}
                 />
               );
             })}

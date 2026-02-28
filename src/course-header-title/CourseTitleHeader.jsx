@@ -11,7 +11,7 @@ const CourseTitleHeader = ({ slice }) => {
 
   return (
     <div className="container-fluid main-course-header">
-      {courseIdFromUrl && Boolean(sequenceId || unitId) && <SolidSvgComponent url={MenuIcon} width={36} height={36} defaultClass="mr-1 show-after-360" isIconColor id="mobile-sidebar-toggle" />}
+      {courseIdFromUrl && Boolean(sequenceId || unitId) && <SolidSvgComponent url={MenuIcon} width={36} height={36} defaultClass="mr-1 sidebar-toggle-btn" isIconColor id="mobile-sidebar-toggle" />}
       <h1 className="h2 flex-1" title={title} data-course-id={courseIdFromUrl}>
         {title}
       </h1>
