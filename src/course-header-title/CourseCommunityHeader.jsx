@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { HttpMethod, HttpWrapper } from '../helper/httpWrapper';
 import { setNetworkedUserData, setNetworkedCommunityData } from '../course-home/data/slice';
 import './css/CourseHeader.scss';
+import Favicon from '../_components/favicon/Favicon';
 
 const CourseCommunityHeader = () => {
   const dispatch = useDispatch();
@@ -93,6 +94,7 @@ const CourseCommunityHeader = () => {
   }, []);
   return !isLoading && (
     <div className="container-fluid community-header hide-after-360">
+      <Favicon communityImage={communityImage} />
       <div className="course-content">
         <div className="course-info">
           {getDefaultCommunityImage()}

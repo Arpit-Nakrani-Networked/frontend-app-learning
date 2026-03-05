@@ -1,13 +1,12 @@
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
   mergeConfig,
-  getConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageWrap } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
 import { Routes, Route } from 'react-router-dom';
 
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 // import { fetchDiscussionTab, fetchLiveTab } from './course-home/data/thunks';
 // import DiscussionTab from './course-home/discussion-tab/DiscussionTab';
 
@@ -43,9 +42,9 @@ import NotFoundPage from './404/404';
 subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
-      <Helmet>
+      {/* <Helmet>
         <link rel="shortcut icon" href={`${getConfig().LMS_BASE_URL}/favicon.ico`} type="image/x-icon" />
-      </Helmet>
+      </Helmet> */}
       <PathFixesProvider>
         <NoticesProvider>
           <UserMessagesProvider>

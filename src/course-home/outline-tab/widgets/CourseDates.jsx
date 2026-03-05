@@ -22,10 +22,10 @@ const CourseDates = ({
     datesWidget: {
       datesTabLink,
     },
-    resumeCourse,
+    // resumeCourse,
   } = useModel('outline', courseId);
 
-  const isEnrolled = resumeCourse?.hasVisitedCourse;
+  const isEnrolled = isEnrolledOrNot;
 
   if (!isEnrolledOrNot) {
     return null;
