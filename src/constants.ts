@@ -20,7 +20,7 @@ export const DECODE_ROUTES = {
 } as const satisfies Readonly<{ [k: string]: string | readonly string[] }>;
 
 export const ROUTES = {
-  UNSUBSCRIBE: '/goal-unsubscribe/:token',
+  // UNSUBSCRIBE: '/goal-unsubscribe/:token',
   PREFERENCES_UNSUBSCRIBE: '/preferences-unsubscribe/:userToken/:updatePatch',
   REDIRECT: '/redirect/*',
   DASHBOARD: 'dashboard',

@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { Toast } from '@openedx/paragon';
-// import FooterSlot from '@openedx/frontend-slot-footer';
-// import HeaderSlot from '../plugin-slots/HeaderSlot';
 import PageLoading from '../generic/PageLoading';
 import { getAccessDeniedRedirectUrl } from '../shared/access';
 import { useModel } from '../generic/model-store';
@@ -15,7 +13,6 @@ import genericMessages from '../generic/messages';
 import messages from './messages';
 import LoadedTabPage from './LoadedTabPage';
 import { setCallToActionToast } from '../course-home/data/slice';
-import LaunchCourseHomeTourButton from '../product-tours/newUserCourseHomeTour/LaunchCourseHomeTourButton';
 import CourseMultiHeader from '../course-header-title/CourseMultiHeader';
 import IntractiveLoader from '../_components/interactive-loader/IntractiveLoader';
 
@@ -63,7 +60,7 @@ const TabPage = ({ intl, ...props }) => {
           >
             {toastHeader}
           </Toast>
-          {metadataModel === 'courseHomeMeta' && (<LaunchCourseHomeTourButton srOnly />)}
+          {/* {metadataModel === 'courseHomeMeta' && (<LaunchCourseHomeTourButton srOnly />)} */}
         </>
       )}
 
