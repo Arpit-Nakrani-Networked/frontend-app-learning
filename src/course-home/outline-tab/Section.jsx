@@ -41,7 +41,7 @@ const Section = ({
 
   useEffect(() => {
     setOpen(defaultOpen);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sectionTitle = (
@@ -52,6 +52,10 @@ const Section = ({
             icon={fasCheckCircle}
             fixedWidth
             className="float-left v2-text-black-600"
+            style={{
+              height: '20px',
+              width: '20px',
+            }}
             aria-hidden="true"
             title={intl.formatMessage(messages.completedSection)}
           />
@@ -60,6 +64,11 @@ const Section = ({
             icon={farCheckCircle}
             fixedWidth
             className="float-left text-gray-400"
+            style={{
+              height: '20px',
+              width: '20px',
+              color: '#00000099 !important',
+            }}
             aria-hidden="true"
             title={intl.formatMessage(messages.incompleteSection)}
           />
@@ -72,16 +81,16 @@ const Section = ({
         </span>
       </div>
       {hideFromTOC && (
-      <div className="row">
-        {hideFromTOC && (
-          <span className="small d-flex align-content-end">
-            <Icon className="mr-2" src={DisabledVisible} data-testid="hide-from-toc-section-icon" />
-            <span data-testid="hide-from-toc-section-text">
-              {intl.formatMessage(messages.hiddenSection)}
+        <div className="row">
+          {hideFromTOC && (
+            <span className="small d-flex align-content-end">
+              <Icon className="mr-2" src={DisabledVisible} data-testid="hide-from-toc-section-icon" />
+              <span data-testid="hide-from-toc-section-text">
+                {intl.formatMessage(messages.hiddenSection)}
+              </span>
             </span>
-          </span>
-        )}
-      </div>
+          )}
+        </div>
       )}
     </div>
   );
@@ -89,7 +98,7 @@ const Section = ({
   return (
     <li>
       <Collapsible
-        className="mb-3"
+        className={`mb-3 section-outline ${complete ? 'completed' : ''}`}
         styling="card-lg"
         title={sectionTitle}
         open={open}
@@ -99,7 +108,7 @@ const Section = ({
             alt={intl.formatMessage(messages.openSection)}
             iconAs={faPlus}
             onClick={() => { setOpen(true); }}
-            size="sm"
+            size="md"
           />
         )}
         iconWhenOpen={(
@@ -107,11 +116,11 @@ const Section = ({
             alt={intl.formatMessage(genericMessages.close)}
             iconAs={faMinus}
             onClick={() => { setOpen(false); }}
-            size="sm"
+            size="md"
           />
         )}
       >
-        <ol className="list-unstyled py-1">
+        <ol className="list-unstyled">
           {sequenceIds.map((sequenceId, index) => (
             <SequenceLink
               key={sequenceId}

@@ -74,7 +74,7 @@ const NewSidebarSection = ({
       <div className="col-auto p-0">
         <CompletionIcon completionStat={completionStat} />
       </div>
-      <div className="col-8 p-0 flex-grow-1 text-dark-500 text-left text-break">
+      <div className="col-auto p-0 px-3 flex-grow-1 text-dark-500 text-left text-break" style={{ flex: 1 }}>
         {title}
         <span className="sr-only">
           , {intl.formatMessage(complete

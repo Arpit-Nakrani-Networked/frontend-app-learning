@@ -34,7 +34,7 @@ html body * {
 //   letter-spacing: 0.5px !important;
 // }
 
-.flex-1{
+.flex-1 {
   flex: 1;
 }
 
@@ -1008,9 +1008,49 @@ h6,
   padding: 0 !important;
 }
 
+#courseHome-outline .section-outline.completed {
+  .collapsible-trigger {
+    background-color: #F8F8F8;
+  }
+
+  &.is-open {
+    .collapsible-trigger {
+      border-radius: 16px 16px 0 0;
+    }
+  }
+
+  &:not(.is-open) {
+    .collapsible-trigger {
+      border-radius: 16px;
+    }
+  }
+}
+
 #courseHome-outline .collapsible-card-lg .collapsible-body ol li {
-  padding: 2px 15px 2px 55px !important;
-  height: 48px;
+  padding: 0;
+
+  .subsection-outline {
+    padding: 2px 15px 2px 55px !important;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.completed,&:hover {
+      background-color: #F8F8F8;
+    }
+  }
+}
+
+#courseHome-outline .collapsible-card-lg .collapsible-body ol>li:last-child .subsection-outline {
+  border-radius: 0 0 16px 16px;
+}
+
+#courseHome-outline .collapsible-icon {
+  svg {
+    height: 24px;
+    width: 24px;
+  }
 }
 
 @media (max-width: 425px) {
@@ -1276,7 +1316,7 @@ button:focus-visible {
 
   }
 
-  #courseHome-outline .collapsible-card-lg .collapsible-body ol li {
+  #courseHome-outline .collapsible-card-lg .collapsible-body ol li .subsection-outline {
     padding: 2px 15px 2px 18px !important;
     display: flex;
     align-items: center;
@@ -1369,47 +1409,49 @@ button:focus-visible {
     position: relative !important;
   }
 }
-
+.pgn__spinner.spinner-border.text-primary {
+  color:$v2-blue-500 !important;
+}
 
 //Figtree-font definitions
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 400;
-	src: url('./fonts/Figtree/Figtree-Regular.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/Figtree/Figtree-Regular.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 500;
-	src: url('./fonts/Figtree/Figtree-Medium.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/Figtree/Figtree-Medium.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 600;
-	src: url('./fonts/Figtree/Figtree-SemiBold.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./fonts/Figtree/Figtree-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 700;
-	src: url('./fonts/Figtree/Figtree-Bold.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/Figtree/Figtree-Bold.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 800;
-	src: url('./fonts/Figtree/Figtree-ExtraBold.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 800;
+  src: url('./fonts/Figtree/Figtree-ExtraBold.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Figtree';
-	font-style: normal;
-	font-weight: 900;
-	src: url('./fonts/Figtree/Figtree-Black.ttf') format('truetype');
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 900;
+  src: url('./fonts/Figtree/Figtree-Black.ttf') format('truetype');
 }

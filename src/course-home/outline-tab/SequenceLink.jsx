@@ -7,6 +7,7 @@ import {
   injectIntl,
   intlShape,
 } from '@edx/frontend-platform/i18n';
+import { useNavigate } from 'react-router';
 import { faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,7 +22,7 @@ const SequenceLink = ({
   id,
   intl,
   courseId,
-  first,
+  // first,
   sequence,
   hiddenURL = false,
 }) => {
@@ -36,6 +37,7 @@ const SequenceLink = ({
   const {
     userTimezone,
   } = useModel('outline', courseId);
+  const navigate = useNavigate();
 
   const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
 
@@ -88,7 +90,17 @@ const SequenceLink = ({
 
   return (
     <li>
-      <div className={classNames('', { '': !first })}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,
+      jsx-a11y/no-static-element-interactions, react/jsx-no-bind */}
+      <div
+        className={classNames('subsection-outline', { completed: complete })}
+        style={showLink && !hiddenURL ? { cursor: 'pointer' } : undefined}
+        onClick={() => {
+          if (showLink && !hiddenURL) {
+            navigate(`/course/${courseId}/${id}`);
+          }
+        }}
+      >
         <div className="row w-100 m-0 py-1">
           <div className="col-auto p-0 d-flex align-items-center justify-content-center">
             {complete ? (
@@ -96,6 +108,10 @@ const SequenceLink = ({
                 icon={fasCheckCircle}
                 fixedWidth
                 className="float-left v2-text-black-600"
+                style={{
+                  height: '20px',
+                  width: '20px',
+                }}
                 aria-hidden={complete}
                 title={intl.formatMessage(messages.completedAssignment)}
               />
@@ -104,6 +120,11 @@ const SequenceLink = ({
                 icon={farCheckCircle}
                 fixedWidth
                 className="float-left text-gray-400"
+                style={{
+                  height: '20px',
+                  width: '20px',
+                  color: '#00000099 !important',
+                }}
                 aria-hidden={complete}
                 title={intl.formatMessage(messages.incompleteAssignment)}
               />
@@ -141,7 +162,7 @@ SequenceLink.propTypes = {
   id: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
   courseId: PropTypes.string.isRequired,
-  first: PropTypes.bool.isRequired,
+  // first: PropTypes.bool.isRequired,
   sequence: PropTypes.shape().isRequired,
   hiddenURL: PropTypes.bool,
 };

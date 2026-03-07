@@ -1,13 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-// import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { FormattedDate } from '@edx/frontend-platform/i18n';
-// import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { useModel } from '../../generic/model-store';
-// import { isLearnerAssignment } from '../dates-tab/utils';
 import './DateSummary.scss';
+import SolidSvgComponent from '../../_components/SolidSvgComponent';
+import dateIcon from '../../assets/images/dateIcon.svg';
 
 const DateSummary = ({
   dateBlock,
@@ -38,7 +34,8 @@ const DateSummary = ({
   return (
     <li className="p-0 mb-3 small text-dark-500">
       <div className="row">
-        <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mr-1" fixedWidth />
+        {/* <FontAwesomeIcon icon={faCalendarAlt} className="ml-3 mr-1" fixedWidth /> */}
+        <SolidSvgComponent url={dateIcon} width={20} height={20} defaultClass="ml-3 mr-1" isIconColor />
         <div className="ml-1">
           {isEnrolled ? (
             <FormattedDate

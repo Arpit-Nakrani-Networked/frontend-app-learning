@@ -6,6 +6,11 @@ const messages = defineMessages({
     defaultMessage: 'View all',
     description: 'Text anchor for link that redirects to dates or course timeline tab',
   },
+  goToSequence: {
+    id: 'learning.outline.goToSequence',
+    defaultMessage: 'Go to sequence',
+    description: 'Text anchor for link that redirects to dates or course timeline tab',
+  },
   casualGoalButtonText: {
     id: 'learning.outline.goalButton.casual.text',
     defaultMessage: '1 day a week',

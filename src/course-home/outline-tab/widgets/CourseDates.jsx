@@ -18,12 +18,12 @@ const CourseDates = ({
     enrolledDate,
     isEnrolled: isEnrolledOrNot,
   } = useModel('courseHomeMeta', courseId);
-  const {
-    datesWidget: {
-      datesTabLink,
-    },
-    // resumeCourse,
-  } = useModel('outline', courseId);
+  // const {
+  //   datesWidget: {
+  //     datesTabLink,
+  //   },
+  //   // resumeCourse,
+  // } = useModel('outline', courseId);
 
   const isEnrolled = isEnrolledOrNot;
 
@@ -32,15 +32,15 @@ const CourseDates = ({
   }
 
   return (
-    <section className="mb-4 card px-4 pt-3 pb-4">
+    <section className="mb-4 card px-4 pt-3 pb-3">
       <div id="courseHome-dates">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h2 className="h4 card-header-custom">{intl.formatMessage(messages.dates)}</h2>
-          {isEnrolled && (
+          {/* {isEnrolled && (
           <a id="dates-tab-link" className="ml-4 small btn-blue" href={datesTabLink}>
             {intl.formatMessage(messages.allDates)}
           </a>
-          )}
+          )} */}
         </div>
 
         <ol className="list-unstyled">

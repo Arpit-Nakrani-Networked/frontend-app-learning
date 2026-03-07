@@ -48,7 +48,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
     <Button
       disabled={loading}
       variant="brand"
-      className="btn-filled mt-2"
+      className="btn-filled"
       size="sm"
       onClick={enrollClickHandler}
     >
@@ -94,8 +94,8 @@ const PrivateCourseAlert = ({ intl, payload }) => {
         </>
       )}
       {!anonymousUser && (
-        <>
-          <h2 className="font-weight-bold _truncate" title={title}>{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
+        <div className="d-flex align-items-center justify-content-between">
+          <h2 className="card-header-custom mr-3 mb-0 welcome-text m-0" title={title}>{intl.formatMessage(outlineMessages.welcomeTo)} {title}</h2>
           {/* {canEnroll && (
             <div className="d-flex">
               {enrollNowButton}
@@ -113,7 +113,7 @@ const PrivateCourseAlert = ({ intl, payload }) => {
               {intl.formatMessage(enrollmentMessages.alert)}
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );
