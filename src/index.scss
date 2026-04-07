@@ -1053,7 +1053,7 @@ h6,
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 575px) {
   #courseHome-outline .collapsible-icon {
     margin-inline-start: 0 !important;
   }
@@ -1222,7 +1222,7 @@ button:focus-visible {
   display: none;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 575px) {
   .show-after-360 {
     display: block;
   }
@@ -1232,7 +1232,7 @@ button:focus-visible {
   display: block;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 575px) {
   .hide-after-360 {
     display: none;
   }
@@ -1240,7 +1240,7 @@ button:focus-visible {
 
 
 // media response mobile 360
-@media (max-width: 425px) {
+@media (max-width: 575px) {
   .main-course-header {
     column-gap: 4px;
 

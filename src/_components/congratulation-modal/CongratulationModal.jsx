@@ -38,6 +38,7 @@ const CourseCompleteModal = () => {
   return (
     <ModalDialog
       dialogClassName="modal-lti"
+      className="CourseCompleteModal"
       onClose={() => {}}
       size="md"
       isOpen

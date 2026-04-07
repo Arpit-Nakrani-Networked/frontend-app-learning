@@ -14,6 +14,10 @@
 		.modal-content {
 			border-radius: 30px;
 		}
+
+		&.CourseCompleteModal{
+			margin: 0;
+		}
 	}
 
 	.pgn__modal-body::after {
@@ -189,7 +193,7 @@
 
 }
 
-@media (max-width: 425px) {
+@media (max-width: 575px) {
 	.pgn__modal-content-container {
 
 		.congrats-modal-body {
@@ -236,6 +240,13 @@
 	}
 }
 
+@media (max-width: 321px) {
+	.pgn__modal-content-container {
+		.pgn__modal {
+			max-width: 300px !important;
+		}
+	}
+}
 @keyframes confetti {
 	0% {
 		top: -158px;
