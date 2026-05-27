@@ -40,7 +40,7 @@ const StartOrResumeCourseCard = ({ intl }) => {
       completeCount = 0,
       incompleteCount = 0,
       lockedCount = 0,
-    } = {}, // fallback to empty object if completionSummary is undefined
+    } = {},
   } = useModel('progress', courseId) || {}; // fallback if useModel returns null/undefined
 
   const numTotalUnits = completeCount + incompleteCount + lockedCount;
