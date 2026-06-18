@@ -1,0 +1,236 @@
+---
+description: Networked integration guidance for frontend-app-learning only
+alwaysApply: true
+---
+
+# Networked Frontend Learning Integration
+
+This rule is for `frontend-app-learning`, the Open edX learner MFE used by Networked after a learner enters a course. Use it when changing course home, courseware, outline, progress, grades, sequence/unit navigation, Networked learner header context, learner redirects, or Networked-specific cookies/API calls inside this repo.
+
+Keep this rule focused on this MFE. Broad Networked course list/detail UX belongs to `fe-main`; Open edX user provisioning, enrollment, course creation/editing, and cookie refresh belong to `be-main`; Studio/course authoring belongs to `frontend-app-authoring` and CMS.
+
+## Role In The Networked Flow
+
+`frontend-app-learning` starts after Networked and Open edX have already established browser session context.
+
+Typical learner entry:
+
+1. User opens a Networked course detail page in `fe-main`.
+2. User clicks Start, Resume, Revisit, View Course, or View Lesson.
+3. `fe-main` opens LMS `/auth/networked-login/<course_id>` with `token`, `communityId`, optional `nextPage`, and optional `isMobile`.
+4. Open edX validates the Networked token/community against `be-main`.
+5. Open edX sets LMS/browser cookies and Networked bridge cookies.
+6. Open edX redirects into LMS/courseware or this learning MFE.
+
+This MFE should not implement the login bridge itself. It consumes the Open edX session and Networked bridge context already created by LMS.
+
+## What This MFE Owns
+
+- Learner course home rendering.
+- Course outline display.
+- Start/resume card behavior.
+- Courseware sequence/unit navigation.
+- Progress and grades display.
+- Learner completion/progress UI.
+- Networked community/user header display inside learning pages.
+- Networked-aware calls that need header/community metadata.
+
+## What This MFE Does Not Own
+
+- Networked `/courses` and `/courses/:courseId` pages.
+- Networked course create/edit/delete/publish/private UX.
+- Course enrollment API calls from Networked.
+- Open edX account provisioning.
+- `userOpenEdx` credential/cookie persistence.
+- Server-to-server LMS/Studio API calls.
+- Studio/course authoring pages, lesson creation, grading configuration, student overview, or score board.
+
+When work touches those areas, check the corresponding `fe-main`, `be-main`, `edx-platform`, or `frontend-app-authoring` rules/docs instead of expanding this rule.
+
+## Local Networked Files
+
+Networked-specific learner UI currently appears mainly in:
+
+- `src/course-header-title/CourseCommunityHeader.jsx`: fetches Networked header metadata and renders community/user identity.
+- `src/course-header-title/CourseMultiHeader.jsx`: combines the Networked community header with the course title header.
+- `src/course-home/data/slice.js`: stores `networkedUserData` and `networkedCommunityData` in course-home Redux state.
+- `src/course-home/outline-tab/widgets/StartOrResumeCourseCard.jsx`: uses Networked user data for the welcome/start/resume card.
+- `src/helper/httpWrapper.ts`: calls Networked backend and attaches bridge headers.
+- `src/helper/constants.ts`: selects Networked frontend/backend URLs by current host.
+- `src/helper/cookieManager.ts`: manages Networked and Open edX bridge cookies.
+
+Prefer small changes near these files for Networked-specific learning behavior.
+
+## Networked Session Context
+
+The learning MFE may see these cookies/local-storage values after LMS login bridge:
+
+- `openedxSessionToken`: Networked session token forwarded for Open edX/MFE calls back to Networked backend.
+- `openedxCommunityId`: active Networked community or group context for the Open edX session.
+- `openedxTokenId` or `tokenId`: Networked login token used during the Open edX bridge.
+- `sessionToken`: Networked session token used by Networked FE flows.
+- `selected_community`: active Networked community in local storage.
+- `user`: Networked user metadata in local storage when populated by the bridge.
+
+Treat these as sensitive auth/context values. Do not log them, expose them in UI, persist duplicates, or invent replacement auth state in this MFE.
+
+## Networked Backend Calls
+
+Use `HttpWrapper` for Networked backend calls from this MFE. It resolves the base URL from `NETWORKED_BACKEND_URL` and automatically attaches:
+
+- `sessionToken` from `openedxSessionToken`.
+- `openedxCommunityId` from `openedxCommunityId`.
+
+The active learner-facing Networked call is:
+
+- `GET /global/open-edx/header-meta`: returns Networked `user` and `community` metadata for the course header/profile/community display.
+
+Do not call raw `backend.networked.co` URLs directly from components. Add small helpers around `HttpWrapper` when new Networked-backed learner metadata is needed.
+
+## Header Metadata
+
+`CourseCommunityHeader` fetches `/global/open-edx/header-meta` on mount, then stores:
+
+- `community` in `state.courseHome.networkedCommunityData`.
+- `user` in `state.courseHome.networkedUserData`.
+
+The header should degrade gracefully if metadata fails. Empty community/user metadata should not break courseware, progress, navigation, or core Open edX learner APIs.
+
+When changing the header:
+
+- Keep fallback initials for missing images.
+- Keep the community/user data in Redux if other learner components need it.
+- Avoid repeatedly fetching metadata from many child components.
+- Do not make course content rendering depend on successful Networked header metadata.
+
+## Environment Selection
+
+`src/helper/constants.ts` selects Networked URLs by browser host:
+
+- host contains `lab` -> lab Networked app/backend.
+- host contains `qa` or `local` -> QA Networked app/backend.
+- otherwise -> production Networked app/backend.
+
+This mirrors the Open edX host-based environment behavior. Be careful with local testing because `local.openedx.io` intentionally resolves Networked backend calls to QA unless code/config changes.
+
+Keep LMS base URL, learning MFE host, Networked backend, and Networked app environment aligned. Mixed lab/QA/prod values commonly cause header metadata failures, login loops, stale cookies, or progress appearing under the wrong community.
+
+## Open edX LMS Data Boundary
+
+Course home, courseware, outline, progress, and grades should continue to use Open edX LMS APIs through the existing frontend-platform authenticated client and local data layer.
+
+Important existing LMS calls include:
+
+- `/api/course_home/course_metadata/<course_id>`.
+- `/api/course_home/dates/<course_id>`.
+- `/api/course_home/progress/<course_id>`.
+- `/api/course_home/outline/<course_id>` or related course block data.
+- Courseware sequence/unit APIs used by existing courseware modules.
+
+Do not route normal learner course content, progress, grades, or sequence data through Networked backend from this MFE unless the product intentionally changes the data contract across `fe-main`, `be-main`, and Open edX.
+
+## Course Outline And Completion
+
+`normalizeOutlineBlocks` maps Open edX block data into local course/section/sequence models:
+
+- Open edX `course` -> course model.
+- Open edX `chapter` -> section model.
+- Open edX `sequential` -> sequence/lesson model.
+
+Networked terminology matters:
+
+- Networked Section usually means Open edX chapter.
+- Networked Lesson usually means Open edX subsection/sequential.
+- Unit content remains Open edX courseware/vertical/XBlock content.
+
+When changing outline or completion UI, preserve this mapping. Do not treat a Networked lesson as a single problem/video/text block.
+
+## Start And Resume Behavior
+
+`StartOrResumeCourseCard` uses Open edX course home/outline/progress models plus Networked user metadata.
+
+Preserve these expectations:
+
+- The start/resume destination should come from Open edX outline/courseware data, not from hand-built Networked URLs.
+- The card should hide when the learner needs enrollment and cannot enter courseware.
+- Completion percentage should derive from Open edX progress/completion counts.
+- Networked user name is presentation-only; it must not decide enrollment, access, or completion.
+
+If a learner cannot start/resume, debug the LMS course metadata, outline resume URL, enrollment state, and login bridge before changing the card.
+
+## Progress And Grades
+
+Progress and grade data comes from Open edX LMS. The local `course-home/data/api.js` logic normalizes grading policy, assignment policies, grade ranges, section scores, completion summary, and locked/partially locked state.
+
+When changing progress/grade UI:
+
+- Preserve Open edX grade range casing.
+- Preserve assignment policy normalization behavior.
+- Preserve handling for 401/403/404 responses that LMS uses for unenrolled, unauthenticated, denied, or legacy progress cases.
+- Do not re-compute learner grades from Networked data.
+- Do not show staff/admin filtering assumptions in learner progress UI; filtering belongs to LMS/backend gradebook APIs.
+
+## Cookies And Logout/Error Handling
+
+`CookieManager` and `HttpWrapper` include Networked-specific cookie cleanup and auth-error behavior.
+
+Important behavior:
+
+- `clearCoursesCookies()` removes stale Open edX cookies such as `csrftoken`, `edxloggedin`, `sessionid`, `studio_session_id`, JWT cookies, and language preference cookies across Networked/Open edX domains.
+- `handleStatusCatch()` redirects non-local users to the Networked login page for certain auth failures.
+- `HttpWrapper` sends bridge headers only when cookie values are present.
+
+Do not remove cookie cleanup casually. Stale Open edX cookies can leak the wrong learner, community, or environment between sessions.
+
+## Redirect Contract
+
+The redirect contract is owned by `fe-main` and LMS, but this MFE depends on it.
+
+Relevant learner targets:
+
+- `nextPage=start-course` -> LMS/courseware.
+- `nextPage=resume-course` -> LMS/courseware.
+- empty or default `nextPage` -> LMS course home.
+
+Authoring targets are outside this repo:
+
+- `nextPage=add-lesson` and `edit-lesson` -> Studio/course authoring.
+- `nextPage=student-overview` -> Studio/course authoring student overview.
+- `nextPage=score-board` -> Studio/course authoring score board.
+- `nextPage=grading` -> Studio grading/settings.
+
+Do not change `token`, `communityId`, `nextPage`, or `isMobile` assumptions from this MFE. If a learner redirect fails, inspect the `fe-main` redirect URL, LMS `/auth/networked-login`, cookies, then the final learning route.
+
+## Access Rules
+
+Frontend checks are only UX. Real access is enforced by:
+
+- Networked backend before redirect/enrollment actions.
+- Open edX LMS session cookies.
+- LMS course access and enrollment state.
+- Courseware/course-home APIs.
+
+If LMS returns denied, unauthenticated, unenrolled, or redirect-required states, handle those states using existing Open edX MFE patterns. Do not bypass access by constructing courseware URLs or suppressing authorization errors.
+
+## Debugging Checklist
+
+When Networked learning behavior breaks, check in this order:
+
+1. `fe-main` generated `/auth/networked-login/<course_id>` with the expected `token`, `communityId`, and learner `nextPage`.
+2. LMS login bridge validated the token/community and set Open edX cookies.
+3. Browser has the expected `openedxSessionToken` and `openedxCommunityId`.
+4. This MFE is running against the expected LMS/MFE environment.
+5. `/global/open-edx/header-meta` returns user/community metadata if only the Networked header is broken.
+6. Course metadata and outline APIs return valid Open edX learner data if course home/start/resume is broken.
+7. Progress API returns valid completion and grading policy data if progress/grades are broken.
+8. Stale cookies from another environment or user have been cleared.
+
+## Maintenance Rules
+
+- Keep Networked-specific learning changes local and small.
+- Use existing Open edX MFE patterns for LMS data, Redux state, models, i18n, analytics, and Paragon UI.
+- Use `HttpWrapper` only for Networked backend metadata/context calls.
+- Do not move `fe-main` course list/detail, enrollment, or authoring responsibilities into this MFE.
+- Do not move `be-main` Open edX server API responsibilities into this MFE.
+- Do not log or expose Networked/Open edX bridge cookies or tokens.
+- Preserve Networked community/user header behavior without making it a hard dependency for course learning.
